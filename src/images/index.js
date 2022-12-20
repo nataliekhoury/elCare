@@ -6,7 +6,8 @@ const Images ={
 	Ellipse:require('./Ellipse.png'),
 	eventWalking:require('./eventWalking.png'),
 	eventSewing:require('./eventSewing.png'),
-	eventSport:require('./eventSport.png')
-
+	eventSport:require('./eventSport.png'),
+	CalenderVector:require('./CalenderVector.png'),
+	ClockVector:require('./ClockVector.png'),
 }
 export default Images
