@@ -20,13 +20,15 @@
 // });
 
 import React from 'react';
-import {View,Text} from 'react-native'
+import {View,Text, Image, TouchableOpacity} from 'react-native'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WalkthroughtScreen from './src/screens/WalkthroughtScreen';
 import OnboardingScreen from './src/screens/OnboardingScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
+import EventScreen from './src/screens/EventScreen';
+
 
 const Stack = createNativeStackNavigator();
 const App = ()=>{
@@ -34,10 +36,11 @@ const App = ()=>{
   return (
           <NavigationContainer>
             <Stack.Navigator screenOptions={{headerShown:false}} >
-              <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+              {/* <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
               <Stack.Screen name="WalkthroughtScreen" component={WalkthroughtScreen} />
               <Stack.Screen name="LoginScreen" component={LoginScreen} />
-              <Stack.Screen name="SignupScreen" component={SignupScreen} />
+              <Stack.Screen name="SignupScreen" component={SignupScreen} /> */}
+              <Stack.Screen name="Events" component={EventScreen} />
             </Stack.Navigator>
           </NavigationContainer>
   );
