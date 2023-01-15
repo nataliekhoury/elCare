@@ -1,8 +1,8 @@
 import React from "react";
 import { View, StyleSheet, Text, Image } from "react-native";
 import Images from "../images";
-
-
+//import {firebase} from "../../config";
+import {firebaseConfig} from "../../config";
 const EventInfoScreen = () => {
     return (
     <View>

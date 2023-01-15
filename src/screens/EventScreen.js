@@ -2,6 +2,8 @@ import React from "react";
 import { View, StyleSheet, Image, Text, ImageBackground, TouchableOpacity, ScrollView, Button, Keyboard} from "react-native";
 import Images from "../images";
 import { useState } from "react";
+//import {firebase } from "../../config";
+import {firebaseConfig} from "../../config";
 
 const OptionItem = ({label, onPress}) => {
     return (

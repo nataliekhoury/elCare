@@ -29,6 +29,7 @@ import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import EventScreen from './src/screens/EventScreen';
 import EventInfoScreen from './src/screens/EventInfoScreen';
+import {firebaseConfig} from "./config";
 
 const Stack = createNativeStackNavigator();
 const App = ()=>{
