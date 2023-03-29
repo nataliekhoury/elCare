@@ -29,22 +29,26 @@ import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import EventScreen from './src/screens/EventScreen';
 import EventInfoScreen from './src/screens/EventInfoScreen';
+import menuBar from './src/screens/menuBar';
 import {firebaseConfig} from "./config";
+import { StatusBar } from 'expo-status-bar';
 
 const Stack = createNativeStackNavigator();
 const App = ()=>{
   
   return (
-          <NavigationContainer>
-            <Stack.Navigator screenOptions={{headerShown:false}} >
-              {/* <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
-              <Stack.Screen name="WalkthroughtScreen" component={WalkthroughtScreen} />
-              <Stack.Screen name="LoginScreen" component={LoginScreen} />
-              <Stack.Screen name="SignupScreen" component={SignupScreen} /> */}
-              <Stack.Screen name="Events" component={EventScreen} />
-              {/* <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} /> */}
-            </Stack.Navigator>
-          </NavigationContainer>
+    <><StatusBar style='dark' /><NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        {/* <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+    <Stack.Screen name="WalkthroughtScreen" component={WalkthroughtScreen} />
+    <Stack.Screen name="LoginScreen" component={LoginScreen} />
+    <Stack.Screen name="SignupScreen" component={SignupScreen} /> */}
+        <Stack.Screen name="Events" component={EventScreen} />
+        <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />
+        {/* <Stack.Screen name="menuBar" component={menuBar} /> */}
+        
+      </Stack.Navigator>
+    </NavigationContainer></>
   );
 }
 

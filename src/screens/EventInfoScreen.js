@@ -3,6 +3,9 @@ import { View, StyleSheet, Text, Image } from "react-native";
 import Images from "../images";
 //import {firebase} from "../../config";
 import {firebaseConfig} from "../../config";
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
 const EventInfoScreen = () => {
     return (
     <View>
@@ -18,6 +21,7 @@ const EventInfoScreen = () => {
 
 }
 export default EventInfoScreen
+
 
 
 
