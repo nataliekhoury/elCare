@@ -43,7 +43,7 @@ const App = ()=>{
     <Stack.Screen name="WalkthroughtScreen" component={WalkthroughtScreen} />
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="SignupScreen" component={SignupScreen} /> */}
-        <Stack.Screen name="Events" component={EventScreen} />
+        <Stack.Screen name="EventScreen" component={EventScreen} />
         <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />
         {/* <Stack.Screen name="menuBar" component={menuBar} /> */}
         

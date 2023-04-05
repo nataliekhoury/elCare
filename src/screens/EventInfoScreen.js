@@ -1,12 +1,18 @@
 import React from "react";
-import { View, StyleSheet, Text, Image } from "react-native";
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native";
 import Images from "../images";
 //import {firebase} from "../../config";
 import {firebaseConfig} from "../../config";
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useNavigation } from "@react-navigation/native";
+import EventScreen from "./EventScreen";
+import {firebase} from '../../config';
+
+
 
 const EventInfoScreen = () => {
+    const navigation = useNavigation();
     return (
     <View>
         <Image style = {styles.imageDesign} source={require('../images/eventWalking.png')}/>
@@ -15,9 +21,12 @@ const EventInfoScreen = () => {
         <Image style = {styles.clock} source={require('../images/ClockVector.png')} />
         <Text style = {styles.des}>Description</Text>
         <Text style = {styles.loc}>Location</Text>
+        <TouchableOpacity onPress={() => navigation.navigate ('EventScreen')}>
+            <Image style = {styles.backIcon} source={require('../images/backIcon.png')}/>
+            
+        </TouchableOpacity>
         </View>
     )
-
 
 }
 export default EventInfoScreen
@@ -62,8 +71,15 @@ const styles = StyleSheet.create ({
         fontSize: 15,
         paddingTop: 190,
         paddingStart: 20,
+    },
+    backIcon: {
+        
+        bottom: 610,
+        right: -10,
+        
+       
 
-    }
+    },
 
 
 

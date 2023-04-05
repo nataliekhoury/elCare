@@ -9,5 +9,6 @@ const Images ={
 	eventSport:require('./eventSport.png'),
 	CalenderVector:require('./CalenderVector.png'),
 	ClockVector:require('./ClockVector.png'),
+	backIcon: require('./backIcon.png'), 
 }
 export default Images
