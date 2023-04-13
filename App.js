@@ -29,9 +29,13 @@ import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 import EventScreen from './src/screens/EventScreen';
 import EventInfoScreen from './src/screens/EventInfoScreen';
+import EventListScreen from './src/screens/EventListScreen';
 import menuBar from './src/screens/menuBar';
 import {firebaseConfig} from "./config";
 import { StatusBar } from 'expo-status-bar';
+import DrawerNav from './src/screens/DrawerNav';
+import PostFeedScreen from './src/screens/PostFeedScreen';
+import AddPostFeedScreen from './src/screens/AddPostFeedScreen';
 
 const Stack = createNativeStackNavigator();
 const App = ()=>{
@@ -43,8 +47,13 @@ const App = ()=>{
     <Stack.Screen name="WalkthroughtScreen" component={WalkthroughtScreen} />
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
     <Stack.Screen name="SignupScreen" component={SignupScreen} /> */}
-        <Stack.Screen name="EventScreen" component={EventScreen} />
+            <Stack.Screen name="PostFeedScreen" component={PostFeedScreen} />
+            <Stack.Screen name="AddPostFeedScreen" component={AddPostFeedScreen} />
+   
+        {/* <Stack.Screen name="EventScreen" component={EventScreen} />
         <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />
+        <Stack.Screen name="EventListScreen" component={EventListScreen} />
+        <Stack.Screen name="DrawerNav" component={DrawerNav} /> */}
         {/* <Stack.Screen name="menuBar" component={menuBar} /> */}
         
       </Stack.Navigator>
