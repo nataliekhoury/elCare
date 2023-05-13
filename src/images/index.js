@@ -17,7 +17,7 @@ const Images = {
   chatBackGround:require("./chatBackGround.png"),
   userBack:require("./userBack.png"),
   userBack2:require("./userBack2.png"),
-  addphoto:require("./addphoto.png"),
+  addphoto:require("./addphoto.png"), 
   backiconProfile:require("./backiconProfile.png"),
   lovationIcon:require("./locationIcon.png"),
   Ellipse:require('./Ellipse.png'),

@@ -18,7 +18,7 @@ import InfoScreen from "./src/screens/InfoScreen";
 import { StatusBar } from "react-native";
 import EventScreen from './src/screens/EventScreen';
 import EventInfoScreen from './src/screens/EventInfoScreen';
-import EventListScreen from './src/screens/EventListScreen';
+// import EventListScreen from './src/screens/EventListScreen';
 import menuBar from './src/screens/menuBar';
 import DrawerNav from './src/screens/DrawerNav';
 import PostFeedScreen from './src/screens/PostFeedScreen';
@@ -66,10 +66,10 @@ function App() {
     <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
 
     <Stack.Screen name="ChatScreen" component={ChatScreen} />
-    {/* <Stack.Screen name="MatchingScreen" component={MatchingScreen} /> */}
+    <Stack.Screen name="MatchingScreen" component={MatchingScreen} />
         <Stack.Screen name="EventScreen" component={EventScreen} />
-        <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />
-        <Stack.Screen name="EventListScreen" component={EventListScreen} />
+         <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />
+        {/* <Stack.Screen name="EventListScreen" component={EventListScreen} /> */}
     </Stack.Navigator>
     );
     
