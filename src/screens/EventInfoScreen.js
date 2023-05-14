@@ -36,11 +36,13 @@ export default EventInfoScreen
 
 
 const styles = StyleSheet.create ({
+
     imageDesign: {
         width: 400,
         height: 280,
-        borderRadius: 40,   
+        borderRadius: 40,  
     },
+
     title: {
         fontSize: 20,
         fontWeight: 'bold',
@@ -48,39 +50,40 @@ const styles = StyleSheet.create ({
         paddingStart: 20,
         paddingBottom: 20,
     },
+
     calender: {
         width: 15,
         height: 13,
         marginStart: 20,
         top: 50,
     },
+
     clock: {
         width: 18,
         height: 18,
         right: -250,
         top: 35,
     },
+
     des:{
         fontWeight: 'bold',
         fontSize: 15,
         paddingTop: 70,
         paddingStart: 20,
     },
+
     loc: {
         fontWeight: 'bold',
         fontSize: 15,
         paddingTop: 190,
         paddingStart: 20,
     },
+
     backIcon: {
-        
         bottom: 610,
         right: -10,
-        
-       
-
+        // backgroundColor: '#D9D9D9',
+        // borderRadius: 18,
+    
     },
-
-
-
 })

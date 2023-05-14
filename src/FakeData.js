@@ -1,4 +1,4 @@
-const fakeData = {
+const fakeData= {
     event: [
         {
             id: "1",
@@ -16,7 +16,7 @@ const fakeData = {
             calender: "03/11/2023",
             time: "13:00",
             location: "Jerusalem",
-            imgURL: "https://picsum.photos/id/237/200/300"
+            imgURL: "https://picsum.photos/200/300?grayscale"
         },
         {
             id: "3",
@@ -55,7 +55,31 @@ const fakeData = {
             imgURL: "https://picsum.photos/id/237/200/300"
         }
         
+    ],
+
+    postfeed: [
+        {
+            id: "1",
+            authorName: 'bar Cohen',
+            authorImg: 'https://picsum.photos/seed/picsum/200',
+            date: '17/02/2023',
+            time: '9:00',
+            likes: '10',
+            imgURL: "https://picsum.photos/id/237/200/300"
+        },
+        {
+            id: "2",
+            authorName: 'dora Levi',
+            authorImg: 'https://picsum.photos/seed/picsum/200',
+            date: '12/10/2023',
+            time: '19:00',
+            likes: '0',
+            imgURL: "https://picsum.photos/id/237/200/300"
+        },
+
     ]
 }
+
+
 
 export default fakeData
