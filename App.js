@@ -45,7 +45,7 @@ function App() {
     return (
       <Stack.Navigator screenOptions={{ headerShown: false }}>
 
-     <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+     {/* <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
         <Stack.Screen
           name="WalkthroughtScreen"
           component={WalkthroughtScreen}
@@ -58,12 +58,12 @@ function App() {
         />
         <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
             <Stack.Screen name="PostFeedScreen" component={PostFeedScreen} />
-            <Stack.Screen name="AddPostFeedScreen" component={AddPostFeedScreen} />
-        {/* <Stack.Screen name="EventScreen" component={EventScreen} /> 
+            <Stack.Screen name="AddPostFeedScreen" component={AddPostFeedScreen} /> */}
+        <Stack.Screen name="EventScreen" component={EventScreen} /> 
         <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />
         {/* <Stack.Screen name="EventListScreen" component={EventListScreen} />  */}
-        {/* <Stack.Screen name="AdminAddEvent" component={AdminAddEvent} />
-        <Stack.Screen name="AdminEditEvent" component={AdminEditEvent} /> */} 
+        <Stack.Screen name="AdminAddEvent" component={AdminAddEvent} />
+        <Stack.Screen name="AdminEditEvent" component={AdminEditEvent} /> 
 
         {/* <Stack.Screen name="DrawerNav" component={DrawerNav} /> */}
         {/* <Stack.Screen name="menuBar" component={menuBar} /> */}
@@ -79,8 +79,8 @@ function App() {
 
     <Stack.Screen name="ChatScreen" component={ChatScreen} />
     <Stack.Screen name="MatchingScreen" component={MatchingScreen} />
-        <Stack.Screen name="EventScreen" component={EventScreen} />
-         <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />
+        {/* <Stack.Screen name="EventScreen" component={EventScreen} />
+         <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} /> */}
         {/* <Stack.Screen name="EventListScreen" component={EventListScreen} /> */}
     </Stack.Navigator>
     );

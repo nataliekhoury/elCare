@@ -7,19 +7,151 @@ import fakeData from '../FakeData';
 import { SafeAreaView} from "react-native";
 import AdminAddEvent from "./AdminAddEvent";
 import { useEffect } from 'react';
+import { firebase } from "../../config";
+import { query } from "@my-utils/link/src/service";
+import { use } from "i18next";
 
+
+// const { eventId } = route.params;
+// const [event, setEvent] = useState(null);
+
+// useEffect(() => {
+//   // Fetch the event with the specified ID from the "events" node in the database
+//   const eventRef = firebase.database().ref(`events/${eventId}`);
+//   eventRef.on('value', (snapshot) => {
+//     const data = snapshot.val();
+//     if (data) {
+//       setEvent(data);
+//     }
+//   });
+
+//   // Stop listening for updates when the component unmounts
+//   return () => eventRef.off();
+// }, [eventId]);
+
+// if (!event) {
+//   // Render a loading indicator until the event data is fetched
+//   return (
+//     <View>
+//       <Text>Loading...</Text>
+//     </View>
+//   );
+// }
+
+// const getEvents = () => {
+//   const navigation = useNavigation();
+//   // const [title,setTitle] = useState([]);
+//   const [event, setEvent] = useState(null);
+//   const { eventId } = route.params;
+//   // const eventData = firebase.firestore().collection('events');
+//   const eventRef = firebase.database().ref(`events/${eventId}`);
+//     useEffect(() => {
+//   // Fetch the event with the specified ID from the "events" node in the database
+//   const eventRef = firebase.database().ref(`events/${eventId}`);
+//   eventRef.on('value', (snapshot) => {
+//     const data = snapshot.val();
+//     if (data) {
+//       setEvent(data);
+//     }
+//   });
+
+//   // Stop listening for updates when the component unmounts
+//   return () => eventRef.off();
+// }, [eventId]);
+
+// if (!event) {
+//   // Render a loading indicator until the event data is fetched
+//   return (
+//     <View>
+//       <Text>Loading...</Text>
+//     </View>
+//   );
+// } }
+    
+     
+
+
+
+  // useEffect (() => {
+  //   eventData.onSnapshot (querySnapshot => {
+  //     const title =[]
+  //     querySnapshot.forEach((doc) => {
+  //       const {description, date, time, location, imageUrl } =doc.data()
+  //       title.push ({
+  //         id: doc.id, 
+  //         description, 
+  //         date, 
+  //         time, 
+  //         location, 
+  //         imageUrl,
+  //       })
+  //     })
+  //     setTitle(title)
+  //   })
+  // }, [])
+
+
+  const getEvents = () => {
+//     const db = firebase.firestore();
+//     const collectionRef = db.collection('events');
+// collectionRef.get()
+//   .then((querySnapshot) => {
+//     querySnapshot.forEach((doc) => {
+//       const data = doc.data();
+//       // Process the retrieved data
+//       const myVariable = data;
+// myArray.push(data);
+//       console.log(data)
+//     });
+//   })
+//   .catch((error) => {
+//     // Handle any errors
+//     console.log(error)
+//   });
+
+
+  }
 
 
  const OptionItem = ({}) => {
-    const allLabels = fakeData.event.map(lab => lab.title)
-    const filteredLabels = [... new Set(allLabels)];
-    return (
-        <View>
-            <ScrollView horizontal ={true}>
-            {renderItems(filteredLabels)}
-            </ScrollView>   
-        </View>
-      );
+  const [data, setData] = useState([]);
+  const [filteredLabels, setFilteredLabels] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const db = firebase.firestore();
+      const collectionRef = db.collection('events');
+      try {
+        const querySnapshot = await collectionRef.get();
+        const retrievedData = querySnapshot.docs.map((doc) => doc.data());
+        setData(retrievedData);
+
+        const allLabels = retrievedData.map((lab) => lab.title);
+        const uniqueLabels = [...new Set(allLabels)];
+        setFilteredLabels(uniqueLabels);
+      } catch (error) {
+        console.error('Error getting documents: ', error);
+      }
+    };
+    fetchData();
+  }, []);
+  return (
+    <View>
+      <ScrollView horizontal={true}>
+        {renderItems(filteredLabels)}
+      </ScrollView>
+    </View>
+  );
+   
+
+    // const allLabels = fakeData.event.map(lab => lab.title)
+    // const filteredLabels = [... new Set(allLabels)];
+    // return (
+    //     <View>
+    //         <ScrollView horizontal ={true}>
+    //         {renderItems(filteredLabels)}
+    //         </ScrollView>   
+    //     </View>
+    //   );
 }
 
 const renderItems = (label) => {
@@ -35,7 +167,8 @@ const renderItems = (label) => {
         // onPress={ImgOptionItem}
         <TouchableOpacity>
           <Text style = {styles.designText}>{item}</Text>
-
+          
+    
           {/* {filteredLabels.id == label.id &&
           <View style={{ alignItems: 'center'}}>
           <View style={{ width: 10, height: 10, borderRadius: 5, backgroundColor: 'blue'}}></View>
