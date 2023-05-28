@@ -1,28 +1,335 @@
-import { View, Text,StyleSheet, TextInput, Button, SafeAreaView, Image, TouchableOpacity, Alert} from 'react-native';
-import { useState } from 'react';
+// import { View, Text,StyleSheet, TextInput, Button, SafeAreaView, Image, TouchableOpacity, Alert, Keyboard} from 'react-native';
+// import { useState } from 'react';
+// import { ScrollView } from 'react-native-gesture-handler';
+// import { useEffect } from 'react';
+// import { useNavigation } from "@react-navigation/native";
+// import * as ImagePicker from 'expo-image-picker';
+// import { GestureHandlerRootView, NativeViewGestureHandler } from 'react-native-gesture-handler';
+// import { firebase } from "../../config";
+
+
+
+// const AdminAddEvent = () => {
+//   const navigation = useNavigation();
+//   const addEvent =firebase.firestore().collection('events');
+//   const [title, setTitle] = useState('');
+//   const [description, setDescription] = useState('');
+//   const [date, setDate] = useState('');
+//   const [time, setTime] = useState('');
+//   const [location, setLocation] = useState('');
+//   const [imageUrl, setImageUrl] = useState(null);
+//   const [isSaved, setIsSaved] = useState(false);
+//   const [uploading,setUploading]=useState(false);
+
+
+//   const addInfo = async () => {
+//     if (date > 0) {
+//       const timeStamp = firebase.firestore.FieldValue.serverTimestamp();
+//       const data = {
+//         title: title,
+//         description: description,
+//         date: date,
+//         time: time,
+//         location: location,
+//         imageUrl: imageUrl, 
+//         isSaved: isSaved, 
+//         createdAt:timeStamp,
+//       };
+//       addEvent.add(data).then (() => {
+//       setTitle('');
+//       setDescription('');
+//       setDate('');
+//       setTime('');
+//       setLocation('');
+//       Keyboard.dismiss();
+//       // setImageUrl('');
+//       // setIsSaved(false);
+//       } ).then (() =>{
+//         Alert.alert ("your information has been updated!");
+//       })
+//       .catch((error) => {
+//         alert(error)
+//       })
+//       .then(() => {
+//         navigation.replace('EventScreen');
+//       })
+
+//     }
+//   }
+
+//   const pickImage = async () => {
+//     let result = await ImagePicker.launchImageLibraryAsync({
+//       mediaTypes: ImagePicker.MediaTypeOptions.All,
+//       allowsEditing: true,
+//       aspect: [4, 3],
+//       quality: 1,
+//       borderRadius: 1800,
+//     });
+//     if (!result.cancelled) {
+//       setImageUrl(result.uri);
+//     }
+//   };
+
+ 
+
+//   // const pickImage =async()=>{
+//   //   let result =await ImagePicker.launchImageLibraryAsync({
+//   //     mediaTypes:ImagePicker.MediaTypeOptions.All,
+//   //     allowsEditing:true,
+//   //     aspect :[4,3],
+//   //     quality:1,
+//   //     borderRadius:1800,
+//   //   });
+//   //   const source ={uri:result.assets[0].uri};
+//   //   setImageUrl(source);
+//   // };
+
+//   const uploadImage = async () => {
+//     setUploading(true);
+//     try {
+//       const responseUploading = await fetch(imageUrl);
+//       const blob = await responseUploading.blob();
+//       const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+//       const ref = firebase.storage().ref().child(filename);
+//       await ref.put(blob);
+//       Alert.alert('Photo uploaded');
+//       setImageUrl(null);
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     setUploading(false);
+//   };
+  
+//   //  const uploadImage =async()=>{
+//   //   setUploading(true);
+//   //   const responseUploading =await fetch(imageUrl.uri);
+//   //   const blob =await responseUploading.blob();
+//   //   const filename=imageUrl.uri.substring(imageUrl.uri.lastIndexOf('/')+1);
+//   //   var ref =firebase.storage().ref().child(filename).put(blob);
+//   //   try{
+//   //     await ref ;
+//   //   }catch (e){
+//   //     console.log(e);
+//   //   }
+//   //   setUploading(false);
+//   //   // Alert.alert('photo uploaded');
+//   //   setImageUrl(null);
+//   //  }
+
+
+//   // checks if the text input is empty or not 
+//   const checkTextInput = () => {
+//     //Check for the Name TextInput
+//     if(title.trim()==0 || description.trim()==0 || date.trim()==0 || time.trim()==0 || location.trim()==0) {
+//       Alert.alert ('Please fill tje empty field');
+//       return;
+//     }
+//   }
+    
+//   const handleSave = () => {
+//     console.log('Saved:',  title, description, date, time, location, imageUrl);
+//     // Save the user input to a database or perform any other necessary action
+//     setIsSaved(true);
+//   };
+
+//   useEffect(() => {
+//     if (isSaved) {
+//       setTitle('');
+//       setDescription('');
+//       setDate('');
+//       setTime('');
+//       setLocation('');
+//       setImageUrl('');
+//       setIsSaved(false);
+//     }
+//   }, [isSaved]);
+
+
+//   const functionCombined=()=>{
+//     addInfo();
+//     uploadImage();
+//     checkTextInput(); 
+//     handleSave();
+//   }
+
+
+//   return (
+//     <GestureHandlerRootView style={{ flex: 1 }}>
+//     <View style = {{display: 'flex'}}>
+//      <SafeAreaView> 
+    
+
+              
+
+//       <View style={{position: 'relative'}}>
+// <TouchableOpacity onPress={() => navigation.navigate ('EventScreen')}>
+//             <Image style = {styles.backIcon} source={require('../images/backIcon.png')}/>
+            
+//         </TouchableOpacity>
+
+
+//     <Image source={require('../images/Ellipse.png')} 
+//             style = {styles.topImage}/>    
+
+
+//       <TouchableOpacity onPress={pickImage}>
+//         <Image
+//                source={require("../images/addphoto.png")}
+//                style = {{resizeMode: "contain", height: 40, bottom: 350, left: 150}}
+//                 />
+//         </TouchableOpacity>
+//         {imageUrl && <Image source={{uri:imageUrl.uri}} style ={{resizeMode: "contain",width:25,height:18,borderRadius:15, left: 120, bottom: 350 }}/>}
+ 
+// </View>
+
+//       <Text style ={styles.title}>Fill Information to Add Event: </Text>
+//       <View>
+//       <NativeViewGestureHandler>
+//         <ScrollView style = {{margin: -370, top: -30}} > 
+//       <View >
+
+//         <Text style={styles.fields}>Title: </Text>
+//         <TextInput
+//           style={styles.textBox}
+//           placeholder="Title"
+//           placeholderTextColor={'grey'}
+//           utoCorrect="true"
+//           rules={{
+//             required: "Title is required",
+//           }}
+//           onChangeText={(title)=>setTitle(title)}
+//           value={title}
+//           multiline={false}
+//           underlineColorAndroid='transparent'
+//           // onChangeText={(text) => handleTextChange('title', text)}
+//           // value={title}
+//           // onSubmitEditing={AdminAddEvent}
+//         />
+
+//         <Text style={styles.fields}>Description: </Text>
+//         <TextInput
+//           style={styles.textBox}
+//           placeholder="Description"
+//           placeholderTextColor={'grey'}
+//           utoCorrect="true"
+//           onChangeText={(description)=>setDescription(description)}
+//           value={description}
+//           multiline={false}
+//           underlineColorAndroid='transparent'
+//         />
+
+//         <Text style={styles.fields}>Date: </Text>
+//         <TextInput
+//           style={styles.textBox}
+//           // onChangeText={(text) => handleTextChange('date', text)}
+//           // value={date}
+//           placeholder="Date"
+//           placeholderTextColor={'grey'}
+//           utoCorrect="true"
+//           onChangeText={(date)=>setDate(date)}
+//           value={date}
+//           multiline={false}
+//           underlineColorAndroid='transparent'
+//           keyboardType='numeric'
+//           rules={{
+//             required: "Date is required",
+//           }}
+//           // onSubmitEditing={AdminAddEvent}
+//         />
+
+//         <Text style={styles.fields}>Time: </Text>
+//         <TextInput
+//           style={styles.textBox}
+//           // onChangeText={(text) => handleTextChange('time', text)}
+//           // value={time}
+//           placeholder="Time"
+//           placeholderTextColor={'grey'}
+//           utoCorrect="true"
+//           onChangeText={(time)=>setTime(time)}
+//           value={time}
+//           multiline={false}
+//           underlineColorAndroid='transparent'
+//           keyboardType='numeric'
+//           // onSubmitEditing={AdminAddEvent}
+          
+//         />
+
+//         <Text style={styles.fields}>Location: </Text>
+//         <TextInput
+//           style={styles.textBox}
+//           placeholder="Location"
+//           placeholderTextColor={'grey'}
+//           utoCorrect="true"
+//           onChangeText={(location)=>setLocation(location)}
+//           value={location}
+//           multiline={false}
+//           underlineColorAndroid='transparent'
+//           // onChangeText={(text) => handleTextChange('location', text)}
+//           // value={location}
+//           // onSubmitEditing={AdminAddEvent}
+//         />
+
+//         <Text style={styles.fields}>Image URL: </Text>
+      
+        
+      
+//       <View style = {styles.saveButton}>
+//       <Button title="Save" onPress={functionCombined}/>
+      
+//       </View>
+
+
+      
+//      </View> 
+//      </ScrollView>
+//      </NativeViewGestureHandler>
+//       </View>
+     
+//     </SafeAreaView>  
+    
+//     </View>  
+//     </GestureHandlerRootView> 
+//   )
+// }
+
+// export default AdminAddEvent
+
+
+
+
+
+//   const addInfo = async () => {
+//     if (date > 0) {
+//       const timeStamp = firebase.firestore.FieldValue.serverTimestamp();
+//       const data = {
+//         title: title,
+//         description: description,
+//         date: date,
+//         time: time,
+//         location: location,
+//         imageUrl: imageUrl, 
+//         isSaved: isSaved, 
+//         createdAt:timeStamp,
+//       };
+//       addEvent.add(data).then (() => {
+//       setTitle('');
+//       setDescription('');
+//       setDate('');
+//       setTime('');
+//       setLocation('');
+//       Keyboard.dismiss();
+
+import React, { useState, useEffect } from "react";
+import { View, Text, StyleSheet, TextInput, Button, SafeAreaView, Image, TouchableOpacity, Alert, Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { useEffect } from 'react';
 import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from 'expo-image-picker';
 import { GestureHandlerRootView, NativeViewGestureHandler } from 'react-native-gesture-handler';
 import { firebase } from "../../config";
 
-
- // const [type, setType] = useState("");
-  // try {
-  //   const docRef = await addDoc (collection (db, "events"), {
-  //     type: type,
-
-  //   });
-  //   console.log ("Document written with ID: ", docRef.id); 
-  //   setType("");
-  // } catch(e) {
-  //   console.error("Error adding document: ", e);
-
-  // }
-
-const AdminAddEvent = () => {
+const AddPostFeedScreen = () => {
   const navigation = useNavigation();
-  const addEvent =firebase.firestore().collection('events');
+  const addPost = firebase.firestore().collection('events');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
@@ -30,9 +337,10 @@ const AdminAddEvent = () => {
   const [location, setLocation] = useState('');
   const [imageUrl, setImageUrl] = useState(null);
   const [isSaved, setIsSaved] = useState(false);
+  const [uploading,setUploading]=useState(false);
 
   const addInfo = async () => {
-    if (date > 0) {
+    if (title.length > 0) {
       const timeStamp = firebase.firestore.FieldValue.serverTimestamp();
       const data = {
         title: title,
@@ -40,149 +348,58 @@ const AdminAddEvent = () => {
         date: date,
         time: time,
         location: location,
-        imageUrl: imageUrl.uri, 
-        isSaved: isSaved, 
-        createdAt:timeStamp,
+        imageUrl: imageUrl,
+        isSaved: isSaved,
+        createdAt: timeStamp,
       };
-      addEvent.add(data).then (() => {
-      setTitle('');
-      setDescription('');
-      setDate('');
-      setTime('');
-      setLocation('');
-      // setImageUrl('');
-      setIsSaved(false);
-      } ).then (() =>{
-        Alert.alert ("your information has been updated!");
-      })
-      .catch((error) => {
-        alert(error)
-      })
-      .then(() => {
+      try {
+        await addPost.add(data);
+        setTitle('');
+        setDescription('');
+        setDate('');
+        setTime('');
+        setLocation('');
+        setImageUrl(null);
+        Keyboard.dismiss();
+        Alert.alert("Your information has been updated!");
         navigation.replace('EventScreen');
-      })
-
+      } catch (error) {
+        alert(error);
+      }
     }
-  }
+  };
 
-  // const pickImage =async()=>{
-  //   let result =await ImagePicker.launchImageLibraryAsync({
-  //     mediaTypes:ImagePicker.MediaTypeOptions.All,
-  //     allowsEditing:true,
-  //     aspect :[4,3],
-  //     quality:1,
-  //     borderRadius:1800,
-  //   });
-  //   const source ={uri:result.assets[0].uri};
-  //   setImageUrl(source);
-  // };
-  
-  //  const uploadImage =async()=>{
-  //   setUploading(true);
-  //   const responseUploading =await fetch(imageUrl.uri);
-  //   const blob =await responseUploading.blob();
-  //   const filename=imageUrl.uri.substring(imageUrl.uri.lastIndexOf('/')+1);
-  //   var ref =firebase.storage().ref().child(filename).put(blob);
-  //   try{
-  //     await ref ;
-  //   }catch (e){
-  //     console.log(e);
-  //   }
-  //   setUploading(false);
-  //   // Alert.alert('photo uploaded');
-  //   setImageUrl(null);
-  //  }
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      borderRadius: 1800,
+    });
+    if (!result.cancelled) {
+      setImageUrl(result.uri);
+    }
+  };
 
-
-
-  
-
-  // const docRef = firebase.firestore().collection('events');
-  // useEffect (() => {
-  //   docRef.onSnapshot (querySnapshot => {
-  //     const title = []
-  //     querySnapshot.forEach ((doc) => {
-  //       const {
-  //         description,
-  //         date,
-  //         time,
-  //         location, 
-  //         imageUrl,
-  //         isSaved,
-  //       } = doc.data()
-
-  //       title.push ({
-  //         id: doc.id,
-  //         description,
-  //         date,
-  //         time,
-  //         location, 
-  //         imageUrl,
-  //         isSaved,
-  //       })
-  //     })
-  //     setTitle (title)
-  //   } )
-  // },[])
-  // const docRef = await addDoc (collection (db, "events")
-
-  // try {
-  //   const docRef = firebase.firestore().collection(( 'events'), {
-  //       title: title,
-  //       description: description,
-  //       date: date,
-  //       time: time,
-  //       location: location,
-  //       imageUrl: imageUrl, 
-  //       isSaved: isSaved, 
-        
-  //     });
-  //     console.log ("Document written with ID: ", docRef.id); 
-  //     // setType("");
-  //   } catch(e) {
-  //     console.error("Error adding document: ", e);
-  
-  //   }
-
-
-  // const handleTextChange = (fieldName, inputText) => {
-  //   switch (fieldName) {
-  //     case 'title':
-  //       setTitle(inputText);
-  //       break;
-  //     case 'description':
-  //       setDescription(inputText);
-  //       break;
-  //     case 'date':
-  //       setDate(inputText);
-  //       break;
-  //     case 'time':
-  //       setTime(inputText);
-  //       break;
-  //     case 'location':
-  //       setLocation(inputText);
-  //       break;
-  //     case 'imageUrl':
-  //       setImageUrl(inputText);
-  //       break;
-  //     default:
-  //       break;
-  //   }
-  // };
-
-  // const checkTextInput = () => {
-  //   //Check for the Name TextInput
-  //   if (age.trim()==0 || language.trim() ==0 || hobbies.trim() ==0 || avaiDay.trim() == 0 || experience.trim()==0 || city.trim()) {
-  //     Alert.alert('Please enter the empty fill ');
-  //     return;
-  //   }
-    
-  
-  // };
+  const uploadImage = async () => {
+    setUploading(true);
+    try {
+      const responseUploading = await fetch(imageUrl);
+      const blob = await responseUploading.blob();
+      const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+      const ref = firebase.storage().ref().child(filename);
+      await ref.put(blob);
+      Alert.alert('Photo uploaded');
+      setImageUrl(null);
+    } catch (error) {
+      console.log(error);
+    }
+    setUploading(false);
+  };
 
   const handleSave = () => {
-    console.log('Saved:',  title, description, date, time, location, imageUrl);
-    // Save the user input to a database or perform any other necessary action
+    console.log('Saved:', title, description, date, time, location, imageUrl);
     setIsSaved(true);
   };
 
@@ -193,61 +410,54 @@ const AdminAddEvent = () => {
       setDate('');
       setTime('');
       setLocation('');
-      setImageUrl('');
+      setImageUrl(null);
       setIsSaved(false);
     }
   }, [isSaved]);
 
-
-  const functionCombined=()=>{
-    // checkTextInput(); 
-    // uploadImage();
-    handleSave();
+  const functionCombined = () => {
     addInfo();
-
-    
-  }
-
+    uploadImage();
+    handleSave();
+  };
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-    <View style = {{display: 'flex'}}>
-     <SafeAreaView> 
-      <View style={{position: 'relative'}}>
-     <TouchableOpacity onPress={() => navigation.navigate ('EventScreen')}>
-            <Image style = {styles.backIcon} source={require('../images/backIcon.png')}/>
-            
-        </TouchableOpacity>
+      <View style={{ display: 'flex' }}>
+        <SafeAreaView>
+          <View style={{ position: 'relative' }}>
+            <TouchableOpacity onPress={() => navigation.navigate('EventScreen')}>
+              <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
+            </TouchableOpacity>
+            <Image source={require('../images/Ellipse.png')} style={styles.topImage} />
+            <TouchableOpacity onPress={pickImage}>
+              <Image
+                source={require("../images/addphoto.png")}
+                style={{ resizeMode: "contain", height: 40, bottom: 350, left: 150 }}
+              />
+            </TouchableOpacity>
+            {imageUrl && <Image source={{ uri: imageUrl }} style={{ resizeMode: "contain", width: 25, height: 18, borderRadius: 15, left: 120, bottom: 350 }} />}
+          </View>
+  
+          <Text style={styles.title}>Fill Information to Add Event: </Text>
+          <View>
+            <NativeViewGestureHandler>
+              <ScrollView style={{ margin: -370, top: -30 }} >
+                <View>
+                  <Text style={styles.fields}>Title: </Text>
+                  <TextInput
+                    style={styles.textBox}
+                    placeholder="Title"
+                    placeholderTextColor={'grey'}
+                    autoCorrect={true}
+                    onChangeText={(title) => setTitle(title)}
+                    value={title}
+                    multiline={false}
+                    underlineColorAndroid='transparent'
+                  />
 
 
-    <Image source={require('../images/Ellipse.png')} 
-            style = {styles.topImage}/>
-</View>
-      <Text style ={styles.title}>Fill Information to Add Event: </Text>
-      <View  >
-      <NativeViewGestureHandler>
-        <ScrollView style = {{margin: -370}} > 
-      <View >
-
-        <Text style={styles.fields}>Title: </Text>
-        <TextInput
-          style={styles.textBox}
-          placeholder="Title"
-          placeholderTextColor={'grey'}
-          utoCorrect="true"
-          rules={{
-            required: "Title is required",
-          }}
-          onChangeText={(title)=>setTitle(title)}
-          value={title}
-          multiline={false}
-          underlineColorAndroid='transparent'
-          // onChangeText={(text) => handleTextChange('title', text)}
-          // value={title}
-          // onSubmitEditing={AdminAddEvent}
-        />
-
-        <Text style={styles.fields}>Description: </Text>
+                <Text style={styles.fields}>Description: </Text>
         <TextInput
           style={styles.textBox}
           placeholder="Description"
@@ -257,16 +467,11 @@ const AdminAddEvent = () => {
           value={description}
           multiline={false}
           underlineColorAndroid='transparent'
-          // onChangeText={(text) => handleTextChange('description', text)}
-          // value={description}
-          // onSubmitEditing={AdminAddEvent}
         />
 
         <Text style={styles.fields}>Date: </Text>
-        <TextInput
+         <TextInput
           style={styles.textBox}
-          // onChangeText={(text) => handleTextChange('date', text)}
-          // value={date}
           placeholder="Date"
           placeholderTextColor={'grey'}
           utoCorrect="true"
@@ -278,11 +483,10 @@ const AdminAddEvent = () => {
           rules={{
             required: "Date is required",
           }}
-          // onSubmitEditing={AdminAddEvent}
         />
 
-        <Text style={styles.fields}>Time: </Text>
-        <TextInput
+         <Text style={styles.fields}>Time: </Text>
+         <TextInput
           style={styles.textBox}
           // onChangeText={(text) => handleTextChange('time', text)}
           // value={time}
@@ -312,38 +516,34 @@ const AdminAddEvent = () => {
           // value={location}
           // onSubmitEditing={AdminAddEvent}
         />
-
-        <Text style={styles.fields}>Image URL: </Text>
-        <TextInput
-          style={styles.textBox}
-          placeholder="Image"
-          placeholderTextColor={'grey'}
-          utoCorrect="true"
-          onChangeText={(imageUrl)=>setImageUrl(imageUrl)}
-          value={imageUrl}
-          multiline={false}
-          underlineColorAndroid='transparent'
-          // {/* // onChangeText={(text) => handleTextChange('imageUrl', text)}
-          // // value={imageUrl}
-          // // onSubmitEditing={AdminAddEvent} */}
-        />
-      <View style = {styles.saveButton}>
-      <Button title="Save" onPress={functionCombined}/>
-      
+  
+                  <Text style={styles.fields}>Image URL: </Text>
+                  <TextInput
+                    style={styles.textBox}
+                    placeholder="Image URL"
+                    placeholderTextColor={'grey'}
+                    autoCorrect={true}
+                    onChangeText={(imageUrl) => setImageUrl(imageUrl)}
+                    value={imageUrl}
+                    multiline={false}
+                    underlineColorAndroid='transparent'
+                  />
+  
+                  <View style={styles.saveButton}>
+                    <Button title="Save" onPress={functionCombined} />
+                  </View>
+                </View>
+              </ScrollView>
+            </NativeViewGestureHandler>
+          </View>
+        </SafeAreaView>
       </View>
-     </View> 
-     </ScrollView>
-     </NativeViewGestureHandler>
-      </View>
-     
-    </SafeAreaView>  
-    
-    </View>  
-    </GestureHandlerRootView> 
-  )
+    </GestureHandlerRootView>
+  );
+  
 }
 
-export default AdminAddEvent
+export default AddPostFeedScreen;
 
 
 const styles = StyleSheet.create ({
@@ -380,7 +580,7 @@ textBox: {
 },
 
 saveButton: {
-  bottom: -15,
+  top: -20,
   alignSelf: 'center',
 },
 

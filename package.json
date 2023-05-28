@@ -19,6 +19,7 @@
     "@react-navigation/native": "^6.1.1",
     "@react-navigation/native-stack": "^6.9.7",
     "@react-navigation/stack": "^6.3.10",
+    "activity-indicator": "^0.0.3",
     "body-parser": "^1.20.2",
     "cli-table": "^0.3.11",
     "expo": "~47.0.8",

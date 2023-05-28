@@ -56,16 +56,16 @@ function App() {
           name="ForgetPasswordScreen"
           component={ForgetPasswordScreen}
         />
-        <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
-            <Stack.Screen name="PostFeedScreen" component={PostFeedScreen} />
+        <Stack.Screen name="LanguageScreen" component={LanguageScreen} /> */}
+            {/* <Stack.Screen name="PostFeedScreen" component={PostFeedScreen} />
             <Stack.Screen name="AddPostFeedScreen" component={AddPostFeedScreen} /> */}
         <Stack.Screen name="EventScreen" component={EventScreen} /> 
-        <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />
+        <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />  
         {/* <Stack.Screen name="EventListScreen" component={EventListScreen} />  */}
         <Stack.Screen name="AdminAddEvent" component={AdminAddEvent} />
         <Stack.Screen name="AdminEditEvent" component={AdminEditEvent} /> 
 
-        {/* <Stack.Screen name="DrawerNav" component={DrawerNav} /> */}
+        {/* <Stack.Screen name="DrawerNav" component={DrawerNav} />
         {/* <Stack.Screen name="menuBar" component={menuBar} /> */}
 
       </Stack.Navigator>
