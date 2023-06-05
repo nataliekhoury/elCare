@@ -4,9 +4,9 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
 import "firebase/compat/firestore";
 import 'firebase/compat/storage';
-// import { collection } from 'firebase/firestore';
-
+// import {GoogleAuthProvider} from 'firebase/auth';
 const firebaseConfig = {
+
   apiKey: "AIzaSyDwiaBUgT4ZoEfweEQAzJmvN6tWR_8Wui0",
   authDomain: "elcare-bb10b.firebaseapp.com",
   projectId: "elcare-bb10b",
@@ -19,16 +19,7 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
-// const db = firebase.firestore();
-// const chatsCollection = collection(db, 'chats');
-// chatsCollection.get()
-//   .then((querySnapshot) => {
-//     querySnapshot.forEach((doc) => {
-//       console.log(doc.data());
-//     });
-//   })
-//   .catch((error) => {
-//     console.log(error);
-//   });
+
 export { firebase };
 
+// export const provider = new GoogleAuthProvider(app);

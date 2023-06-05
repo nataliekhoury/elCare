@@ -27,6 +27,10 @@ const Images = {
 	CalenderVector:require('./CalenderVector.png'),
 	ClockVector:require('./ClockVector.png'),
 	backIcon: require('./backIcon.png'), 
+  userInfoBottomBox:require('./userInfoBottomBox.png'),
+  messageBack:require('./messageBack.png'),
+  backIcon2:require('./backIcon2.png'),
+  editIcon:require("./editIcon.png")
 
 };
 export default Images;

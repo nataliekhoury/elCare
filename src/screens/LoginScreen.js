@@ -15,6 +15,7 @@ import Images from "../images";
 // import Field from "./Field";
 import { firebase } from "../../config";
 
+import 'expo-dev-client';
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
