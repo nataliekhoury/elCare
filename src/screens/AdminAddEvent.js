@@ -430,19 +430,31 @@ const AddPostFeedScreen = () => {
               <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
             </TouchableOpacity>
             <Image source={require('../images/Ellipse.png')} style={styles.topImage} />
-            <TouchableOpacity onPress={pickImage}>
+            {/* <TouchableOpacity onPress={pickImage}>
+            <View style={styles.imageContainer}>
               <Image
                 source={require("../images/addphoto.png")}
-                style={{ resizeMode: "contain", height: 40, bottom: 350, left: 150 }}
+                style={{ resizeMode: "contain", height: 40 }}
               />
-            </TouchableOpacity>
-            {imageUrl && <Image source={{ uri: imageUrl }} style={{ resizeMode: "contain", width: 25, height: 18, borderRadius: 15, left: 120, bottom: 350 }} />}
+              </View>
+            </TouchableOpacity> */}
+            {/* {imageUrl && <Image source={{ uri: imageUrl }} style={{ resizeMode: "contain", width: 25, height: 18, borderRadius: 15, left: 120, bottom: 350 }} />} */}
           </View>
   
           <Text style={styles.title}>Fill Information to Add Event: </Text>
           <View>
             <NativeViewGestureHandler>
-              <ScrollView style={{ margin: -370, top: -30 }} >
+              <ScrollView style={{ margin: -330, maxHeight: 600}} >
+                <View>
+                <TouchableOpacity onPress={pickImage}>
+            <View style={styles.imageContainer}>
+              <Image
+                source={require("../images/addphoto.png")}
+                style={{ resizeMode: "contain", height: 40 }}
+              />
+              </View>
+            </TouchableOpacity>
+                </View>
                 <View>
                   <Text style={styles.fields}>Title: </Text>
                   <TextInput
@@ -516,8 +528,10 @@ const AddPostFeedScreen = () => {
           // value={location}
           // onSubmitEditing={AdminAddEvent}
         />
+        {imageUrl && <Image source={{ uri: imageUrl }} style={{ resizeMode: "contain", width: 325, height: 218, borderRadius: 25, alignItems: 'center', alignSelf: 'center', margin: 40}} />}
+
   
-                  <Text style={styles.fields}>Image URL: </Text>
+                  {/* <Text style={styles.fields}>Image URL: </Text>
                   <TextInput
                     style={styles.textBox}
                     placeholder="Image URL"
@@ -527,7 +541,7 @@ const AddPostFeedScreen = () => {
                     value={imageUrl}
                     multiline={false}
                     underlineColorAndroid='transparent'
-                  />
+                  /> */}
   
                   <View style={styles.saveButton}>
                     <Button title="Save" onPress={functionCombined} />
@@ -547,6 +561,17 @@ export default AddPostFeedScreen;
 
 
 const styles = StyleSheet.create ({
+  imageContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    // height: 200,
+    width: 325, height: 218, borderRadius: 25,
+    backgroundColor: '#EAEAEA',
+    // marginBottom: 20,
+    // borderRadius: 10,
+    // top: -300,
+  },
   topImage: {
     left: -5,
     top: -226,
@@ -562,7 +587,7 @@ const styles = StyleSheet.create ({
     fontWeight: 'bold',
     fontSize: 19,
     paddingStart: 20,
-    bottom: 350,
+    bottom: 360,
     
 },
 
@@ -580,7 +605,7 @@ textBox: {
 },
 
 saveButton: {
-  top: -20,
+  top: 20,
   alignSelf: 'center',
 },
 
@@ -590,7 +615,7 @@ fields: {
   alignSelf: 'center',
   fontWeight: 'bold',
   fontSize: 17,
-  margin: 20,
+  margin: 15,
 },
 
 backIcon: {    

@@ -25,6 +25,7 @@ import PostFeedScreen from './src/screens/PostFeedScreen';
 import AddPostFeedScreen from './src/screens/AddPostFeedScreen';
 import AdminAddEvent from './src/screens/AdminAddEvent';
 import AdminEditEvent from './src/screens/AdminEditEvent';
+import ContactUs from "./src/screens/ContactUs";
 
 
 const Stack = createNativeStackNavigator();
@@ -43,30 +44,20 @@ function App() {
   if (initializing) return null;
   if (!user) {
     return (
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+     <Stack.Screen name="ContactUs" component={ContactUs}/>
+    <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+    <Stack.Screen name="WalkthroughtScreen" component={WalkthroughtScreen}/>
+    <Stack.Screen name="LoginScreen" component={LoginScreen} />
+    <Stack.Screen name="SignupScreen" component={SignupScreen} />
+    <Stack.Screen name="ForgetPasswordScreen" component={ForgetPasswordScreen}/>
+   
 
-     {/* <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
-        <Stack.Screen
-          name="WalkthroughtScreen"
-          component={WalkthroughtScreen}
-        />
-   <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="SignupScreen" component={SignupScreen} />
-        <Stack.Screen
-          name="ForgetPasswordScreen"
-          component={ForgetPasswordScreen}
-        />
-        <Stack.Screen name="LanguageScreen" component={LanguageScreen} /> */}
+    {/* <Stack.Screen name="LanguageScreen" component={LanguageScreen} />  */}
             {/* <Stack.Screen name="PostFeedScreen" component={PostFeedScreen} />
             <Stack.Screen name="AddPostFeedScreen" component={AddPostFeedScreen} /> */}
-        <Stack.Screen name="EventScreen" component={EventScreen} /> 
-        <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />  
-        {/* <Stack.Screen name="EventListScreen" component={EventListScreen} />  */}
-        <Stack.Screen name="AdminAddEvent" component={AdminAddEvent} />
-        <Stack.Screen name="AdminEditEvent" component={AdminEditEvent} /> 
-
-        {/* <Stack.Screen name="DrawerNav" component={DrawerNav} />
-        {/* <Stack.Screen name="menuBar" component={menuBar} /> */}
+        {/* {/* <Stack.Screen name="DrawerNav" component={DrawerNav} />
+        {/* <Stack.Screen name="menuBar" component={menuBar} />  */}
 
       </Stack.Navigator>
     );
@@ -74,11 +65,15 @@ function App() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
     <Stack.Screen name="InfoScreen" component={InfoScreen} />
-
     <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
-
     <Stack.Screen name="ChatScreen" component={ChatScreen} />
-    <Stack.Screen name="MatchingScreen" component={MatchingScreen} />
+    {/* <Stack.Screen name="MatchingScreen" component={MatchingScreen} /> */}
+    <Stack.Screen name="EventScreen" component={EventScreen} /> 
+        <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />  
+        {/* <Stack.Screen name="EventListScreen" component={EventListScreen} />  */}
+         <Stack.Screen name="AdminAddEvent" component={AdminAddEvent} />
+         <Stack.Screen name="AdminEditEvent" component={AdminEditEvent} />  
+
         {/* <Stack.Screen name="EventScreen" component={EventScreen} />
          <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} /> */}
         {/* <Stack.Screen name="EventListScreen" component={EventListScreen} /> */}

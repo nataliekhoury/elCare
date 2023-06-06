@@ -854,17 +854,238 @@
 // //     }
 // // })
 
+// import React, { useState, useEffect } from "react";
+// import { View, StyleSheet, Image, Text, ImageBackground, TouchableOpacity, ScrollView, SafeAreaView } from "react-native";
+// import { useNavigation } from "@react-navigation/native";
+// import { firebase } from "../../config";
 
-import React from "react";
-import { View, StyleSheet, Image, Text, ImageBackground, TouchableOpacity, ScrollView, Button, Keyboard, FlatList } from "react-native";
+// const renderItems = (filteredLabels, handlePress) => {
+//   return filteredLabels.map((item, index) => (
+//     <TouchableOpacity key={index} onPress={() => handlePress(item)}>
+//       <Text style={styles.designText}>{item}</Text>
+//     </TouchableOpacity>
+//   ));
+// };
+
+// const OptionItem = ({ setSelectedLabel }) => {
+//   const [filteredLabels, setFilteredLabels] = useState([]);
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//       const db = firebase.firestore();
+//       const collectionRef = db.collection('events');
+//       try {
+//         const querySnapshot = await collectionRef.get();
+//         const retrievedData = querySnapshot.docs.map((doc) => doc.data());
+//         const allLabels = retrievedData.map((lab) => lab.title);
+//         const uniqueLabels = [...new Set(allLabels)];
+//         setFilteredLabels(uniqueLabels);
+//       } catch (error) {
+//         console.error('Error getting documents: ', error);
+//       }
+//     };
+//     fetchData();
+//   }, []);
+
+//   const handlePress = (label) => {
+//     setSelectedLabel(label);
+//   };
+
+//   return (
+//     <View>
+//       <ScrollView horizontal={true}>
+//         {renderItems(filteredLabels, handlePress)}
+//       </ScrollView>
+//     </View>
+//   );
+// };
+
+// const DeleteButton = ({ handleDelete }) => {
+//   return (
+//     <TouchableOpacity onPress={handleDelete}>
+//       <Image source={require('../images/adminDelete.png')} style={{ width: 30, height: 30 }} />
+//     </TouchableOpacity>
+//   );
+// };
+
+// const ImgOptionItem = ({ selectedLabel, userEmail }) => {
+//   const [events, setEvents] = useState([]);
+//   const [filteredEvents, setFilteredEvents] = useState([]);
+
+//   useEffect(() => {
+//     const fetchEvents = async () => {
+//       try {
+//         const snapshot = await firebase.firestore().collection('events').get();
+//         const fetchedEvents = snapshot.docs.map((doc) => {
+//           const data = doc.data();
+//           return { ...data, id: doc.id };
+//         });
+//         setEvents(fetchedEvents);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     };
+//     fetchEvents();
+//   }, []);
+
+//   useEffect(() => {
+//     if (selectedLabel) {
+//       const filtered = events.filter((event) => event.title === selectedLabel);
+//       setFilteredEvents(filtered);
+//     } else {
+//       setFilteredEvents(events);
+//     }
+//   }, [selectedLabel, events]);
+
+    
+//     // const userDataRef=firebase.firestore().collection('userData');
+
+//     // useEffect(()=>{
+//     //   const currentUser = firebase.auth().currentUser;
+//     // if (currentUser) {
+//     //   const userDataRef = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
+//     // }};
+
+//   const handleDelete = async (event) => {
+//     try {
+//       const db = firebase.firestore();
+//       await db.collection('events').doc(event.id).delete();
+//       setEvents(events.filter((e) => e.id !== event.id));
+//     } catch (error) {
+//       console.error('Error deleting event: ', error);
+//     }
+//   };
+
+//   const navigation = useNavigation();
+//   return (
+//     <SafeAreaView>
+//       <ScrollView style={{ bottom: 450, minHeight: '100%' }}>
+//         {filteredEvents.map((event, index) => (
+//           <View key={`${index}-${event.id}`}>
+//             <TouchableOpacity onPress={() => navigation.navigate('EventInfoScreen', { event })}>
+//               <Image source={{ uri: event.imageUrl }} style={styles.image} />
+//             </TouchableOpacity>
+//             {userEmail === 'elcare2023@gmail.com' && (
+//             <View style={styles.deleteInfo}>
+//               <DeleteButton handleDelete={() => handleDelete(event)} />
+//             </View>
+//             )}
+//             {userEmail === 'elcare2023@gmail.com' && (
+//             <TouchableOpacity onPress={() => navigation.navigate('AdminEditEvent', { event})}>
+//               <Image source={require('../images/adminEdit.png')} style={styles.editInfo} />
+//             </TouchableOpacity>
+//             )}
+//             {/* Render other post data */}
+//           </View>
+//         ))}
+//       </ScrollView>
+//     </SafeAreaView>
+//   );
+// };
+
+// export default function EventScreen({ navigation }) {
+//   const [selectedLabel, setSelectedLabel] = useState(null);
+//   const [userEmail, setUserEmail] = useState(null);
+
+
+//   useEffect(() => {
+//     const checkUserEmail = async () => {
+//       const user = firebase.auth().currentUser;
+//       if (user) {
+//         setUserEmail(user.email);
+//       }
+//     };
+
+//     checkUserEmail();
+//   }, []);
+
+//   return (
+//     <View style={{ display: 'flex', flexDirection: 'row' }}>
+//       <SafeAreaView>
+//         <Image source={require('../images/Ellipse.png')} style={styles.topImage} />
+//         <Text style={styles.title}>Events for You</Text>
+
+//         {userEmail === 'elcare2023@gmail.com' && (
+//         <TouchableOpacity onPress={() => navigation.navigate('AdminAddEvent')}>
+//           <Image source={require('../images/adminAddInfo.png')} style={styles.addInfo} />
+//         </TouchableOpacity>
+//         )}
+
+//         <View style={{ bottom: 230 }}>
+//           <TouchableOpacity onPress={() => navigation.navigate('DrawerNav')}>
+//             <Image style={styles.drawer} source={require('../images/menuBarIcon.png')} />
+//           </TouchableOpacity>
+//         </View>
+
+//         <View style={{ bottom: 290 }}>
+//           <OptionItem setSelectedLabel={setSelectedLabel} />
+//         </View>
+
+//         {selectedLabel && (
+//           <View style={{ top: 180, alignItems: 'center', alignSelf: 'center', alignContent: 'center'}}>
+//             <ImgOptionItem selectedLabel={selectedLabel} userEmail={userEmail} />
+//           </View>
+//         )}
+
+//       </SafeAreaView>
+//     </View>
+//   );
+// }
+
+// const styles = StyleSheet.create({
+//   designText: {
+//     fontSize: 16, 
+//     color:'#9E9E9E',
+//     fontWeight:'bold',
+//     padding: 20,
+//   },
+//   image: {
+//         alignItems: 'center',
+//         alignSelf: 'center',
+//         width: 330,
+//         height: 180,
+//         margin: 20,
+//         // left: -5,
+//         borderRadius: 15,
+//   },
+//   topImage: {
+//     left: -5,
+//     top: -226,
+//     resizeMode: 'contain',
+//     width: 400,
+//     height: 500,
+//   },
+//   title: {
+//     fontStyle: 'italic',
+//     fontWeight: '800',
+//     fontSize: 19,
+//     paddingStart: 20,
+//     bottom: 290,
+//   },
+//   addInfo: {
+//     bottom: 490,
+//     left: 340,
+//     height: 20,
+//     width: 20,
+//   },
+//   deleteInfo: {
+//     left: 280,
+//   },
+//   editInfo: {
+//     left: 325,
+//     bottom: 27,
+//   },
+//   drawer: {
+//     left: 15,
+//     bottom: 260,
+//     position: 'absolute',
+//   },
+// });
+
+import React, { useState, useEffect } from "react";
+import { View, StyleSheet, Image, Text, ImageBackground, TouchableOpacity, ScrollView, SafeAreaView, TextInput } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
-import { SafeAreaView } from "react-native";
-import AdminAddEvent from "./AdminAddEvent";
-import { useEffect } from 'react';
 import { firebase } from "../../config";
-
-
 
 const renderItems = (filteredLabels, handlePress) => {
   return filteredLabels.map((item, index) => (
@@ -915,8 +1136,10 @@ const DeleteButton = ({ handleDelete }) => {
   );
 };
 
-const ImgOptionItem = ({ selectedLabel }) => {
+const ImgOptionItem = ({ selectedLabel, userEmail }) => {
   const [events, setEvents] = useState([]);
+  const [filteredEvents, setFilteredEvents] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -924,16 +1147,35 @@ const ImgOptionItem = ({ selectedLabel }) => {
         const snapshot = await firebase.firestore().collection('events').get();
         const fetchedEvents = snapshot.docs.map((doc) => {
           const data = doc.data();
-          return { ...data, id: doc.id }; // Include the document ID as the "id" property
+          return { ...data, id: doc.id };
         });
         setEvents(fetchedEvents);
       } catch (error) {
         console.log(error);
       }
     };
-
     fetchEvents();
   }, []);
+
+  useEffect(() => {
+    if (selectedLabel) {
+      const filtered = events.filter((event) => event.title === selectedLabel);
+      setFilteredEvents(filtered);
+    } else {
+      setFilteredEvents(events);
+    }
+  }, [selectedLabel, events]);
+
+  useEffect(() => {
+    const searchEvents = () => {
+      const filtered = events.filter((event) =>
+        event.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredEvents(filtered);
+    };
+
+    searchEvents();
+  }, [searchQuery, events]);
 
   const handleDelete = async (event) => {
     try {
@@ -945,21 +1187,34 @@ const ImgOptionItem = ({ selectedLabel }) => {
     }
   };
 
-  const filteredEvents = events.filter((event) => event.title === selectedLabel);
   const navigation = useNavigation();
   return (
     <SafeAreaView>
-      <ScrollView style={{ bottom: 450 }}>
+      <Image source={require('../images/searchIcon.png')} style={styles.searchIcon} />
+      <TextInput
+        style={styles.searchBar}
+        placeholder="Search for Events"
+        value={searchQuery}
+        onChangeText={setSearchQuery}
+      />
+      
+      <ScrollView style={{ bottom: 530, minHeight: '100%' }}>
         {filteredEvents.map((event, index) => (
           <View key={`${index}-${event.id}`}>
-            <Image source={{ uri: event.imageUrl }} style={styles.image} />
-            <View style = {styles.deleteInfo}>
-              <DeleteButton handleDelete={() => handleDelete(event)} />
-            </View>
-            <TouchableOpacity onPress={() => navigation.navigate('AdminEditEvent')}>
-               <Image source={require('../images/adminEdit.png')} style={styles.editInfo} />
+            <TouchableOpacity onPress={() => navigation.navigate('EventInfoScreen', { event })}>
+              <Image source={{ uri: event.imageUrl }} style={styles.image} />
             </TouchableOpacity>
-            {/* Render other post data */}
+            {userEmail === 'elcare2023@gmail.com' && (
+              <View style={styles.deleteInfo}>
+                <DeleteButton handleDelete={() => handleDelete(event)} />
+              </View>
+            )}
+            {userEmail === 'elcare2023@gmail.com' && (
+              <TouchableOpacity onPress={() => navigation.navigate('AdminEditEvent', { event })}>
+                <Image source={require('../images/adminEdit.png')} style={styles.editInfo} />
+              </TouchableOpacity>
+            )}
+            
           </View>
         ))}
       </ScrollView>
@@ -969,6 +1224,18 @@ const ImgOptionItem = ({ selectedLabel }) => {
 
 export default function EventScreen({ navigation }) {
   const [selectedLabel, setSelectedLabel] = useState(null);
+  const [userEmail, setUserEmail] = useState(null);
+
+  useEffect(() => {
+    const checkUserEmail = async () => {
+      const user = firebase.auth().currentUser;
+      if (user) {
+        setUserEmail(user.email);
+      }
+    };
+
+    checkUserEmail();
+  }, []);
 
   return (
     <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -976,9 +1243,11 @@ export default function EventScreen({ navigation }) {
         <Image source={require('../images/Ellipse.png')} style={styles.topImage} />
         <Text style={styles.title}>Events for You</Text>
 
-        <TouchableOpacity onPress={() => navigation.navigate('AdminAddEvent')}>
-          <Image source={require('../images/adminAddInfo.png')} style={styles.addInfo} />
-        </TouchableOpacity>
+        {userEmail === 'elcare2023@gmail.com' && (
+          <TouchableOpacity onPress={() => navigation.navigate('AdminAddEvent')}>
+            <Image source={require('../images/adminAddInfo.png')} style={styles.addInfo} />
+          </TouchableOpacity>
+        )}
 
         <View style={{ bottom: 230 }}>
           <TouchableOpacity onPress={() => navigation.navigate('DrawerNav')}>
@@ -991,106 +1260,84 @@ export default function EventScreen({ navigation }) {
         </View>
 
         {selectedLabel && (
-          <View style={{ top: 150 }}>
-            <ImgOptionItem selectedLabel={selectedLabel} />
+          <View style={{ top: 180, alignItems: 'center', alignSelf: 'center', alignContent: 'center' }}>
+            <ImgOptionItem selectedLabel={selectedLabel} userEmail={userEmail} />
           </View>
         )}
+
       </SafeAreaView>
     </View>
   );
 }
 
-
 const styles = StyleSheet.create({
-  designText: {
-    fontSize: 16,
-    fontWeight: "bold",
-    margin: 10,
-    color: "#943ADA",
-  },
-  image: {
-    width: 200,
-    height: 200,
-    // alignSelf: 'center',
-    marginHorizontal: 20,
-  },
-  postContainer: {
-    margin: 10,
-    padding: 10,
-    backgroundColor: "#F5F5F5",
-    borderRadius: 10,
-  },
-    topImage: {
-    left: -5,
-    top: -226,
-    resizeMode: 'contain',
-    width: 400,
-    height: 500,
-  },
-
-  title: {
-    fontStyle: 'italic',
-    fontWeight: 'bold',
-    fontSize: 19,
-    paddingStart: 20,
-    bottom: 290,
-  },
-
   designText: {
     fontSize: 16,
     color: '#9E9E9E',
     fontWeight: 'bold',
     padding: 20,
   },
-
-  // postContainer: {
-  //   margin: 20,
-  //   padding: 20,
-  //   backgroundColor: '#FFFFFF',
-  //   borderRadius: 10,
-  //   shadowColor: '#000',
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 2,
-  //   },
-  //   shadowOpacity: 0.25,
-  //   shadowRadius: 3.84,
-  //   elevation: 5,
-  // },
-
   image: {
-    // width: 200,
-    // height: 200,
-    // padding: 20,
-    // margin: 20,
-    // borderRadius: 20,
-    margin: 15,
+    alignItems: 'center',
     alignSelf: 'center',
     width: 330,
-    height: 200,
+    height: 180,
+    margin: 20,
     borderRadius: 15,
   },
-
+  topImage: {
+    left: -5,
+    top: -226,
+    resizeMode: 'contain',
+    width: 400,
+    height: 500,
+  },
+  title: {
+    fontStyle: 'italic',
+    fontWeight: '800',
+    fontSize: 25,
+    paddingStart: 20,
+    bottom: 280,
+  },
   addInfo: {
     bottom: 490,
     left: 340,
     height: 20,
     width: 20,
   },
-      deleteInfo: {
-      left: 280,
-    },
-
-    editInfo: {
-      left: 325,
-      bottom: 27,
-    },
-
+  deleteInfo: {
+    left: 280,
+  },
+  editInfo: {
+    left: 325,
+    bottom: 27,
+  },
   drawer: {
     left: 15,
     bottom: 260,
     position: 'absolute',
   },
+  searchBar: {
+    height: 40,
+    borderColor: 'gray',
+    borderWidth: 2,
+    borderRadius: 20,
+    width:350,
+    bottom: 650,
+    fontSize: 19,
+    fontWeight: '700',
+    // margin: 10,
+    padding: 20,
+    paddingLeft: 30,
+    // backgroundColor: '#D9D9D9',
+  },
+  searchIcon: {
+    bottom: 620,
+    // padding: 10,
+    paddingLeft: 20,
+    left: 10,
+    // backgroundColor: 'red',
+    
+
+  }
 });
-
-
