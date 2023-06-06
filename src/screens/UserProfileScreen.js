@@ -54,6 +54,7 @@ const UserProfileScreen = () => {
   return (
    
       <SafeAreaView>
+        
         <View>
           <Image
             source={require("../images/userBack.png")}
@@ -125,12 +126,12 @@ const UserProfileScreen = () => {
             <View>
                 <Image // the small rectangle back
                 source={require("../images/userInfoBottomBox.png")}
-                       style={{ left: -10, top:60, resizeMode: "contain" }} />
+                       style={{ left: -10, top:30, resizeMode: "contain" }} />
                          
 
 
 
-   <Text style={{fontSize:15,fontWeight:'bold', marginTop: -34}}>Available days</Text>
+   <Text style={{fontSize:15,fontWeight:'bold', marginTop: -55}}>Available days</Text>
 
       <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25}]}>
         {item.userAvai}

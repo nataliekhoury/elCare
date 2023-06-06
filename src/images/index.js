@@ -30,7 +30,17 @@ const Images = {
   userInfoBottomBox:require('./userInfoBottomBox.png'),
   messageBack:require('./messageBack.png'),
   backIcon2:require('./backIcon2.png'),
-  editIcon:require("./editIcon.png")
+  bell:require("./bell.png"),
+  chat:require("./chat.png"),
+  close:require("./close.png"),
+  home:require("./home.png"),
+  photo:require("./photo.jpg"),
+  search:require("./search.png"),
+  menu:require("./menu.png"),
+  settings:require("./settings.png"),
+
+ 
+
 
 };
 export default Images;

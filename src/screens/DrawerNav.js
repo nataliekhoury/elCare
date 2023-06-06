@@ -1,470 +1,328 @@
-// // import React, { useRef, useState } from 'react';
-// // import { Animated, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-// // // import profile from './assets/profile.png';
-// // // // Tab ICons...
-// // // import home from './assets/home.png';
-// // // import search from './assets/search.png';
-// // // import notifications from './assets/bell.png';
-// // // import settings from './assets/settings.png';
-// // // import logout from './assets/logout.png';
-// // // import OnboardingScreen from './OnboardingScreen';
-// // // // Menu
-// // // import menu from './assets/menu.png';
-// // // import close from './assets/close.png';
-
-// // // // Photo
-// // // import photo from './assets/photo.jpg';
-
-// // export default function App() {
-// //   const [currentTab, setCurrentTab] = useState("Home");
-// //   // To get the curretn Status of menu ...
-// //   const [showMenu, setShowMenu] = useState(false);
-
-// //   // Animated Properties...
-
-// //   const offsetValue = useRef(new Animated.Value(0)).current;
-// //   // Scale Intially must be One...
-// //   const scaleValue = useRef(new Animated.Value(1)).current;
-// //   const closeButtonOffset = useRef(new Animated.Value(0)).current;
-
-// //   return (
-// //     <SafeAreaView style={styles.container}>
-
-// //       <View style={{ justifyContent: 'flex-start', padding: 15 }}>
-// //         {/* <Image source={profile} style={{
-// //           width: 60,
-// //           height: 60,
-// //           borderRadius: 10,
-// //           marginTop: 8
-// //         }}></Image> */}
-
-// //         <Text style={{
-// //           fontSize: 20,
-// //           fontWeight: 'bold',
-// //           color: 'white',
-// //           marginTop: 20
-// //         }}>Jenna Ezarik</Text>
-
-// //         <TouchableOpacity>
-// //           <Text style={{
-// //             marginTop: 6,
-// //             color: 'white'
-// //           }}>View Profile</Text>
-// //         </TouchableOpacity>
-
-// //         <View style={{ flexGrow: 1, marginTop: 50 }}>
-// //           {
-// //             // Tab Bar Buttons....
-// //           }
-
-// //           {TabButton(currentTab, setCurrentTab, "Home", home)}
-          
-// //           {TabButton(currentTab, setCurrentTab, "Chat", search)}
-// //           <TouchableOpacity onPress={() => navigation.navigate("OnboardingScreen")}>
-// //               {/* <Image
-// //                 source={require("../images/messageBack.png")}
-// //                 style={{ left: 240, top: -250, resizeMode: "contain" }}
-// //               /> */}
-           
-// //               <Text style={{ color: "#000000", fontWeight: "bold", marginLeft: 249, top: -283, width: 90, height: 25, textAlign: 'center' }}> message</Text>
-// //             </TouchableOpacity>
-// //           {TabButton(currentTab, setCurrentTab, "Explore", notifications)}
-// //           {TabButton(currentTab, setCurrentTab, "Events", settings)}
-
-// //         </View>
-
-// //         <View>
-// //           {TabButton(currentTab, setCurrentTab, "LogOut", logout)}
-// //         </View>
-
-// //       </View>
 
 
-// //       {
-// //         // Over lay View...
-// //       }
 
-// //       <Animated.View style={{
-// //         flexGrow: 1,
-// //         backgroundColor: 'white',
-// //         position: 'absolute',
-// //         top: 0,
-// //         bottom: 0,
-// //         left: 0,
-// //         right: 0,
-// //         paddingHorizontal: 15,
-// //         paddingVertical: 20,
-// //         borderRadius: showMenu ? 15 : 0,
-// //         // Transforming View...
-// //         transform: [
-// //           { scale: scaleValue },
-// //           { translateX: offsetValue }
-// //         ]
-// //       }}>
-
-// //         {
-// //           // Menu Button...
-// //         }
-
-// //         <Animated.View style={{
-// //           transform: [{
-// //             translateY: closeButtonOffset
-// //           }]
-// //         }}>
-// //           <TouchableOpacity onPress={() => {
-            
-// //             // Do Actions Here....
-// //             // Scaling the view...
-// //             Animated.timing(scaleValue, {
-// //               toValue: showMenu ? 1 : 0.88,
-// //               duration: 300,
-// //               useNativeDriver: true
-// //             })
-// //               .start()
-
-// //             Animated.timing(offsetValue, {
-// //               // YOur Random Value...
-// //               toValue: showMenu ? 0 : 230,
-// //               duration: 300,
-// //               useNativeDriver: true
-// //             })
-// //               .start()
-
-// //             Animated.timing(closeButtonOffset, {
-// //               // YOur Random Value...
-// //               toValue: !showMenu ? -30 : 0,
-// //               duration: 300,
-// //               useNativeDriver: true
-// //             })
-// //               .start()
-
-// //             setShowMenu(!showMenu);
-// //           }}>
-
-// //             <Image source={showMenu ? close : menu} style={{
-// //               width: 20,
-// //               height: 20,
-// //               tintColor: 'black',
-// //               marginTop: 40,
-
-// //             }}></Image>
-
-// //           </TouchableOpacity>
-
-// //           <Text style={{
-// //             fontSize: 30,
-// //             fontWeight: 'bold',
-// //             color: 'black',
-// //             paddingTop: 20
-// //           }}>{currentTab}</Text>
-
-// //           <Image source={photo} style={{
-// //             width: '100%',
-// //             height: 300,
-// //             borderRadius: 15,
-// //             marginTop: 25
-// //           }}></Image>
-
-// //           <Text style={{
-// //             fontSize: 20,
-// //             fontWeight: 'bold'
-// //             , paddingTop: 15,
-// //             paddingBottom: 5
-// //           }}>Jenna Ezarik</Text>
-
-// //           <Text style={{
-// //           }}>Techie, YouTuber, PS Lover, Apple Sheep's Sister</Text>
-// //         </Animated.View>
-
-// //       </Animated.View>
-
-// //     </SafeAreaView>
-// //   );
-// // }
-
-// // // For multiple Buttons...
-// // const TabButton = (currentTab, setCurrentTab, title, image) => {
-// //   return (
-
-// //     <TouchableOpacity onPress={() => {
-// //       if (title == "LogOut") {
-// //         // Do your Stuff...
-// //       } else {
-// //         setCurrentTab(title)
-// //       }
-// //     }}>
-// //       <View style={{
-// //         flexDirection: "row",
-// //         alignItems: 'center',
-// //         paddingVertical: 8,
-// //         backgroundColor: currentTab == title ? '#E4E4E4' : 'transparent',
-// //         paddingLeft: 30,
-// //         paddingRight: 25,
-// //         borderRadius: 8,
-// //         marginTop: 15
-// //       }}>
-
-// //         <Image source={image} style={{
-// //           width: 25, height: 25,
-// //           tintColor: currentTab == title ? "#5359D1" : "white"
-// //         }}></Image>
-
-// //         <Text style={{
-// //           fontSize: 15,
-// //           fontWeight: 'bold',
-// //           paddingLeft: 15,
-// //           color: currentTab == title ? "#5359D1" : "white"
-// //         }}>{title}</Text>
-
-// //       </View>
-// //     </TouchableOpacity>
-// //   );
-// // }
-
-// // const styles = StyleSheet.create({
-// //   container: {
-// //     flex: 1,
-// //     backgroundColor: '#5359D1',
-// //     alignItems: 'flex-start',
-// //     justifyContent: 'flex-start',
-// //   },
-// // });
-
-
+// import { useNavigation } from "@react-navigation/native";
 
 // import React, { useRef, useState } from 'react';
 // import { Animated, Image, SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 // import { LinearGradient } from 'expo-linear-gradient';
-// import { createStackNavigator } from 'react-navigation-stack';
+// import { firebase } from "../../config";
+// import menu from '../images/menu.png';
+// import close from '../images/close.png';
+// import home from '../images/home.png';
+// import profile from '../images/profile.png';
+// import chat from '../images/chat.png';
 
-// import OnboardingScreen from './OnboardingScreen';
+// const DrawerNav = () => {
+//     const [currentTab, setCurrentTab] = useState("EventScreen");
+//     // To get the curretn Status of menu ...
+//     const [showMenu, setShowMenu] = useState(false);
+//       const navigation = useNavigation();
 
-// // Tab Icons...
-// import home from './assets/home.png';
-// import search from './assets/search.png';
-// import notifications from './assets/bell.png';
-// import settings from './assets/settings.png';
-// import logout from './assets/logout.png';
-// import profile from './assets/profile.png';
-// import menu from './assets/menu.png';
-// import close from './assets/close.png';
-// import photo from './assets/photo.jpg';
-
-// const TabNavigator = createStackNavigator(
-//   {
-//     Home: {
-//       screen: HomeScreen,
-//     },
-//     Chat: {
-//       screen: ChatScreen,
-//     },
-//     Explore: {
-//       screen: ExploreScreen,
-//     },
-//     Events: {
-//       screen: EventsScreen,
-//     },
-//     Onboarding: {
-//       screen: OnboardingScreen,
-//     },
-//   },
-//   {
-//     initialRouteName: 'Home',
-//     headerMode: 'none',
-//   }
-// );
-
-// export default function App() {
-//   const [currentTab, setCurrentTab] = useState("Home");
-//   const [showMenu, setShowMenu] = useState(false);
-//   const offsetValue = useRef(new Animated.Value(0)).current;
-//   const scaleValue = useRef(new Animated.Value(1)).current;
-//   const closeButtonOffset = useRef(new Animated.Value(0)).current;
-
-//   return (
-//     <SafeAreaView style={styles.container}>
-//       <LinearGradient
-//         colors={['rgba(27, 146, 214, 0.68)', 'rgba(127, 93, 220, 0.797618)']}
-//         style={{ flex: 1 }}
+//     // Animated Properties...
+  
+//     const offsetValue = useRef(new Animated.Value(0)).current;
+//     // Scale Intially must be One...
+//     const scaleValue = useRef(new Animated.Value(1)).current;
+//     const closeButtonOffset = useRef(new Animated.Value(0)).current;
+  
+//     return (
+//       <SafeAreaView style={styles.container}>
+//         <LinearGradient
+//       colors={[' rgba(27, 146, 214, 0.68)', 'rgba(127, 93, 220, 0.797618)s']}
+//         className="w-full flex-1"
 //       >
 //         <View style={{ justifyContent: 'flex-start', padding: 15 }}>
-//           <Image source={profile} style={styles.profileImage} />
-//           <Text style={styles.profileName}>Jenna Ezarik</Text>
-//           <TouchableOpacity onPress={() => console.log('View Profile')}>
-//             <Text style={styles.viewProfileText}>View Profile</Text>
+//           <Image source={profile} style={{
+//             width: 60,
+//             height: 60,
+//             borderRadius: 10,
+//             marginTop: 8
+//           }}></Image>
+  
+//           <Text style={{
+//             fontSize: 20,
+//             fontWeight: 'bold',
+//             color: 'white',
+//             marginTop: 20
+//           }}>Jenna Ezarik</Text>
+  
+//           <TouchableOpacity  onPress={() => navigation.navigate("UserProfileScreen")}    >
+//             <Text style={{
+//               marginTop: 6,
+//               color: 'white'
+//             }}>View Profile</Text>
 //           </TouchableOpacity>
-
-//           <View style={styles.tabContainer}>
-//             {TabButton(currentTab, setCurrentTab, "Home", home)}
-//             {TabButton(currentTab, setCurrentTab, "Chat", search)}
+  
+//           <View style={{ flexGrow: 1, marginTop: 50 }}>
+//             {
+//               // Tab Bar Buttons....
+//             }
+          
+//             {TabButton(currentTab, setCurrentTab, "Event", home,() => navigation.navigate('EventScreen'))}
+            
+//             {TabButton(currentTab, setCurrentTab, "profile", chat, () => navigation.navigate('UserProfileScreen'))}            
+              
+//      <Text style={{ color: "#000000", fontWeight: "bold", marginLeft: 249, top: -283, width: 90, height: 25, textAlign: 'center' }}> </Text>
+//   {/*             
 //             {TabButton(currentTab, setCurrentTab, "Explore", notifications)}
-//             {TabButton(currentTab, setCurrentTab, "Events", settings)}
+//             {TabButton(currentTab, setCurrentTab, "Events", settings)} */}
+  
 //           </View>
-
+  
 //           <View>
-//             {TabButton(currentTab, setCurrentTab, "LogOut", logout)}
+//             {/* {TabButton(currentTab, setCurrentTab, "LogOut", logout)} */}
 //           </View>
+  
 //         </View>
+  
+  
+//         {
+//           // Over lay View...
+//         }
+  
+//         <Animated.View style={{
+//           flexGrow: 1,
+//           backgroundColor: 'white',
+//           position: 'absolute',
+//           top: 0,
+//           bottom: 0,
+//           left: 0,
+//           right: 0,
+//           paddingHorizontal: 15,
+//           paddingVertical: 20,
+//           borderRadius: showMenu ? 15 : 0,
+//           // Transforming View...
+//           transform: [
+//             { scale: scaleValue },
+//             { translateX: offsetValue }
+//           ]
+//         }}>
+  
+//           {
+//             // Menu Button...
+//           }
+  
+//           <Animated.View style={{
+//             transform: [{
+//               translateY: closeButtonOffset
+//             }]
+//           }}>
+//             <TouchableOpacity onPress={() => {
+//               // do not know if it is wkoring or not 
+//              setCurrentTab(tittle);
+//               Animated.timing(scaleValue, {
+//                 toValue: showMenu ? 1 : 0.88,
+//                 duration: 300,
+//                 useNativeDriver: true
+//               })
+//                 .start()
+  
+//               Animated.timing(offsetValue, {
+//                 // YOur Random Value...
+//                 toValue: showMenu ? 0 : 170,
+//                 duration: 300,
+//                 useNativeDriver: true
+//               })
+//                 .start()
+                  
+//               Animated.timing(closeButtonOffset, {
+//                 // YOur Random Value...
+//                 toValue: !showMenu ? -30 : 0,
+//                 duration: 300,
+//                 useNativeDriver: true
+//               })
+//                 .start()
+  
+//               setShowMenu(!showMenu);
+//             }}>
+                  
+//                   <Image source={showMenu ? close : menu} style={{
+//               width: 20,
+//               height: 20,
+//               tintColor: 'black',
+//               marginTop: 40,
 
-//         <Animated.View style={getAnimatedViewStyle(showMenu, offsetValue, scaleValue, closeButtonOffset)}>
-//           <TouchableOpacity onPress={() => toggleMenu(showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset)}>
-//             <Image source={showMenu ? close : menu} style={styles.menuButton} />
-//           </TouchableOpacity>
+//             }}></Image>
 
-//           <Text style={styles.currentTabText}>{currentTab}</Text>
+  
+//             </TouchableOpacity>
 
-//           <Image source={photo} style={styles.photoImage} />
-
-//           <Text style={styles.profileName}>Jenna Ezarik</Text>
-
-//           <Text>Techie, YouTuber, PS Lover, Apple Sheep's Sister</Text>
+            
+//           <Text style={{
+//             fontSize: 30,
+//             fontWeight: 'bold',
+//             color: 'black',
+//             paddingTop: 20
+//           }}>{currentTab}</Text>
+  
+//             {/* <Text style={{
+//               fontSize: 30,
+//               fontWeight: 'bold',
+//               color: 'black',
+//               paddingTop: 20
+//             }}>{currentTab}</Text>
+  
+//             <Image source={photo} style={{
+//               width: '100%',
+//               height: 300,
+//               borderRadius: 15,
+//               marginTop: 25
+//             }}></Image>
+                      
+//           </Animated.View>
+  
 //         </Animated.View>
-//       </LinearGradient>
-//     </SafeAreaView>
-//   );
-// }
+//         </LinearGradient>
+//       </SafeAreaView>
+      
+//     );
+//   }
+  
+//   // // For multiple Buttons...
+//   // const TabButton = (currentTab, setCurrentTab, title, image) => {
+//   //   return (
+  
+//   // <SafeAreaView>
+//   //     <TouchableOpacity onPress={() => {
+//   //       if (title == "LogOut") {
+//   //         // Do your Stuff...
+//   //       } else {
+             
+//   //           setCurrentTab(title)
+//   //       }
+//   //     }}>
+//   //       <View style={{
+//   //         flexDirection: "row",
+//   //         alignItems: 'center',
+//   //         paddingVertical: 8,
+//   //         backgroundColor: currentTab == title ? '#E4E4E4' : 'transparent',
+//   //         paddingLeft: 30,
+//   //         paddingRight: 25,
+//   //         borderRadius: 8,
+//   //         marginTop: 15
+//   //       }}>
+  
+//   //         <Image source={image} style={{
+//   //           width: 25, height: 25,
+//   //           tintColor: currentTab == title ? "#5359D1" : "white"
+//   //         }}></Image>
+//   // <TouchableOpacity >
+//   //         <Text style={{
+//   //           fontSize: 15,
+//   //           fontWeight: 'bold',
+//   //           paddingLeft: 15,
+//   //           color: currentTab == title ? "#5359D1" : "white"
+//   //         }}>{title}</Text>
+//   // </TouchableOpacity>
+    
+  
+//   //       </View>
+//   //     </TouchableOpacity>
+//   //     </SafeAreaView>
+//   //   );
+//   // }
+//   const TabButton = (currentTab, setCurrentTab, title, image, onPress) => {
+//     return (
+//             <TouchableOpacity onPress={() => {
+//         if (title == "LogOut") {
+//           // Do your Stuff...
+//         } else {
+             
+//             setCurrentTab(title)
+//         }
+//       }}>
+        
+//       <TouchableOpacity onPress={onPress}>
+//         <View style={{
+//           flexDirection: "row",
+//           alignItems: 'center',
+//           paddingVertical: 8,
+//           backgroundColor: currentTab == title ? '#E4E4E4' : 'transparent',
+//           paddingLeft: 30,
+//           paddingRight: 25,
+//           borderRadius: 8,
+//           marginTop: 15
+//         }}>
+//           <Image source={image} style={{
+//             width: 25, height: 25,
+//             tintColor: currentTab == title ? "#5359D1" : "white"
+//           }} />
+//           <Text style={{
+//             fontSize: 15,
+//             fontWeight: 'bold',
+//             paddingLeft: 15,
+//             color: currentTab == title ? "#5359D1" : "white"
+//           }}>{title}</Text>
+//         </View>
+//       </TouchableOpacity>
+//       </TouchableOpacity>
 
-// const getAnimatedViewStyle = (showMenu, offsetValue, scaleValue, closeButtonOffset) => ({
-//   flexGrow: 1,
-//   backgroundColor: 'white',
-//   position: 'absolute',
-//   top: 0,
-//   bottom: 0,
-//   left: 0,
-//   right: 0,
-//   paddingHorizontal: 15,
-//   paddingVertical: 20,
-//   borderRadius: showMenu ? 15 : 0,
-//   transform: [
-//     { scale: scaleValue },
-//     { translateX: offsetValue },
-//   ],
-// });
+//     );
+//   };
+  
+  
+//   const styles = StyleSheet.create({
+//     container: {
+//         flex:1,
+//       // // backgroundColor: '#E4E4E4',
+//       alignItems: 'flex-start',
+//       justifyContent: 'flex-start',
+      
+//     },
+  
+//   });
+  
 
-// const toggleMenu = (showMenu, setShowMenu, scaleValue, offsetValue, closeButtonOffset) => {
-//   Animated.timing(scaleValue, {
-//     toValue: showMenu ? 1 : 0.88,
-//     duration: 300,
-//     useNativeDriver: true,
-//   }).start();
+// export default DrawerNav;
 
-//   Animated.timing(offsetValue, {
-//     toValue: showMenu ? 0 : 230,
-//     duration: 300,
-//     useNativeDriver: true,
-//   }).start();
 
-//   Animated.timing(closeButtonOffset, {
-//     toValue: !showMenu ? -30 : 0,
-//     duration: 300,
-//     useNativeDriver: true,
-//   }).start();
 
-//   setShowMenu(!showMenu);
-// };
 
-// const TabButton = (currentTab, setCurrentTab, title, image) => (
-//   <TouchableOpacity onPress={() => setCurrentTab(title)}>
-//     <View style={getTabButtonStyle(currentTab, title)}>
-//       <Image source={image} style={styles.tabIcon} />
-//       <Text style={getTabButtonTextStyle(currentTab, title)}>{title}</Text>
-//     </View>
-//   </TouchableOpacity>
-// );
 
-// const getTabButtonStyle = (currentTab, title) => ({
-//   flexDirection: "row",
-//   alignItems: 'center',
-//   paddingVertical: 8,
-//   backgroundColor: currentTab === title ? '#E4E4E4' : 'transparent',
-//   paddingLeft: 30,
-//   paddingRight: 25,
-//   borderRadius: 8,
-//   marginTop: 15,
-// });
 
-// const getTabButtonTextStyle = (currentTab, title) => ({
-//   fontSize: 15,
-//   fontWeight: 'bold',
-//   paddingLeft: 15,
-//   color: currentTab === title ? "#5359D1" : "white",
-// });
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'flex-start',
-//     justifyContent: 'flex-start',
-//   },
-//   profileImage: {
-//     width: 60,
-//     height: 60,
-//     borderRadius: 10,
-//     marginTop: 8,
-//   },
-//   profileName: {
-//     fontSize: 20,
-//     fontWeight: 'bold',
-//     color: 'white',
-//     marginTop: 20,
-//   },
-//   viewProfileText: {
-//     marginTop: 6,
-//     color: 'white',
-//   },
-//   tabContainer: {
-//     flexGrow: 1,
-//     marginTop: 50,
-//   },
-//   menuButton: {
-//     width: 20,
-//     height: 20,
-//     tintColor: 'black',
-//     marginTop: 40,
-//   },
-//   currentTabText: {
-//     fontSize: 30,
-//     fontWeight: 'bold',
-//     color: 'black',
-//     paddingTop: 20,
-//   },
-//   photoImage: {
-//     width: '100%',
-//     height: 300,
-//     borderRadius: 15,
-//     marginTop: 25,
-//   },
-// });
 
-// // Replace these screen components with your actual screen components
-// function HomeScreen() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       <Text>Home Screen</Text>
-//     </View>
-//   );
-// }
 
-// function ChatScreen() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       <Text>Chat Screen</Text>
-//     </View>
-//   );
-// }
+import * as React from 'react';
+import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import EventScreen from './EventScreen';
+import UserProfileScreen from './UserProfileScreen';
+import ChatListScreen from './ChatListScreen';
+import PostFeedScreen from './PostFeedScreen';
+import home from '../images/home.png';
 
-// function ExploreScreen() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       <Text>Explore Screen</Text>
-//     </View>
-//   );
-// }
+function EventS(){
+  return <EventScreen/>
+ }
+ function ProfileS(){
+  return <UserProfileScreen/>
+ }
+ function FeedS(){
+  return <PostFeedScreen/>
+ }
+ function ChatS(){
+  return <ChatListScreen/>
+ }
+ 
 
-// function EventsScreen() {
-//   return (
-//     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-//       <Text>Events Screen</Text>
-//     </View>
-//   );
-// }
+
+const Tab = createBottomTabNavigator();
+
+export default function DrawerNav() {
+  return (
+    // <NavigationContainer>
+    <Tab.Navigator  screenOptions={{ headerShown: false }}>
+    
+      <Tab.Screen name = 'Event' component={EventS} options={{ home:3 }}/>
+      <Tab.Screen name = 'Profile' component={ProfileS}/>
+      <Tab.Screen name = 'Feed' component={FeedS}/>
+      <Tab.Screen name = 'Chat' component={ChatS}/>
+
+    </Tab.Navigator>
+  // {/* </NavigationContainer> */}
+
+  );
+}

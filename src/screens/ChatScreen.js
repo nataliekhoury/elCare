@@ -62,47 +62,47 @@ const ChatScreen = ({}) => {
    })
   }, [])
   
-  useEffect(() => {
-    const currentUser = firebase.auth().currentUser;
-    if (currentUser) {
-      const userDataRef = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
+  // useEffect(() => {
+  //   const currentUser = firebase.auth().currentUser;
+  //   if (currentUser) {
+  //     const userDataRef = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
 
-      userDataRef.get().then((querySnapshot) => {
-        const users = [];
-        querySnapshot.forEach((doc) => {
-          const {
-            userGender,
-            userName,
-            userAge,
-            userLanguage,
-            userCity,
-            userHobbies,
-            userAvai,
-            userExperience,
-            userPay,
-            userId,
-            userImage,
-          } = doc.data();
+  //     userDataRef.get().then((querySnapshot) => {
+  //       const users = [];
+  //       querySnapshot.forEach((doc) => {
+  //         const {
+  //           userGender,
+  //           userName,
+  //           userAge,
+  //           userLanguage,
+  //           userCity,
+  //           userHobbies,
+  //           userAvai,
+  //           userExperience,
+  //           userPay,
+  //           userId,
+  //           userImage,
+  //         } = doc.data();
 
-          users.push({
-            id: doc.id,
-            userName,
-            userGender,
-            userAge,
-            userLanguage,
-            userCity,
-            userHobbies,
-            userAvai,
-            userPay,
-            userExperience,
-            userId,
-            userImage,
-          });
-        });
-        setUsers(users);
-      });
-    }
-  }, []);
+  //         users.push({
+  //           id: doc.id,
+  //           userName,
+  //           userGender,
+  //           userAge,
+  //           userLanguage,
+  //           userCity,
+  //           userHobbies,
+  //           userAvai,
+  //           userPay,
+  //           userExperience,
+  //           userId,
+  //           userImage,
+  //         });
+  //       });
+  //       setUsers(users);
+  //     });
+  //   }
+  // }, []);
   function renderBubble(props) {
   
     
@@ -198,7 +198,7 @@ const ChatScreen = ({}) => {
       user={{
         _id: firebase.auth()?.currentUser?.email,
         name:firebase.auth()?.currentUser?.displayName,
-        avatar:firebase.firestore().collection("userData").get({userImage}),
+        // avatar:firebase.firestore().collection("userData").get({userImage}),
       }}
       renderBubble={renderBubble}
 

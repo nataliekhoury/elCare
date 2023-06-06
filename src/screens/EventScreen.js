@@ -169,14 +169,14 @@ useEffect(() => {
             style = {styles.addInfo}/>   
             </TouchableOpacity>
           
-
+{/* 
             <View style = {{bottom: 230}}>
             <TouchableOpacity onPress={() => navigation.navigate ('DrawerNav')}>
             <Image style = {styles.drawer} source={require('../images/menuBarIcon.png')}/> 
         </TouchableOpacity>
         
 
-           </View>
+           </View> */}
            <View style = {{bottom: 290}}> 
            <OptionItem></OptionItem>  
            </View>
