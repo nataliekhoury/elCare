@@ -15,6 +15,7 @@ import Images from "../images";
 // import Field from "./Field";
 import { firebase } from "../../config";
 
+import 'expo-dev-client';
 const LoginScreen = () => {
   const navigation = useNavigation();
   const [email, setEmail] = useState("");
@@ -32,7 +33,7 @@ const LoginScreen = () => {
     const unsubscribe=firebase.auth().onAuthStateChanged
     (function(user){
       if (user){
-      navigation.replace('UserProfileScreen');
+      navigation.replace('DrawerNav');
      
       }else {
         navigation.canGoBack() 

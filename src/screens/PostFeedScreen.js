@@ -7,7 +7,7 @@ import EventInfoScreen from "./EventInfoScreen";
 // import EventListScreen from "./EventListScreen";
 // import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import { NavigationContai, SafeAreaView } from "react-navigation";
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 // import { NavigationAction } from "@react-navigation/native";
 
 

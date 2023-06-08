@@ -1,192 +1,285 @@
-  import {
-    StyleSheet,
-    View,
-    Text,
-    ImageBackground,
-    Image,
-    TouchableOpacity,
-    Alert,
-    TextInput,
-    ScrollView,
-  } from "react-native";
-  import React, { useState,useEffect } from "react";
-  import { NavigationContainer } from "@react-navigation/native";
-  import { useNavigation } from "@react-navigation/native";
-  import Images from "../images";
-  import { firebase } from "../../config";
-  import { SafeAreaView } from "react-native-safe-area-context";
-import { Keyboard } from "react-native";
-import { use } from "i18next";
-import { Pressable } from "react-native";
-import { FlatList } from "react-native";
- const UserProfileScreen = () => {
-    const navigation = useNavigation();
-    const [users,setUsers]=useState([]);
-    const userDataRef=firebase.firestore().collection('userData');
+import React, { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { firebase } from "../../config";
+import { SafeAreaView } from "react-native-safe-area-context";
+import FontAwesome from "react-native-vector-icons/FontAwesome";
+import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 
-    useEffect(()=>{
-      userDataRef.onSnapshot
-      (querySnapshot=>{
-        const users=[]
-        querySnapshot.forEach((doc)=>{
-          const {userAge ,
+const UserProfileScreen = () => {
+  const navigation = useNavigation();
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    const currentUser = firebase.auth().currentUser;
+    if (currentUser) {
+      const userDataRef = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
+
+      userDataRef.get().then((querySnapshot) => {
+        const users = [];
+        querySnapshot.forEach((doc) => {
+          const {
+            userGender,
+            userName,
+            userAge,
             userLanguage,
             userCity,
             userHobbies,
             userAvai,
             userExperience,
+            userPay,
             userId,
-            // userImage,
-          }=doc.data()
+            userImage,
+          } = doc.data();
 
-            users.push({
-              id:doc.id,
-              userAge ,
-              userLanguage,
-              userCity,
-              userHobbies,
-              userAvai,
-              userExperience,
-              userId,
-              // userImage,
+          users.push({
+            id: doc.id,
+            userName,
+            userGender,
+            userAge,
+            userLanguage,
+            userCity,
+            userHobbies,
+            userAvai,
+            userPay,
+            userExperience,
+            userId,
+            userImage,
+          });
+        });
+        setUsers(users);
+      });
+    }
+  }, []);
 
-            })
-        })
-        setUsers(users)
-      })
-    
- },[])
-
-      
-  
-    
-    return (
-      <ScrollView>
-    <SafeAreaView>
-            <View>
-              
-            <Image
-                source={require("../images/userBack.png")}
-                style={{ left: -70, top: -90, resizeMode: "contain" }} />
-             <Image // the small rectangle back
-                source={require("../images/userBack2.png")}
-                       style={{ left: 50, top: -180, resizeMode: "contain" }} />
-                         
-            <View>
-            <TouchableOpacity
-            //chatscreen navigation
-                onPress={() => navigation.navigate("ChatScreen")}
-            >
-                <Text style={{ color: "#000000", fontWeight: "bold", marginLeft: 260,top:-235 ,borderWidth:2 , borderColor:'rgba(148, 58, 218, 0.83)',width:90,height:25, textAlign: 'center',borderRadius:10}}> message</Text>
+  return (
+   
+      <SafeAreaView>
+        
+        <View>
+          <Image
+            source={require("../images/userBack.png")}
+            style={{ left: -70, top: -90, resizeMode: "contain" }}
+          />
+          <Image
+            source={require("../images/userBack2.png")}
+            style={{ left: 50, top: -180, resizeMode: "contain" }}
+          />
+               {/* <TouchableOpacity onPress={() => navigation.navigate("EditProfile", {users})}>
+             <Image
+                source={require("../images/editIcon.png")}
+                style={{ left: 320, top: -485,}}
+              />
+                 </TouchableOpacity>  */}
+          <View>
+            <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
+              <Image
+                source={require("../images/messageBack.png")}
+                style={{ left: 240, top: -250, resizeMode: "contain" }}
+              />
+           
+              <Text style={{ color: "#000000", fontWeight: "bold", marginLeft: 249, top: -283, width: 90, height: 25, textAlign: 'center' }}> message</Text>
             </TouchableOpacity>
-            </View>
-            
-            <View style={{bottom: 500, alignSelf: 'center'}}>
-  {users.map((item, index) => (
-    <View key={index} style={{alignItems: 'center'}}>
-      <Image style={ {height: 120,
-    width: 120,
-    borderRadius: 75,}} source={{uri:'https://firebasestorage.googleapis.com/v0/b/elcare-bb10b.appspot.com/o/BDA91FFB-C8B8-4CB0-9360-10434396A8A5.jpg?alt=media&token=9dfdf9db-ae9f-45ef-99d6-fdf9d78a499c'}}/>
-      <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop:15}]}>
-        {item.userId}
-      </Text>
-      <Text style={[styles.userInfoAge, {textAlign: 'center', marginTop: 5, marginBottom: 10}]}>
-        age: {item.userAge}
-      </Text>
+          </View>
+          <View style={styles.userInfoContainer}>
+            {users.map((item, index) => (
+              <View key={index} style={styles.userInfo}>
+                <Image
+                  style={styles.userImage}
+                  source={{ uri: item.userImage }}
+                />
+                <Text style={styles.userName}>{item.userName}</Text>
+                {item.userGender === 'male' ? (
+                  <FontAwesome name="male" style={styles.icon} size={30} color="blue" />
+                ) : item.userGender === 'female' ? (
+                  <FontAwesome name="female" style={styles.icon} size={30} color="#943ADA" />
+                ) : null}
+                <Text style={styles.userAge}>age: {item.userAge}</Text>
+                <View style={styles.userLocation}>
+                  <Image
+                    source={require("../images/locationIcon.png")}
+                    style={styles.locationIcon}
+                  />
+                  <Text style={styles.userInfoCity}>{item.userCity}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
+          <View style={styles.userDetailsContainer}>
+            {users.map((item, index) => (
+              <View key={index} style={styles.userDetails}>
+                <View style={styles.userDetailsSection}>
+                  <Text style={styles.sectionTitle}>Spoken languages</Text>
+                  <View style={styles.languageContainer}>
+                    {item.userLanguage.split(",").map((language, index) => (
+                      <Text key={index} style={styles.language}>{language.trim()}</Text>
+                    ))}
+                  </View>
+                </View>
+                <View style={styles.userDetailsSection}>
+                  <Text style={styles.sectionTitle}>Hobbies</Text>
+                  <View style={styles.hobbiesContainer}>
+                    {item.userHobbies.split(",").map((hobby, index) => (
+                      <Text key={index} style={styles.hobby}>{hobby.trim()}</Text>
+                    ))}
+                  </View>
+                </View>
+            <View>
+                <Image // the small rectangle back
+                source={require("../images/userInfoBottomBox.png")}
+                       style={{ left: -10, top:30, resizeMode: "contain" }} />
+                         
 
-      <View style={{flexDirection: 'row', alignItems: 'center'}}>
-        <Image
-          source={require("../images/locationIcon.png")}
-          style={{resizeMode: "contain", marginRight: 4,marginTop: -8 }}
-        />
-        <Text style={[styles.userInfoCity, {textAlign: 'center', color :"#9E9E9E", fontSize: 17, marginTop: -8, marginRight: 30}]}>
-          {item.userCity}
-        </Text>
-      </View>
-    </View>
-  ))}
-  
-</View>
-  
-<View style={{bottom:390, alignSelf: 'center',marginRight:120}}>
-  <Text style={{fontSize:18,fontWeight:'bold'}}>Spoken languages</Text>
-  {users.map((item, index) => (
-    <View key={index} style={{alignItems: 'left',marginRight:120}}>
-      <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 12,borderWidth:2 , borderColor:'rgba(148, 58, 218, 0.83)',width:90,height:25,borderRadius:10}]}>
-        {item.userLanguage}
-      </Text>
-      <Text style={{fontSize:18,fontWeight:'bold', marginTop: 10}}>Hobbies</Text>
-      <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 4,borderWidth:2 , borderColor:'rgba(148, 58, 218, 0.83)',width:90,height:25,borderRadius:10}]}>
-        {item.userHobbies}
-      </Text>
-      <Text style={{fontSize:18,fontWeight:'bold', marginTop: 10}}>Available days</Text>
 
-      <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 4,borderWidth:2 , borderColor:'rgba(148, 58, 218, 0.83)',width:90,height:25,borderRadius:10}]}>
+
+   <Text style={{fontSize:15,fontWeight:'bold', marginTop: -55}}>Available days</Text>
+
+      <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25}]}>
         {item.userAvai}
       </Text>
-      
-      
-  
 
-    
-    
-    </View>
-  ))}
-  
-</View>
-            
 
-<Image style={ {height: 150,
-    width: 150,
-    borderRadius: 75,}} source={{uri:'https://firebasestorage.googleapis.com/v0/b/elcare-bb10b.appspot.com/o/BE8B5FD1-2FD4-4919-A800-718965BA1F50.jpg?alt=media&token=d56d338f-bc72-43b6-af59-4a81f3e7d51e'}}/>
+      <View>
+        <Text style={{fontSize:15,fontWeight:'bold', marginTop: -58,left:120}}>Experience</Text>
+
+      <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25, marginTop: 13,left:120}]}>
+      {item.userExperience +'  year(s)'}
+      </Text></View>
+
+
+      <View style={{marginTop: -66}}>
+      <Text style={{fontSize:15,fontWeight:'bold',left:250, marginTop: 10}}>Payment</Text>
+      <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 4, marginTop: 13,left:105}]}>
+          {item.userPay} 
+    </Text> 
+      </View>
+    
+        
+
         </View>
-       
-     </SafeAreaView>
-     </ScrollView>
-    );
-  };
-  
-  export default UserProfileScreen;
-  
-  const styles = StyleSheet.create({
-    backgroundColor:'#FFFFF',
-    buttonMessageStyle: {
-    //   left: 180,
-    //   bottom: -50,
-      backgroundColor: "#ffff",
-      borderRadius: "40",
-      paddingHorizontal: 50,
-      justifyContent: "center",
-      alignItem: "center",
-      paddingVertical: 20,
-      marginRight: 230,
-      marginBottom: 40,
-     borderBottomColor:"#6A61CF"      
     
-    },
-    userInfoAge:{
-     color :"#9E9E9E",
-     fontSize: "17",
-     alignItem: "center",
-     justifyContent: "center",
- 
+              </View>
+            ))}
+          </View>
+        </View>
+      </SafeAreaView>
+   
+  );
+};
 
-    },
-    userInfonnnnname:{
-      color :"#0000",
-      fontSize: "17",
-      alignItem: "center",
-      justifyContent: "center",
-      shadowOffset: {
-       width: 0,
-       height: 10,
-     },
-     shadowOpacity: 0.36,
-     shadowRadius: 10.0,
-     elevation: 11,
- 
-     },
-    
+export default UserProfileScreen;
 
-  });
-  
+const styles = StyleSheet.create({
+  userInfoContainer: {
+    bottom: 530,
+    alignSelf: 'center',
+  },
+  userInfo: {
+    alignItems: 'center',
+  },
+  userImage: {
+    height: 120,
+    width: 120,
+    borderRadius: 75,
+  },
+  userName: {
+    textAlign: 'center',
+    color: "#000000",
+    fontSize: 17,
+    marginTop: 15,
+    fontWeight: 'bold',
+  },
+  icon: {
+    left: 100,
+    bottom: 30,
+  },
+  userAge: {
+    textAlign: 'center',
+    marginTop: -20,
+    marginBottom: 10,
+    color: "#9E9E9E",
+    fontSize: 17,
+  },
+  userLocation: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  locationIcon: {
+    resizeMode: "contain",
+    marginRight: 4,
+    marginTop: -8,
+  },
+  userInfoCity: {
+    textAlign: 'center',
+    color: "#9E9E9E",
+    fontSize: 17,
+    marginTop: -8,
+    marginRight: 30,
+  },
+  userDetailsContainer: {
+    bottom: 390,
+    left: 120,
+    alignSelf: 'center',
+    marginRight: 120,
+  },
+  userDetails: {
+    alignItems: 'left',
+    marginRight: 120,
+    marginTop: -30,
+  },
+  userDetailsSection: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  languageContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 5,
+  },
+  language: {
+    textAlign: 'center',
+    color: "#000000",
+    fontSize: 17,
+    marginTop: 9,
+    borderWidth: 2,
+    borderColor: 'rgba(148, 58, 218, 0.83)',
+    width: 90,
+    height: 25,
+    borderRadius: 10,
+    marginRight: 10, // Added margin to create space between the language items
+    marginBottom: 10,
+  },
+  hobbiesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 5,
+  },
+  hobby: {
+    textAlign: 'center',
+    color: "#000000",
+    fontSize: 17,
+    marginTop: 9,
+    borderWidth: 2,
+    borderColor: 'rgba(148, 58, 218, 0.83)',
+    width: 90,
+    height: 25,
+    borderRadius: 10,
+    marginRight: 10, 
+    marginBottom: 10,
+  },
+  bottomBox: {
+    left: -10,
+    top: 60,
+    resizeMode: "contain",
+  },
+  userDetailsText: {
+    textAlign: 'center',
+    color: "#000000",
+    fontSize: 17,
+    marginTop: 15,
+    width: 90,
+    height: 25,
+  },
+});

@@ -25,8 +25,9 @@ import PostFeedScreen from './src/screens/PostFeedScreen';
 import AddPostFeedScreen from './src/screens/AddPostFeedScreen';
 import AdminAddEvent from './src/screens/AdminAddEvent';
 import AdminEditEvent from './src/screens/AdminEditEvent';
-
-
+import EditProfile from './src/screens/EditProfile'
+// import GoogleButton from 'react-google-button'
+import ChatListScreen from './src/screens/ChatListScreen'
 const Stack = createNativeStackNavigator();
 function App() {
   const [initializing, setInitializing] = useState(true);
@@ -56,6 +57,8 @@ function App() {
           name="ForgetPasswordScreen"
           component={ForgetPasswordScreen}
         />
+            <Stack.Screen name="InfoScreen" component={InfoScreen} />
+
         <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
             <Stack.Screen name="PostFeedScreen" component={PostFeedScreen} />
             <Stack.Screen name="AddPostFeedScreen" component={AddPostFeedScreen} />
@@ -73,19 +76,25 @@ function App() {
   }
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="InfoScreen" component={InfoScreen} />
 
-    <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
+    {/* <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} /> */}
 
-    <Stack.Screen name="ChatScreen" component={ChatScreen} />
-    <Stack.Screen name="MatchingScreen" component={MatchingScreen} />
-        <Stack.Screen name="EventScreen" component={EventScreen} />
-         <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />
+    {/* <Stack.Screen name="ChatScreen" component={ChatScreen} /> */}
+    {/* <Stack.Screen name="MatchingScreen" component={MatchingScreen} /> */}
+        {/* <Stack.Screen name="EventScreen" component={EventScreen} /> */}
+         {/* <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} /> */}
+         {/* <Stack.Screen name="EditProfile" component={EditProfile} /> */}
+         {/* <Stack.Screen name="ChatListScreen" component={ChatListScreen} /> */}
+          <Stack.Screen name="DrawerNav" component={DrawerNav} />
+
+
+
         {/* <Stack.Screen name="EventListScreen" component={EventListScreen} /> */}
     </Stack.Navigator>
     );
     
 }
+
 
 
 

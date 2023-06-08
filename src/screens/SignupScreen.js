@@ -10,7 +10,7 @@ import {
   ScrollView,
   StatusBar,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../../config";
@@ -20,16 +20,55 @@ const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
 const SignupScreen = () => {
   const navigation = useNavigation();
   const [checked, setChecked] = React.useState(false);
-  // const [group1, setGroup1] = React.useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
-  // const [birthDate, setBirthDate] = useState("");
   const [phone, setPhone] = useState("");
-  // const [role, setRole] = useState("");
-  const [imageURL,setImageUrl]=useState("");
+  const [role, setRole] = useState("");
 
-  SignupUser = async (email, password, name, phone) => {
+  // const [user,setUser]=useState(null);// current user
+  // const [users,setUsers]=useState([]); //other users
+  const [isSubscribed, setIsSubscribed] = useState(false);
+
+//   //fetching the data of the current user 
+// useEffect(()=>{
+//   firebase().collection("users").doc(firebase.auth().currentUser.uid).get()
+//   .then(user => {
+//     setUser(user.data())
+//   })
+// },[])
+   
+//  useEffect(()=>{
+//   if (user)
+//   firebase.firestore.collection("users").where("role","==", (user?.role === "Elderly" ? "Caregiver":"Elderly"))
+//   .onSnapshot(users=>{
+//     if (!users.empty){
+//       const USERS =[] 
+//       users.forEach (user =>{
+//         USERS.push(user.data())
+//       })
+//       setUsers(USERS);
+//     }
+//   })
+// },[user])
+
+
+
+
+
+
+
+
+const handleChange = () => {
+  setIsSubscribed(!isSubscribed);
+};
+
+
+
+
+
+
+  SignupUser = async (email, password, name) => {
     await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -50,14 +89,14 @@ const SignupScreen = () => {
             firebase
               .firestore()
               .collection("user")
-              .doc(firebase.auth().currentUser.uid)
+              .doc(firebase.auth().currentUser.uid) 
               .set({
+
                 name,
-                phone,
                 email,
               });
-              // navigation.replace('ChatScreen')
-        
+              navigation.replace('InfoScreen');
+       
           })
           .catch((error) => {s
             alert(error.message);
@@ -66,18 +105,7 @@ const SignupScreen = () => {
       .catch((error) => {
         alert(error.message);
       });
-      // useEffect(()=>{
-      //   const unsubscribe=firebase.auth().onAuthStateChanged
-      //   (function(user){
-      //     if (user){
-      //     navigation.replace('InfoScreen');
-         
-      //     }else {
-      //       navigation.canGoBack() 
-           
-      //     }
-      //   })
-      //  })
+
   };
   const onTermsOfUsePressed = () => {
     alert(`Terms and conditions
@@ -200,12 +228,22 @@ const SignupScreen = () => {
             top: -148,
           }}
         >
-          <Checkbox
+          {/* <Checkbox
             status={checked ? "unchecked" : "checked"}
             onPress={() => {
               setChecked(!checked);
             }}
-          />
+          /> */}
+      <View>
+    <Checkbox
+      checked={isSubscribed}
+      onChange={handleChange}
+    />
+    <Text>
+      {isSubscribed ? "Subscribed" : "Not Subscribed"}
+    </Text>
+  </View>
+          
           <Text
             style={{ left: 22, bottom: -35, fontSize: 20, fontWeight: "bold" }}
           >
@@ -244,7 +282,7 @@ const SignupScreen = () => {
               shadowRadius: 10.0,
               elevation: 11,
             }}
-            placeholder=" full Name"
+            placeholder="Name"
             onChangeText={(name) => setName(name)}
             autoCapitalize="none"
             autoCorrect="none"
@@ -347,7 +385,6 @@ const SignupScreen = () => {
             }}
             placeholder="phone number"
             onChangeText={(phone) => setPhone(phone)}
-            autoCorrect={false}
           ></TextInput>
         </View>
 
