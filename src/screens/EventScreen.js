@@ -1248,12 +1248,12 @@ export default function EventScreen({ navigation }) {
             <Image source={require('../images/adminAddInfo.png')} style={styles.addInfo} />
           </TouchableOpacity>
         )}
-
+{/* 
         <View style={{ bottom: 230 }}>
-          <TouchableOpacity onPress={() => navigation.navigate('DrawerNav')}>
+          <TouchableOpacity onPress={() => navigation.navigate('TabBar')}>
             <Image style={styles.drawer} source={require('../images/menuBarIcon.png')} />
           </TouchableOpacity>
-        </View>
+        </View> */}
 
         <View style={{ bottom: 290 }}>
           <OptionItem setSelectedLabel={setSelectedLabel} />

@@ -26,6 +26,7 @@ import AddPostFeedScreen from './src/screens/AddPostFeedScreen';
 import AdminAddEvent from './src/screens/AdminAddEvent';
 import AdminEditEvent from './src/screens/AdminEditEvent';
 import ContactUs from "./src/screens/ContactUs";
+import TabBar from "./src/screens/TabBar";
 
 
 const Stack = createNativeStackNavigator();
@@ -45,7 +46,7 @@ function App() {
   if (!user) {
     return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-     <Stack.Screen name="ContactUs" component={ContactUs}/>
+     {/* <Stack.Screen name="ContactUs" component={ContactUs}/> */}
     <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
     <Stack.Screen name="WalkthroughtScreen" component={WalkthroughtScreen}/>
     <Stack.Screen name="LoginScreen" component={LoginScreen} />
@@ -64,9 +65,12 @@ function App() {
   }
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
+       {/* <Stack.Screen name="TabBar" component={TabBar} /> */}
     <Stack.Screen name="InfoScreen" component={InfoScreen} />
     <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
     <Stack.Screen name="ChatScreen" component={ChatScreen} />
+    <Stack.Screen name="PostFeedScreen" component={PostFeedScreen} />
+    <Stack.Screen name="AddPostFeedScreen" component={AddPostFeedScreen} />
     {/* <Stack.Screen name="MatchingScreen" component={MatchingScreen} /> */}
     <Stack.Screen name="EventScreen" component={EventScreen} /> 
         <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />  
