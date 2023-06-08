@@ -7,7 +7,11 @@ import {
     TouchableOpacity,
     Alert,
     TextInput,
+   
   } from "react-native";
+  // import {Picker} from '@react-native-picker/picker';
+  import RNPickerSelect from 'react-native-picker-select';
+
   import React, { useState,useEffect } from "react";
   import { NavigationContainer } from "@react-navigation/native";
   import { useNavigation } from "@react-navigation/native";
@@ -20,13 +24,16 @@ import * as ImagePicker from 'expo-image-picker'
  const InfoScreen = () => {
 
     const navigation = useNavigation();
-    const uploadDta =firebase.firestore().collection('userData');
+    const uploadDta = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
+    const [name,setName]=useState('');
     const [age,setAge]=useState('');
     const [language,setLanguage]=useState('');
+    const [gender, setGender] = useState('');
     const [city,setCity]=useState('');
     const [hobbies,setHobbies]=useState('');
     const [avaiDay,setAvaiDay]=useState('');
     const [experience,setExperience]=useState('');
+    const [payment,setPayment]=useState('');
     const [image,setImage]=useState(null);
     const [uploading,setUploading]=useState(false);
 
@@ -40,22 +47,28 @@ import * as ImagePicker from 'expo-image-picker'
         const timeStamp =firebase.firestore.FieldValue.serverTimestamp();
         const user= firebase.auth()?.currentUser?.email;
         const data ={
+          userName:name,
           userAge :age,
+          userGender:gender,
           userLanguage :language,
           userCity:city,
           userHobbies:hobbies,
           userAvai:avaiDay,
+          userPay:payment,
           userExperience:experience,
           createdAt:timeStamp,
           userId:user,
           userImage:image.uri,
         };
         uploadDta.add(data).then(()=>{
+            setName('')
+            setGender('')
             setAge('');
             setLanguage('')
             setCity('')
             setHobbies('')
             setAvaiDay('')
+            setPayment('')
             setExperience('')
           Keyboard.dismiss();
         }) .then(() => {
@@ -140,15 +153,45 @@ import * as ImagePicker from 'expo-image-picker'
     </TouchableOpacity>
     <View style={styles.imageContainer}>
     {image && <Image source={{uri:image.uri}} style ={{width:300,height:300,borderRadius:200/2}}/>}
-    {/* <TouchableOpacity style={styles.uploadButton} onPress={uploadImage}>
-      <Text>
-        Upload Image here
-      </Text>
-    </TouchableOpacity> */}
+
 
 
 
     </View>
+    <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+           Full name
+          </Text>
+            <TextInput  style={{
+              borderRadius: 30,
+              color: "grey",
+              width: "80%",
+              backgroundColor: "white",
+              borderColor: "#D5D5D5",
+              paddingHorizontal: 30,
+              paddingVertical: 18,
+              marginBottom: 20,
+              borderBottomColor: "#D5D5D5",
+              marginVertical: 20,
+              shadowColor: "#000",
+              marginLeft: 40,
+              shadowOffset: {
+                width: 0,
+                height: 10,
+              },
+              shadowOpacity: 0.36,
+              shadowRadius: 10.0,
+              elevation: 11,}}
+        
+           placeholder="ENTER your fill name please"
+          placeholderTextColor={'grey'}
+          utoCorrect="true"
+
+          onChangeText={(userName)=>setName(userName)}
+         
+          value={name}
+          multiline={false}
+          underlineColorAndroid='transparent'
+          ></TextInput>
             <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
             Age
           </Text>
@@ -188,6 +231,19 @@ import * as ImagePicker from 'expo-image-picker'
           multiline={false}
           underlineColorAndroid='transparent'
           ></TextInput>
+           <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+           gender
+          </Text>
+          
+       <RNPickerSelect
+        value={gender}
+        onValueChange={(itemValue) => setGender(itemValue)}
+        items={[
+          { label: 'Select Gender', value: '' },
+          { label: 'Male', value: 'male' },
+          { label: 'Female', value: 'female' },
+        ]}
+      />
    <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
             City
           </Text>
@@ -228,38 +284,40 @@ import * as ImagePicker from 'expo-image-picker'
           <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
             Languages
           </Text>
-            <TextInput  style={{
-              borderRadius: 30,
-              color: "grey",
-              width: "80%",
-              backgroundColor: "white",
-              borderColor: "#D5D5D5",
-              paddingHorizontal: 30,
-              paddingVertical: 18,
-              marginBottom: 20,
-              borderBottomColor: "#D5D5D5",
-              marginVertical: 20,
-              shadowColor: "#000",
-              marginLeft: 40,
-              shadowOffset: {
-                width: 0,
-                height: 10,
-              },
-              shadowOpacity: 0.36,
-              shadowRadius: 10.0,
-              elevation: 11,}}
-              rules={{
-                required: "Languages is required",
-              }}
-           placeholder="Languages that you speak"
-           placeholderTextColor={'grey'}
-         
-          onChangeText={(userLanguage)=>setLanguage(userLanguage)}
-          onch
-          value={language}
-          multiline={false}
-          underlineColorAndroid='transparent'
-          ></TextInput>
+        
+          <TextInput
+          style={{
+            borderRadius: 30,
+            color: "grey",
+            width: "80%",
+            backgroundColor: "white",
+            borderColor: "#D5D5D5",
+            paddingHorizontal: 30,
+            paddingVertical: 18,
+            marginBottom: 20,
+            borderBottomColor: "#D5D5D5",
+            marginVertical: 20,
+            shadowColor: "#000",
+            marginLeft: 40,
+            shadowOffset: {
+              width: 0,
+              height: 10,
+            },
+            shadowOpacity: 0.36,
+            shadowRadius: 10.0,
+            elevation: 11,}}
+
+  placeholder="english,hebrew...."
+  placeholderTextColor={'grey'}
+  onChangeText={(userLanguage) => setLanguage(userLanguage)}
+  value={language}
+  multiline={false}
+  underlineColorAndroid='transparent'
+  onBlur={() => {
+    const languages = language.split(',').map(lang => lang.trim());
+    setLanguage(languages.join(','));
+  }}
+/>
    <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
             Hobbies
           </Text>
@@ -283,7 +341,7 @@ import * as ImagePicker from 'expo-image-picker'
               shadowOpacity: 0.36,
               shadowRadius: 10.0,
               elevation: 11,}}
-           placeholder="Hobbies"
+           placeholder="Dance,running..."
            placeholderTextColor={'grey'}
           onChangeText={(userHobbies)=>setHobbies(userHobbies)}
           onch
@@ -364,6 +422,39 @@ Available
           onChangeText={(userAvai)=>setAvaiDay(userAvai)}
           onch
           value={avaiDay}
+          onPress={checkTextInput}   
+      
+          underlineColorAndroid='transparent'
+       
+          ></TextInput>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+             Payment
+          </Text>
+          <TextInput  style={{
+              borderRadius: 30,
+              color: "grey",
+              width: "80%",
+              backgroundColor: "white",
+              borderColor: "#D5D5D5",
+              paddingHorizontal: 30,
+              paddingVertical: 18,
+              marginBottom: 20,
+              borderBottomColor: "#D5D5D5",
+              marginVertical: 20,
+              shadowColor: "#000",
+              marginLeft: 40,
+              shadowOffset: {
+                width: 0,
+                height: 10,
+              },
+              shadowOpacity: 0.36,
+              shadowRadius: 10.0,
+              elevation: 11,}}
+           placeholder="How would like to get payed ?"
+           placeholderTextColor={'grey'}
+          onChangeText={(userPay)=>setPayment(userPay)}
+          onch
+          value={payment}
           onPress={checkTextInput}   
       
           underlineColorAndroid='transparent'
