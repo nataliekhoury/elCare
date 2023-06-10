@@ -8,13 +8,11 @@ import WalkthroughtScreen from "./src/screens/WalkthroughtScreen";
 import OnboardingScreen from "./src/screens/OnboardingScreen";
 import LoginScreen from "./src/screens/LoginScreen";
 import SignupScreen from "./src/screens/SignupScreen";
-import HomeScreen from "./src/screens/HomeScreen";
 import ForgetPasswordScreen from "./src/screens/ForgetPasswordScreen";
 import LanguageScreen from "./src/screens/LanguageScreen";
 import ChatScreen from "./src/screens/ChatScreen";
 import UserProfileScreen from "./src/screens/UserProfileScreen";
 // import MatchingScreen from "./src/screens/MatchingScreen";
-import InfoScreen from "./src/screens/InfoScreen";
 import { StatusBar } from "react-native";
 import EventScreen from './src/screens/EventScreen';
 import EventInfoScreen from './src/screens/EventInfoScreen';
@@ -26,6 +24,9 @@ import AddPostFeedScreen from './src/screens/AddPostFeedScreen';
 import AdminAddEvent from './src/screens/AdminAddEvent';
 import AdminEditEvent from './src/screens/AdminEditEvent';
 import EditProfile from './src/screens/EditProfile'
+import DetailScreen from "./src/screens/DetailScreen";
+import ElderlyProfileScreen from "./src/screens/ElderlyProfileScreen";
+import CaregiverProfileScreen from "./src/screens/CaregiverProfileScreen";
 // import GoogleButton from 'react-google-button'
 import ChatListScreen from './src/screens/ChatListScreen'
 const Stack = createNativeStackNavigator();
@@ -51,58 +52,39 @@ function App() {
           name="WalkthroughtScreen"
           component={WalkthroughtScreen}
         />
-   <Stack.Screen name="LoginScreen" component={LoginScreen} />
+ 
         <Stack.Screen name="SignupScreen" component={SignupScreen} />
+        <Stack.Screen name="DetailScreen" component={DetailScreen} />
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen
           name="ForgetPasswordScreen"
           component={ForgetPasswordScreen}
         />
-            <Stack.Screen name="InfoScreen" component={InfoScreen} />
-
+        
         <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
-            <Stack.Screen name="PostFeedScreen" component={PostFeedScreen} />
-            <Stack.Screen name="AddPostFeedScreen" component={AddPostFeedScreen} />
-        {/* <Stack.Screen name="EventScreen" component={EventScreen} /> 
-        <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} />
-        {/* <Stack.Screen name="EventListScreen" component={EventListScreen} />  */}
-        {/* <Stack.Screen name="AdminAddEvent" component={AdminAddEvent} />
-        <Stack.Screen name="AdminEditEvent" component={AdminEditEvent} /> */} 
-
-        {/* <Stack.Screen name="DrawerNav" component={DrawerNav} /> */}
-        {/* <Stack.Screen name="menuBar" component={menuBar} /> */}
 
       </Stack.Navigator>
     );
   }
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-
-    {/* <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} /> */}
-
-    {/* <Stack.Screen name="ChatScreen" component={ChatScreen} /> */}
     {/* <Stack.Screen name="MatchingScreen" component={MatchingScreen} /> */}
         {/* <Stack.Screen name="EventScreen" component={EventScreen} /> */}
          {/* <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} /> */}
-         {/* <Stack.Screen name="EditProfile" component={EditProfile} /> */}
-         {/* <Stack.Screen name="ChatListScreen" component={ChatListScreen} /> */}
+         <Stack.Screen name="CaregiverProfileScreen" component={CaregiverProfileScreen} />
+         <Stack.Screen name="ChatListScreen" component={ChatListScreen} />
           <Stack.Screen name="DrawerNav" component={DrawerNav} />
-
-
-
-        {/* <Stack.Screen name="EventListScreen" component={EventListScreen} /> */}
+          <Stack.Screen name="DetailScreen" component={DetailScreen} />
+          <Stack.Screen name="ChatScreen" component={ChatScreen} />
+          {/* <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
+        <Stack.Screen name="ElderlyProfileScreen" component={ElderlyProfileScreen} /> */}
     </Stack.Navigator>
     );
     
 }
 
 
-
-
-// return (
-// <Stack.Navigator>
-// <Stack.Screen name="ChatScreen" component={ChatScreen} />
-// </Stack.Navigator>
-// )
+ 
 
 export default () => {
   return (

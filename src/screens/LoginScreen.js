@@ -11,8 +11,7 @@ import {
 import React, { useState,useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
-import Images from "../images";
-// import Field from "./Field";
+import Images from "../images"
 import { firebase } from "../../config";
 
 import 'expo-dev-client';

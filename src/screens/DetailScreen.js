@@ -10,24 +10,27 @@ import {
    
   } from "react-native";
   // import {Picker} from '@react-native-picker/picker';
-  import RNPickerSelect from 'react-native-picker-select';
+import RNPickerSelect from 'react-native-picker-select';
 
-  import React, { useState,useEffect } from "react";
-  import { NavigationContainer } from "@react-navigation/native";
-  import { useNavigation } from "@react-navigation/native";
-  import Images from "../images";
-  import { firebase } from "../../config";
-  import { SafeAreaView } from "react-native-safe-area-context";
+import React, { useState,useEffect } from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
+import Images from "../images";
+import { firebase } from "../../config";
+import { SafeAreaView } from "react-native-safe-area-context";
 import { Keyboard } from "react-native";
 import { ScrollView } from "react-native";
 import * as ImagePicker from 'expo-image-picker'
- const InfoScreen = () => {
+import MultiSelect from 'react-native-multiple-select';
 
+ const DetailScreen = () => {
+    const currentUser = firebase.auth().currentUser;
     const navigation = useNavigation();
-    const uploadDta = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
+    const uploadDta = firebase.firestore().collection("userData")
     const [name,setName]=useState('');
     const [age,setAge]=useState('');
     const [language,setLanguage]=useState('');
+    // const [skill,setSkill]=useState([])
     const [gender, setGender] = useState('');
     const [city,setCity]=useState('');
     const [hobbies,setHobbies]=useState('');
@@ -38,11 +41,13 @@ import * as ImagePicker from 'expo-image-picker'
     const [uploading,setUploading]=useState(false);
 
 
+    const [selectedItems, setSelectedItems] = useState([]);
+    const [otherSkill, setOtherSkill] = useState('');
+    const [showOtherTextInput, setShowOtherTextInput] = useState(false);
+  
+  
     //add a new field
     const addInfo =async () =>{
-      // const currentUser = await firebase.auth()
-      // _id: firebase.auth()?.currentUser?.email
-      //check if we have new field data
       if (age>19){
         const timeStamp =firebase.firestore.FieldValue.serverTimestamp();
         const user= firebase.auth()?.currentUser?.email;
@@ -51,6 +56,8 @@ import * as ImagePicker from 'expo-image-picker'
           userAge :age,
           userGender:gender,
           userLanguage :language,
+          userSkill:selectedItems,
+          userOtherSkill:otherSkill,
           userCity:city,
           userHobbies:hobbies,
           userAvai:avaiDay,
@@ -65,7 +72,9 @@ import * as ImagePicker from 'expo-image-picker'
             setGender('')
             setAge('');
             setLanguage('')
+            setSelectedItems('')
             setCity('')
+            setOtherSkill('')
             setHobbies('')
             setAvaiDay('')
             setPayment('')
@@ -73,13 +82,15 @@ import * as ImagePicker from 'expo-image-picker'
           Keyboard.dismiss();
         }) .then(() => {
           Alert.alert("your information has been updated!");
+             navigation.replace('UserProfileScreen');
+
         })
         .catch((error)=>{
           alert(error)
         })
-        .then(()=>{
-            navigation.replace('UserProfileScreen');
-        })
+        // .then(()=>{
+        //     navigation.replace('UserProfileScreen');
+        // })
 
       }
     }
@@ -108,16 +119,16 @@ import * as ImagePicker from 'expo-image-picker'
       console.log(e);
     }
     setUploading(false);
-    // Alert.alert('photo uploaded');
     setImage(null);
    }
 
-
+  //  const handleSkillChange = (selectedItems) => {
+  //   setSkill(selectedItems);
+  // };
 
   // checks if the text input is empty or not 
   const checkTextInput = () => {
-    //Check for the Name TextInput
-    if (age.trim()==0 || language.trim() ==0 || hobbies.trim() ==0 || avaiDay.trim() == 0 || experience.trim()==0 || city.trim()) {
+    if (age.trim()==0 ) {
       Alert.alert('Please enter the empty fill ');
       return;
     }
@@ -128,14 +139,49 @@ import * as ImagePicker from 'expo-image-picker'
     checkTextInput(); 
     uploadImage();
     addInfo();
+    handleSaveSkill();
 
     
   }
+  const options = [
+    { id: 'Disability Support Worker', name: 'Disability Support Worker' },
+    { id: 'Special Needs Caregiver', name: 'Special Needs Caregiver' },
+    { id: 'Alzheimer Caregiver', name: 'Alzheimer Caregiver' },
+    { id: 'Nutritionist/Dietitian', name: 'Nutritionist/Dietitian' },
+    { id: 'Home Care Nurse', name: 'Home Care Nurse' },
+    { id: 'Physical Therapist', name: 'Physical Therapist' },
+    { id: 'Home Health Aide', name: 'Home Health Aide' },
+    { id: 'Elderly Care Assistant', name: 'Elderly Care Assistant' },
+    { id: 'Household chores', name: 'Household chores' },
+    { id: 'Transportation assistance', name: 'Transportation assistance' },
+    { id: 'Medication management', name: 'Medication management' },
+    { id: 'Travel assistant', name: 'Travel assistant' },
 
+    { id: 'other', name: 'Other' },
+  ];
+
+  const handleSkillChange = (selectedItems) => {
+    setSelectedItems(selectedItems);
+
+    const isOtherSelected = selectedItems.find((item) => item.id === 'other');
+    setShowOtherTextInput(!!isOtherSelected);
+  };
+
+  const handleOtherSkillChange = (text) => {
+    setOtherSkill(text);
+  };
+
+  const handleSaveSkill = () => {
+    // Save selected items and other skill to your state or do something else with them
+    console.log('Selected Items:', selectedItems);
+    console.log('Other Skill:', otherSkill);
+  };
     
     return (
-      <ScrollView>
-    <SafeAreaView> 
+     
+   
+       <ScrollView>
+         <SafeAreaView> 
             <Image
                 source={require("../images/rectangleBackground.png")}
                 style={{ left: -70, top: -45, resizeMode: "contain" }} />
@@ -182,7 +228,7 @@ import * as ImagePicker from 'expo-image-picker'
               shadowRadius: 10.0,
               elevation: 11,}}
         
-           placeholder="ENTER your fill name please"
+           placeholder="Enter your fill name please"
           placeholderTextColor={'grey'}
           utoCorrect="true"
 
@@ -216,15 +262,11 @@ import * as ImagePicker from 'expo-image-picker'
               shadowRadius: 10.0,
               elevation: 11,}}
               keyboardType="numeric"
-              // type="number" pattern="[0-9]*"
+        
            placeholder="Your age"
-          //  rules={{
-          //   required: "age is required",
-          // }}
-          // placeholderTextColor={'#6A61CF'}
+
           placeholderTextColor={'grey'}
-          // onPress={checkTextInput}
-          // onChange={checkTextInput}
+
 
           onChangeText={(userAge)=>setAge(userAge)}
           value={age}
@@ -307,7 +349,7 @@ import * as ImagePicker from 'expo-image-picker'
             shadowRadius: 10.0,
             elevation: 11,}}
 
-  placeholder="english,hebrew...."
+  placeholder="english,hebrew,...."
   placeholderTextColor={'grey'}
   onChangeText={(userLanguage) => setLanguage(userLanguage)}
   value={language}
@@ -422,7 +464,6 @@ Available
           onChangeText={(userAvai)=>setAvaiDay(userAvai)}
           onch
           value={avaiDay}
-          onPress={checkTextInput}   
       
           underlineColorAndroid='transparent'
        
@@ -455,26 +496,142 @@ Available
           onChangeText={(userPay)=>setPayment(userPay)}
           onch
           value={payment}
-          onPress={checkTextInput}   
       
           underlineColorAndroid='transparent'
        
           ></TextInput>
+               <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+           skills 
+          </Text>
+          
+          {/* <MultiSelect
+        items={[
+          
+          { id: 'Disability Support Worker', name: 'Disability Support Worker' },
+          { id: 'Special Needs Caregiver', name: 'Special Needs Caregiver' },
+          { id: 'Alzheimer Caregiver', name: 'Alzheimer Caregiver' },
+          { id: 'Nutritionist/Dietitian', name: 'Nutritionist/Dietitian' },
+          { id: 'Home Care Nurse', name: 'Home Care Nurse' },
+          { id: 'Physical Therapist', name: 'Physical Therapist' },
+          { id: 'Home Health Aide', name: 'Home Health Aide' },
+          { id: 'Elderly Care Assistant', name: 'Elderly Care Assistant' },
+          { id: 'Household chores', name: 'Household chores' },
+          { id: 'Transportation assistance', name: 'Transportation assistance' },
+          { id: 'Medication management', name: 'Medication management' },
+          { id: 'other', name: 'other' },
+          // { id: '14', name: 'non' },
+   
+        ]}
+        uniqueKey="id"
+        onSelectedItemsChange={handleSkillChange}
+        selectedItems={skill}
+        selectText="Select skills"
+        searchInputPlaceholderText="Search skills..."
+        tagRemoveIconColor="#CCC"
+        tagBorderColor="#CCC"
+        tagTextColor="#CCC"
+        selectedItemTextColor="#CCC"
+        selectedItemIconColor="#CCC"
+        itemTextColor="#000"
+        displayKey="name"
+        searchInputStyle={{ color: '#CCC' }}
+        submitButtonColor="#CCC"
+        style={{
+          // Add your custom styles here
+          borderWidth: 1,
+          borderColor: '#CCC',
+          borderRadius: 5,
+          padding: 10,
+        }}
+        selectedItemContainerStyle={{
+          // Style for the container around selected items
+          backgroundColor: '#EEE',
+          borderRadius: 5,
+        }}
+        itemContainerStyle={{
+          // Style for each item in the dropdown
+          backgroundColor: '#FFF',
+          borderBottomColor: '#CCC',
+          borderBottomWidth: 1,
+        }}
+        itemStyle={{
+          // Style for the text of each item in the dropdown
+          padding: 10,
+        }}
+        tagStyle={{
+          // Style for each selected item tag
+          backgroundColor: '#CCC',
+          borderRadius: 5,
+        }}
+      /> */}
+       <MultiSelect
+        items={options}
+        uniqueKey="id"
+        onSelectedItemsChange={handleSkillChange}
+        selectedItems={selectedItems}
+        selectText="Select skills"
+        searchInputPlaceholderText="Search skills..."
+        tagRemoveIconColor="#CCC"
+        tagBorderColor="#CCC"
+        tagTextColor="#CCC"
+        selectedItemTextColor="#CCC"
+        selectedItemIconColor="#CCC"
+        itemTextColor="#000"
+        displayKey="name"
+        searchInputStyle={{ color: '#CCC' }}
+        submitButtonColor="#CCC"
+        style={{
+          borderWidth: 1,
+          borderColor: '#CCC',
+          borderRadius: 5,
+          padding: 10,
+        }}
+        selectedItemContainerStyle={{
+          backgroundColor: '#EEE',
+          borderRadius: 5,
+        }}
+        itemContainerStyle={{
+          backgroundColor: '#FFF',
+          borderBottomColor: '#CCC',
+          borderBottomWidth: 1,
+        }}
+        itemStyle={{
+          padding: 10,
+        }}
+        tagStyle={{
+          backgroundColor: '#CCC',
+          borderRadius: 5,
+        }}
+      />
+      {showOtherTextInput && (
+        <TextInput
+          placeholder="Enter other skill"
+          onChangeText={handleOtherSkillChange}
+          value={otherSkill}
+          style={{
+            borderWidth: 1,
+            borderColor: '#CCC',
+            borderRadius: 5,
+            padding: 10,
+            marginTop: 10,
+          }}
+        />
+      )}
         </View>
         <TouchableOpacity style={styles.buttonLoginStyle}    onPress={functionCombined}>
           <Text style={styles.logInStyle}
           >
             continue</Text>
         </TouchableOpacity>
-        {/* </ScrollView> */}
-        
-        
-     </SafeAreaView>
-      </ScrollView>
+
+        </SafeAreaView>
+        </ScrollView>
+  
+      
     );
   };
   
-  export default InfoScreen;
+  export default DetailScreen;
   
   const styles = StyleSheet.create({
 

@@ -4,11 +4,22 @@ import { firebase } from "../../config";
 import { SafeAreaView } from "react-native-safe-area-context";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-
+import ChatScreen from "./ChatScreen";
 const UserProfileScreen = () => {
   const navigation = useNavigation();
   const [users, setUsers] = useState([]);
-
+  const getFlexContainerStyle = (skillArray) => {
+    const numberOfSkills = skillArray.length;
+    return {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: numberOfSkills > 4 ? 'flex-start' : 'center',
+      alignItems: 'center',
+      marginTop: 76,
+      
+    };
+  };
+  
   useEffect(() => {
     const currentUser = firebase.auth().currentUser;
     if (currentUser) {
@@ -21,6 +32,7 @@ const UserProfileScreen = () => {
             userGender,
             userName,
             userAge,
+            userSkill,
             userLanguage,
             userCity,
             userHobbies,
@@ -36,6 +48,7 @@ const UserProfileScreen = () => {
             userName,
             userGender,
             userAge,
+            userSkill,
             userLanguage,
             userCity,
             userHobbies,
@@ -52,7 +65,7 @@ const UserProfileScreen = () => {
   }, []);
 
   return (
-   
+   <ScrollView>
       <SafeAreaView>
         
         <View>
@@ -80,6 +93,7 @@ const UserProfileScreen = () => {
               <Text style={{ color: "#000000", fontWeight: "bold", marginLeft: 249, top: -283, width: 90, height: 25, textAlign: 'center' }}> message</Text>
             </TouchableOpacity>
           </View>
+          
           <View style={styles.userInfoContainer}>
             {users.map((item, index) => (
               <View key={index} style={styles.userInfo}>
@@ -89,7 +103,7 @@ const UserProfileScreen = () => {
                 />
                 <Text style={styles.userName}>{item.userName}</Text>
                 {item.userGender === 'male' ? (
-                  <FontAwesome name="male" style={styles.icon} size={30} color="blue" />
+                  <FontAwesome name="male" style={styles.icon} size={30} color="#1B92D6" />
                 ) : item.userGender === 'female' ? (
                   <FontAwesome name="female" style={styles.icon} size={30} color="#943ADA" />
                 ) : null}
@@ -114,6 +128,7 @@ const UserProfileScreen = () => {
                       <Text key={index} style={styles.language}>{language.trim()}</Text>
                     ))}
                   </View>
+                
                 </View>
                 <View style={styles.userDetailsSection}>
                   <Text style={styles.sectionTitle}>Hobbies</Text>
@@ -152,16 +167,23 @@ const UserProfileScreen = () => {
           {item.userPay} 
     </Text> 
       </View>
-    
-        
-
         </View>
-    
+    <View style={[styles.skillsContainer, getFlexContainerStyle(item.userSkill)]}>
+  <Text style={{fontSize:18,fontWeight:'bold',right:75, marginTop: 10}}>Skills</Text>
+  {item.userSkill.map((skill, index) => (
+    <Text key={index} style={styles.skillText}>{skill}</Text>
+  ))}
+</View>
+       
               </View>
             ))}
+            
           </View>
+          
         </View>
+        
       </SafeAreaView>
+      </ScrollView>
    
   );
 };
@@ -187,10 +209,26 @@ const styles = StyleSheet.create({
     fontSize: 17,
     marginTop: 15,
     fontWeight: 'bold',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
   icon: {
     left: 100,
     bottom: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
   userAge: {
     textAlign: 'center',
@@ -198,15 +236,39 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: "#9E9E9E",
     fontSize: 17,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
   userLocation: {
     flexDirection: 'row',
     alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
   locationIcon: {
     resizeMode: "contain",
     marginRight: 4,
     marginTop: -8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
   userInfoCity: {
     textAlign: 'center',
@@ -214,17 +276,34 @@ const styles = StyleSheet.create({
     fontSize: 17,
     marginTop: -8,
     marginRight: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
   userDetailsContainer: {
     bottom: 390,
     left: 120,
     alignSelf: 'center',
     marginRight: 120,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
   userDetails: {
     alignItems: 'left',
     marginRight: 120,
     marginTop: -30,
+    
   },
   userDetailsSection: {
     marginBottom: 20,
@@ -232,11 +311,19 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontSize: 18,
     fontWeight: 'bold',
+    
   },
   languageContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginTop: 5,
+    
+    
+  },
+  skillsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    textAlign: 'left'
   },
   language: {
     textAlign: 'center',
@@ -250,6 +337,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight: 10, // Added margin to create space between the language items
     marginBottom: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
   hobbiesContainer: {
     flexDirection: 'row',
@@ -268,11 +363,27 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight: 10, 
     marginBottom: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
   bottomBox: {
     left: -10,
     top: 60,
     resizeMode: "contain",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
   userDetailsText: {
     textAlign: 'center',
@@ -281,5 +392,34 @@ const styles = StyleSheet.create({
     marginTop: 15,
     width: 90,
     height: 25,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
+  skillText: {
+    textAlign: 'center',
+    color: '#000000',
+    fontSize: 17,
+    backgroundColor: '#FFFFFF',
+    marginRight: 10,
+    marginBottom: 10,
+    padding: 5,
+    borderRadius: 10,
+    overflow: 'hidden', 
+    borderWidth: 1,
+    borderColor: 'rgba(148, 58, 218, 0.83)',
+  },
+  
 });
+
+
+
+
+
+
+
