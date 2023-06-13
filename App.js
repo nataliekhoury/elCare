@@ -70,14 +70,14 @@ function App() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
     {/* <Stack.Screen name="MatchingScreen" component={MatchingScreen} /> */}
         {/* <Stack.Screen name="EventScreen" component={EventScreen} /> */}
-         {/* <Stack.Screen name="EventInfoScreen" component={EventInfoScreen} /> */}
+         {/* <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} /> */}
          <Stack.Screen name="CaregiverProfileScreen" component={CaregiverProfileScreen} />
          <Stack.Screen name="ChatListScreen" component={ChatListScreen} />
-          <Stack.Screen name="DrawerNav" component={DrawerNav} />
+          {/* <Stack.Screen name="DrawerNav" component={DrawerNav} /> */}
           <Stack.Screen name="DetailScreen" component={DetailScreen} />
           <Stack.Screen name="ChatScreen" component={ChatScreen} />
-          {/* <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
-        <Stack.Screen name="ElderlyProfileScreen" component={ElderlyProfileScreen} /> */}
+          <Stack.Screen name="UserProfileScreen" component={UserProfileScreen} />
+        <Stack.Screen name="ElderlyProfileScreen" component={ElderlyProfileScreen} />
     </Stack.Navigator>
     );
     
