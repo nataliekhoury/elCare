@@ -39,61 +39,57 @@ import MultiSelect from 'react-native-multiple-select';
     const [payment,setPayment]=useState('');
     const [image,setImage]=useState(null);
     const [uploading,setUploading]=useState(false);
-
-
-    const [selectedItems, setSelectedItems] = useState([]);
+    const [selectedItems, setSelectedItems] = useState('');
     const [otherSkill, setOtherSkill] = useState('');
     const [showOtherTextInput, setShowOtherTextInput] = useState(false);
   
   
-    //add a new field
-    const addInfo =async () =>{
-      if (age>19){
-        const timeStamp =firebase.firestore.FieldValue.serverTimestamp();
-        const user= firebase.auth()?.currentUser?.email;
-        const data ={
-          userName:name,
-          userAge :age,
-          userGender:gender,
-          userLanguage :language,
-          userSkill:selectedItems,
-          userOtherSkill:otherSkill,
-          userCity:city,
-          userHobbies:hobbies,
-          userAvai:avaiDay,
-          userPay:payment,
-          userExperience:experience,
-          createdAt:timeStamp,
-          userId:user,
-          userImage:image.uri,
-        };
-        uploadDta.add(data).then(()=>{
-            setName('')
-            setGender('')
-            setAge('');
-            setLanguage('')
-            setSelectedItems('')
-            setCity('')
-            setOtherSkill('')
-            setHobbies('')
-            setAvaiDay('')
-            setPayment('')
-            setExperience('')
-          Keyboard.dismiss();
-        }) .then(() => {
-          Alert.alert("your information has been updated!");
-             navigation.replace('UserProfileScreen');
-
-        })
-        .catch((error)=>{
-          alert(error)
-        })
-        // .then(()=>{
-        //     navigation.replace('UserProfileScreen');
-        // })
-
+      const addInfo =async () =>{
+        if (age>19){
+          const timeStamp =firebase.firestore.FieldValue.serverTimestamp();
+          const user= firebase.auth()?.currentUser?.email;
+          const data ={
+            userName:name,
+            userAge :age,
+            userGender:gender,
+            userLanguage :language,
+            userSkill:selectedItems,
+            userOtherSkill:otherSkill,
+            userCity:city,
+            userHobbies:hobbies,
+            userAvai:avaiDay,
+            userPay:payment,
+            userExperience:experience,
+            createdAt:timeStamp,
+            userId:user,
+            userImage:image.uri,
+          };
+          uploadDta.add(data).then(()=>{
+              setName('')
+              setGender('')
+              setAge('');
+              setLanguage('')
+              setSelectedItems('')
+              setCity('')
+              setOtherSkill('')
+              setHobbies('')
+              setAvaiDay('')
+              setPayment('')
+              setExperience('')
+            Keyboard.dismiss();
+          }) .then(() => {
+            navigation.navigate('LoginScreen');    /// this is the change 
+            Alert.alert("your information has been updated!");
+  
+          })
+          .catch((error)=>{
+            alert(error)
+          })
+  
+        }
       }
-    }
+
+    
 
   const pickImage =async()=>{
     let result =await ImagePicker.launchImageLibraryAsync({
@@ -122,9 +118,7 @@ import MultiSelect from 'react-native-multiple-select';
     setImage(null);
    }
 
-  //  const handleSkillChange = (selectedItems) => {
-  //   setSkill(selectedItems);
-  // };
+
 
   // checks if the text input is empty or not 
   const checkTextInput = () => {
@@ -278,10 +272,11 @@ import MultiSelect from 'react-native-multiple-select';
           </Text>
           
        <RNPickerSelect
+      style={pickerSelectStyles}
         value={gender}
         onValueChange={(itemValue) => setGender(itemValue)}
         items={[
-          { label: 'Select Gender', value: '' },
+          
           { label: 'Male', value: 'male' },
           { label: 'Female', value: 'female' },
         ]}
@@ -504,106 +499,29 @@ Available
            skills 
           </Text>
           
-          {/* <MultiSelect
-        items={[
-          
-          { id: 'Disability Support Worker', name: 'Disability Support Worker' },
-          { id: 'Special Needs Caregiver', name: 'Special Needs Caregiver' },
-          { id: 'Alzheimer Caregiver', name: 'Alzheimer Caregiver' },
-          { id: 'Nutritionist/Dietitian', name: 'Nutritionist/Dietitian' },
-          { id: 'Home Care Nurse', name: 'Home Care Nurse' },
-          { id: 'Physical Therapist', name: 'Physical Therapist' },
-          { id: 'Home Health Aide', name: 'Home Health Aide' },
-          { id: 'Elderly Care Assistant', name: 'Elderly Care Assistant' },
-          { id: 'Household chores', name: 'Household chores' },
-          { id: 'Transportation assistance', name: 'Transportation assistance' },
-          { id: 'Medication management', name: 'Medication management' },
-          { id: 'other', name: 'other' },
-          // { id: '14', name: 'non' },
-   
-        ]}
-        uniqueKey="id"
-        onSelectedItemsChange={handleSkillChange}
-        selectedItems={skill}
-        selectText="Select skills"
-        searchInputPlaceholderText="Search skills..."
-        tagRemoveIconColor="#CCC"
-        tagBorderColor="#CCC"
-        tagTextColor="#CCC"
-        selectedItemTextColor="#CCC"
-        selectedItemIconColor="#CCC"
-        itemTextColor="#000"
-        displayKey="name"
-        searchInputStyle={{ color: '#CCC' }}
-        submitButtonColor="#CCC"
-        style={{
-          // Add your custom styles here
-          borderWidth: 1,
-          borderColor: '#CCC',
-          borderRadius: 5,
-          padding: 10,
-        }}
-        selectedItemContainerStyle={{
-          // Style for the container around selected items
-          backgroundColor: '#EEE',
-          borderRadius: 5,
-        }}
-        itemContainerStyle={{
-          // Style for each item in the dropdown
-          backgroundColor: '#FFF',
-          borderBottomColor: '#CCC',
-          borderBottomWidth: 1,
-        }}
-        itemStyle={{
-          // Style for the text of each item in the dropdown
-          padding: 10,
-        }}
-        tagStyle={{
-          // Style for each selected item tag
-          backgroundColor: '#CCC',
-          borderRadius: 5,
-        }}
-      /> */}
-       <MultiSelect
-        items={options}
-        uniqueKey="id"
-        onSelectedItemsChange={handleSkillChange}
-        selectedItems={selectedItems}
-        selectText="Select skills"
-        searchInputPlaceholderText="Search skills..."
-        tagRemoveIconColor="#CCC"
-        tagBorderColor="#CCC"
-        tagTextColor="#CCC"
-        selectedItemTextColor="#CCC"
-        selectedItemIconColor="#CCC"
-        itemTextColor="#000"
-        displayKey="name"
-        searchInputStyle={{ color: '#CCC' }}
-        submitButtonColor="#CCC"
-        style={{
-          borderWidth: 1,
-          borderColor: '#CCC',
-          borderRadius: 5,
-          padding: 10,
-        }}
-        selectedItemContainerStyle={{
-          backgroundColor: '#EEE',
-          borderRadius: 5,
-        }}
-        itemContainerStyle={{
-          backgroundColor: '#FFF',
-          borderBottomColor: '#CCC',
-          borderBottomWidth: 1,
-        }}
-        itemStyle={{
-          padding: 10,
-        }}
-        tagStyle={{
-          backgroundColor: '#CCC',
-          borderRadius: 5,
-        }}
-      />
-      {showOtherTextInput && (
+          <View style={styles.container}>
+  <MultiSelect
+    style={multiSelectStyles}
+    items={options}
+    uniqueKey="id"
+    onSelectedItemsChange={handleSkillChange}
+    selectedItems={selectedItems}
+    selectText="Select skills"
+    searchInputPlaceholderText="Search skills..."
+    tagRemoveIconColor="#CCC"
+    tagBorderColor="#6A61CF"
+    tagTextColor="#CCC"
+    selectedItemTextColor="#CCC"
+    selectedItemIconColor="#CCC"
+    itemTextColor="#000"
+    displayKey="name"
+    searchInputStyle={{ color: '#CCC' }}
+    submitButtonColor="#CCC"
+    submitButtonStyle={multiSelectStyles.submitButton}
+  />
+</View>
+
+      {/* {showOtherTextInput && (
         <TextInput
           placeholder="Enter other skill"
           onChangeText={handleOtherSkillChange}
@@ -616,7 +534,7 @@ Available
             marginTop: 10,
           }}
         />
-      )}
+      )} */}
         </View>
         <TouchableOpacity style={styles.buttonLoginStyle}    onPress={functionCombined}>
           <Text style={styles.logInStyle}
@@ -708,3 +626,89 @@ Available
       }
   });
   
+  const pickerSelectStyles = StyleSheet.create({
+    inputIOS: {
+      fontSize: 16,
+      width:335,
+      alignSelf:'center',
+      backgroundColor:'white',
+      paddingVertical: 15,
+      paddingHorizontal:60,
+      // borderWidth: 1,
+      // borderColor: 'gray',
+      borderRadius: 30,
+      // color: 'black',
+      paddingRight: 10,
+      shadowOffset: {
+        width: 0,
+        height: 5,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11, // To ensure the text is not obscured by the icon
+    },
+    inputAndroid: {
+      fontSize: 16,
+      width:335,
+      alignSelf:'center',
+      paddingHorizontal: 60,
+      paddingVertical: 8,
+      // borderWidth: 1,
+      // // borderColor: 'gray',
+      borderRadius: 30,
+      // color: 'black',
+      paddingRight: 30, 
+      shadowOffset: {
+        width: 0,
+        height: 5,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,// To ensure the text is not obscured by the icon
+    },
+  });
+
+  
+
+  const multiSelectStyles = StyleSheet.create({
+    inputAndroid: {
+      fontSize: 16,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 8,
+      color: '#CCC',
+      paddingRight: 30, // To ensure the text is not obscured by the icon
+    },
+    inputIOS: {
+      fontSize: 16,
+      paddingVertical: 12,
+      paddingHorizontal: 10,
+      borderWidth: 1,
+      borderColor: 'gray',
+      borderRadius: 4,
+      color: '#CCC',
+      paddingRight: 30, // To ensure the text is not obscured by the icon
+    },
+    selectedItem: {
+      backgroundColor: '#CCC',
+      borderRadius: 20,
+      padding: 10,
+    },
+    submitButton: {
+      backgroundColor: '#CCC',
+      borderRadius: 4,
+      padding: 10,
+      marginVertical: 10,
+    },
+    rowItem: {
+      borderBottomColor: 'gray',
+      borderBottomWidth: 1,
+      paddingVertical: 10,
+    },
+    rowText: {
+      fontSize: 16,
+      color: '#000',
+    },
+  });

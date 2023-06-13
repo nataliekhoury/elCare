@@ -280,53 +280,57 @@
 
 
 
+// import * as React from 'react';
+// import { Text, View } from 'react-native';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import EventScreen from './EventScreen';
+// import { firebase } from "../../config";
+// import UserProfileScreen from './UserProfileScreen';
+// import PostFeedScreen from './PostFeedScreen';
+// import ChatListScreen from "./ChatListScreen"
 
+// function EventS() {
+//   return <EventScreen />;
+// }
 
+// async function ProfileS() {
+//   return <UserProfileScreen />;
+// }
+// function FeedS() {
+//   return <PostFeedScreen />;
+// }
 
+// function ChatS() {
+//   return <ChatListScreen />;
+// }
 
-import * as React from 'react';
-import { Text, View } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import EventScreen from './EventScreen';
-import UserProfileScreen from './UserProfileScreen';
-import PostFeedScreen from './PostFeedScreen';
-import ChatListScreen from "./ChatListScreen"
+// const Tab = createBottomTabNavigator();
 
-
-function EventS(){
-  return <EventScreen/>
- }
- function ProfileS(){
-  return <UserProfileScreen/>
- }
- function FeedS(){
-  return <PostFeedScreen/>
- }
- function ChatS(){
-  return <ChatListScreen/>
- }
-
-
- 
-
-
-const Tab = createBottomTabNavigator();
-
-export default function DrawerNav() {
-  return (
-    // <NavigationContainer>
-    <Tab.Navigator  screenOptions={{ headerShown: false }}>
+// export default function DrawerNav() {
+//   return (
     
-      <Tab.Screen name = 'Event' component={EventS} options={{ home:3 }}/>
-      <Tab.Screen name = 'Profile' component={ProfileS}/>
-      <Tab.Screen name = 'Feed' component={FeedS}/>
-      <Tab.Screen name = 'Chat' component={ChatS}/>
+//       <Tab.Navigator screenOptions={{ headerShown: false }}>
+//         <Tab.Screen name='Event' component={EventS} options={{ home: 3 }} />
+//         <Tab.Screen name='Profile' component={ProfileS} />
+//         <Tab.Screen name='Feed' component={FeedS} />
+//         <Tab.Screen name='Chat' component={ChatS} />
+//       </Tab.Navigator>
+   
+//   );
+// }
 
-    </Tab.Navigator>
-  // {/* </NavigationContainer> */}
 
-  );
+
+import { View, Text } from 'react-native'
+import React from 'react'
+
+const DrawerNav = () => {
+  return (
+    <View>
+      <Text>DrawerNav</Text>
+    </View>
+  )
 }
 
-
+export default DrawerNav
