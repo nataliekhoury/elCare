@@ -284,15 +284,58 @@
 
 
 
+// import * as React from 'react';
+// import { Text, View } from 'react-native';
+// import { NavigationContainer } from '@react-navigation/native';
+// import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+// import EventScreen from './EventScreen';
+// import UserProfileScreen from './UserProfileScreen';
+// import ChatListScreen from './ChatListScreen';
+// import PostFeedScreen from './PostFeedScreen';
+// import home from '../images/home.png';
+
+// function EventS(){
+//   return <EventScreen/>
+//  }
+//  function ProfileS(){
+//   return <UserProfileScreen/>
+//  }
+//  function FeedS(){
+//   return <PostFeedScreen/>
+//  }
+//  function ChatS(){
+//   return <ChatListScreen/>
+//  }
+ 
+
+
+// const Tab = createBottomTabNavigator();
+
+// export default function DrawerNav() {
+//   return (
+//     // <NavigationContainer>
+//     <Tab.Navigator  screenOptions={{ headerShown: false }}>
+    
+//       <Tab.Screen name = 'Event' component={EventS} options={{ home:3 }}/>
+//       <Tab.Screen name = 'Profile' component={ProfileS}/>
+//       <Tab.Screen name = 'Feed' component={FeedS}/>
+//       <Tab.Screen name = 'Chat' component={ChatS}/>
+
+//     </Tab.Navigator>
+//   // {/* </NavigationContainer> */}
+
+//   );
+// }
+
 import * as React from 'react';
 import { Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import EventScreen from './EventScreen';
 import UserProfileScreen from './UserProfileScreen';
-import ChatListScreen from './ChatListScreen';
 import PostFeedScreen from './PostFeedScreen';
-import home from '../images/home.png';
+import ChatListScreen from "./ChatListScreen"
+
 
 function EventS(){
   return <EventScreen/>
@@ -306,6 +349,8 @@ function EventS(){
  function ChatS(){
   return <ChatListScreen/>
  }
+
+
  
 
 

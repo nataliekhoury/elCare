@@ -91,7 +91,6 @@ const handleChange = () => {
               .collection("user")
               .doc(firebase.auth().currentUser.uid) 
               .set({
-
                 name,
                 email,
               });
@@ -436,7 +435,7 @@ const handleChange = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonJoinNowStyle}
-          onPress={() => navigation.navigate("LoginScreen")}
+          onPress={() => navigation.navigate("InfoScreen")}
         >
           <Text style={styles.joinStyle}>Login</Text>
         </TouchableOpacity>

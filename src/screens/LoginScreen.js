@@ -33,7 +33,8 @@ const LoginScreen = () => {
     const unsubscribe=firebase.auth().onAuthStateChanged
     (function(user){
       if (user){
-      navigation.replace('DrawerNav');
+      // navigation.replace('DrawerNav');
+      navigation.navigate('DrawerNav');
      
       }else {
         navigation.canGoBack() 

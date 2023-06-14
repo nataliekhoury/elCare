@@ -24,6 +24,7 @@ import * as ImagePicker from 'expo-image-picker'
  const InfoScreen = () => {
 
     const navigation = useNavigation();
+    const [currentUser, setCurrentUser] = useState('');
     const uploadDta = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
     const [name,setName]=useState('');
     const [age,setAge]=useState('');

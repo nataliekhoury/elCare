@@ -529,9 +529,9 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
   title: {
-    fontSize: 25,
+    fontSize: 30,
     fontWeight: 'bold',
-    top: 40,
+    top: 30,
     paddingStart: 20,
     paddingBottom: 20,
   },
