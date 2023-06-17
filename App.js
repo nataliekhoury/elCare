@@ -334,7 +334,7 @@ function App() {
         <Stack.Screen name="LoginScreen" component={LoginScreen} />
         <Stack.Screen name="ForgetPasswordScreen" component={ForgetPasswordScreen} />
         <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
-        {/* <Stack.Screen name="DetailScreen" component={DetailScreen} /> */}
+        <Stack.Screen name="DetailScreen" component={DetailScreen} />
         <Stack.Screen name="EventScreen" component={EventScreen} />
 
       </Stack.Navigator>

@@ -1236,14 +1236,22 @@
 //   },
 // });
 
-
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TextInput, Button, SafeAreaView, Image, TouchableOpacity, Alert, Keyboard } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Button,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  Alert,
+  Keyboard,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { firebase } from "../../config";
+import { firebase } from '../../config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddPostFeedScreen = () => {
@@ -1254,14 +1262,17 @@ const AddPostFeedScreen = () => {
   const [isSaved, setIsSaved] = useState(false);
   const [userName, setUserName] = useState('');
   const [userImage, setUserImage] = useState(null);
-  const [user, setUser] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const currentUser = firebase.auth().currentUser;
         if (currentUser) {
-          const userDataRef = await firebase.firestore().collection("userData").where("userId", "==", currentUser.email).get();
+          const userDataRef = await firebase
+            .firestore()
+            .collection('userData')
+            .where('userId', '==', currentUser.email)
+            .get();
           if (!userDataRef.empty) {
             const userData = userDataRef.docs[0].data();
             setUserName(userData.userName);
@@ -1281,20 +1292,28 @@ const AddPostFeedScreen = () => {
       const timeStamp = firebase.firestore.FieldValue.serverTimestamp();
       const data = {
         caption: caption,
-        imageUrl: imageUrl,
         isSaved: isSaved,
         createdAt: timeStamp,
-        userName: userName, // Use userName from the state
+        userName: userName,
         userImage: userImage,
       };
+  
       try {
-        await addPost.add(data);
+        const docRef = await addPost.add(data);
+        const postId = docRef.id;
+        if (imageUrl) {
+          const imageRef = firebase.storage().ref().child(`images/${postId}`);
+          const response = await fetch(imageUrl);
+          const blob = await response.blob();
+          await imageRef.put(blob);
+          const downloadURL = await imageRef.getDownloadURL();
+          await docRef.update({ imageUrl: downloadURL });
+        }
+  
         setCaption('');
         setImageUrl(null);
-        setUserName(''); 
-        setUserImage(null);
         Keyboard.dismiss();
-        Alert.alert("Your information has been updated!");
+        Alert.alert('Your information has been updated!');
         navigation.replace('PostFeedScreen');
       } catch (error) {
         alert(error);
@@ -1311,6 +1330,7 @@ const AddPostFeedScreen = () => {
       quality: 1,
       borderRadius: 1800,
     });
+
     if (!result.cancelled) {
       setImageUrl(result.uri);
     }
@@ -1322,32 +1342,19 @@ const AddPostFeedScreen = () => {
         const responseUploading = await fetch(imageUrl);
         const blob = await responseUploading.blob();
         const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+
         const ref = firebase.storage().ref().child(filename);
-        await ref.put(blob);
-        Alert.alert('Photo uploaded');
-        setImageUrl(null);
+        const snapshot = await ref.put(blob);
+
+        const downloadURL = await snapshot.ref.getDownloadURL();
+        console.log('Download URL:', downloadURL);
+
+        setImageUrl(downloadURL);
       } catch (error) {
-        console.log(error);
+        console.error('Error uploading image:', error);
       }
     }
   };
-  // const uploadImage = async () => {
-  //   if (imageUrl) {
-  //     try {
-  //       const responseUploading = await fetch(imageUrl);
-  //       const blob = await responseUploading.blob();
-  //       const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
-  //       const ref = firebase.storage().ref().child(filename);
-  //       await ref.put(blob);
-  //       Alert.alert('Photo uploaded');
-  //       setImageUrl(null);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  // };
-  
-  
 
   const handleSave = () => {
     console.log('Saved:', caption, imageUrl);
@@ -1358,53 +1365,45 @@ const AddPostFeedScreen = () => {
     if (isSaved) {
       setCaption('');
       setImageUrl(null);
-      setUserName('');
-      setUserImage(null);
       setIsSaved(false);
     }
   }, [isSaved]);
 
-  const functionCombined = () => {
-    addInfo();
-    uploadImage();
+  const functionCombined = async () => {
+    await uploadImage();
+    await addInfo();
     handleSave();
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView style={styles.container}>
-       
-        <Image source={require('../images/Ellipse.png')} style={styles.topImage} />
-         <TouchableOpacity onPress={() => navigation.navigate('PostFeedScreen')}>
-          <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
-        </TouchableOpacity>
-        <Text style={styles.title}>Add a New Post</Text>
-        {/* <View contentContainerStyle={styles.contentContainer}> */}
-          <TouchableOpacity onPress={pickImage}>
-            <View style={styles.imageContainer}>
-              {imageUrl ? (
-                <Image source={{ uri: imageUrl }} style={styles.selectedImage} />
-              ) : (
-                <Image source={require("../images/addphoto.png")} style={styles.addPhotoIcon} />
-              )}
-            </View>
-          </TouchableOpacity>
-          <Text style={styles.fieldLabel}>What's on your mind?</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Type Something..."
-            placeholderTextColor="grey"
-            autoCorrect={true}
-            onChangeText={(caption) => setCaption(caption)}
-            value={caption}
-            multiline={false}
-          />
-          <View style={styles.buttonContainer}>
-            <Button title="POST" color='white' onPress={functionCombined} />
-          </View>
-        {/* </View> */}
-      </SafeAreaView>
-    </GestureHandlerRootView>
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('PostFeedScreen')}>
+        <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
+      </TouchableOpacity>
+      <Text style={styles.title}>Add a New Post</Text>
+      <TouchableOpacity onPress={pickImage}>
+        <View style={styles.imageContainer}>
+          {imageUrl ? (
+            <Image source={{ uri: imageUrl }} style={styles.selectedImage} />
+          ) : (
+            <Image source={require('../images/addphoto.png')} style={styles.addPhotoIcon} />
+          )}
+        </View>
+      </TouchableOpacity>
+      <Text style={styles.fieldLabel}>What's on your mind?</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Type Something..."
+        placeholderTextColor="grey"
+        autoCorrect={true}
+        onChangeText={(caption) => setCaption(caption)}
+        value={caption}
+        multiline={false}
+      />
+      <View style={styles.buttonContainer}>
+        <Button title="POST" color="white" onPress={functionCombined} />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -1415,22 +1414,11 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     backgroundColor: '#FFFFFF',
-    
   },
   backIcon: {
     width: 40,
     height: 40,
-    top: -200,
     marginStart: 10,
-  },
-  topImage: {
-    // width: '100%',
-    width: 1000,
-    height: 200,
-    resizeMode: 'contain',
-    marginBottom: 20,
-    top: -80,
-    alignSelf: 'center',
   },
   title: {
     fontSize: 25,
@@ -1438,10 +1426,6 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     marginBottom: -10,
     paddingStart: 20,
-    top: -65,
-  },
-  contentContainer: {
-    flexGrow: 1,    
   },
   imageContainer: {
     alignItems: 'center',
@@ -1452,7 +1436,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#EAEAEA',
     marginBottom: 20,
     borderRadius: 10,
-    top: -30,
   },
   addPhotoIcon: {
     width: 40,
@@ -1470,11 +1453,10 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     paddingStart: 20,
-    top: -20,
   },
   textInput: {
     height: 140,
-    fontSize: '18',
+    fontSize: 18,
     borderColor: '#CCCCCC',
     width: 350,
     alignSelf: 'center',
@@ -1482,21 +1464,17 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 20,
-    top: -20,
   },
   buttonContainer: {
     marginTop: -25,
     width: 200,
     alignSelf: 'center',
-    backgroundColor: "rgba(106, 97, 207, 0.84)",
-    borderRadius: "50",
+    backgroundColor: 'rgba(106, 97, 207, 0.84)',
+    borderRadius: 50,
     paddingHorizontal: 10,
-    justifyContent: "center",
-    alignItem: "center",
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingVertical: 10,
-    // marginLeft: 38,
-    // marginBottom:-59,
-    // marginTop: 50,
     shadowOffset: {
       width: 0,
       height: 10,
@@ -1506,4 +1484,3 @@ const styles = StyleSheet.create({
     elevation: 11,
   },
 });
-
