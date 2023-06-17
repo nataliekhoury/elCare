@@ -1331,6 +1331,23 @@ const AddPostFeedScreen = () => {
       }
     }
   };
+  // const uploadImage = async () => {
+  //   if (imageUrl) {
+  //     try {
+  //       const responseUploading = await fetch(imageUrl);
+  //       const blob = await responseUploading.blob();
+  //       const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+  //       const ref = firebase.storage().ref().child(filename);
+  //       await ref.put(blob);
+  //       Alert.alert('Photo uploaded');
+  //       setImageUrl(null);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  // };
+  
+  
 
   const handleSave = () => {
     console.log('Saved:', caption, imageUrl);

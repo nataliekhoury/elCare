@@ -34,7 +34,7 @@ const LoginScreen = () => {
     (function(user){
       if (user){
       // navigation.replace('DrawerNav');
-      navigation.navigate('DrawerNav');
+      navigation.navigate('EventScreen');
      
       }else {
         navigation.canGoBack() 

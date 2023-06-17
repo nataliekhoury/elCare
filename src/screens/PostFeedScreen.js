@@ -1403,6 +1403,221 @@
 
 // export default PostFeedScreen;
 
+
+// import React, { useEffect, useState } from 'react';
+// import { View, StyleSheet, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
+// import { firebase } from '../../config';
+// import { useNavigation } from '@react-navigation/native';
+// import { SafeAreaView } from 'react-native-safe-area-context';
+
+// function LikeButton({ postId, initialLikes }) {
+//   const [likesCount, setLikesCount] = useState(initialLikes);
+//   const [liked, setLiked] = useState(false);
+
+//   useEffect(() => {
+//     const unsubscribe = firebase
+//       .firestore()
+//       .collection('posts')
+//       .doc(postId)
+//       .onSnapshot((snapshot) => {
+//         const post = snapshot.data();
+//         setLikesCount(post.likesCount || 0);
+//       });
+
+//     return () => unsubscribe();
+//   }, [postId]);
+
+//   useEffect(() => {
+//     const userId = firebase.auth().currentUser.uid;
+//     const likesRef = firebase.firestore().collection('likes').doc(postId).collection('userLikes').doc(userId);
+
+//     likesRef.get().then((doc) => {
+//       if (doc.exists) {
+//         setLiked(true);
+//       }
+//     });
+//   }, [postId]);
+
+//   const handlePress = () => {
+//     const userId = firebase.auth().currentUser.uid;
+//     const likesRef = firebase.firestore().collection('likes').doc(postId).collection('userLikes').doc(userId);
+
+//     if (liked) {
+//       firebase.firestore().collection('posts').doc(postId).update({
+//         likesCount: firebase.firestore.FieldValue.increment(-1),
+//       });
+//       likesRef.delete();
+//       setLikesCount((prevCount) => prevCount - 1);
+//     } else {
+//       firebase.firestore().collection('posts').doc(postId).update({
+//         likesCount: firebase.firestore.FieldValue.increment(1),
+//       });
+//       likesRef.set({ liked: true });
+//       setLikesCount((prevCount) => prevCount + 1);
+//     }
+
+//     setLiked(!liked);
+//   };
+
+//   return (
+//     <TouchableOpacity onPress={handlePress}>
+//       <View style={styles.likeButtonContainer}>
+//         <Image
+//           source={liked ? require('../images/heartFilled.png') : require('../images/heartOutline.png')}
+//           style={{ width: 30, height: 30, tintColor: liked ? '#943ADA' : 'black' }}
+//         />
+//         <Text style={styles.likesCount}>{likesCount}</Text>
+//       </View>
+//     </TouchableOpacity>
+//   );
+// }
+
+// const PostFeedScreen = () => {
+//   const navigation = useNavigation();
+//   const [posts, setPosts] = useState([]);
+//   const [isLoading, setIsLoading] = useState(true);
+//   const [isCaptionLoaded, setIsCaptionLoaded] = useState(false);
+
+//   useEffect(() => {
+//     const fetchPosts = async () => {
+//       try {
+//         const snapshot = await firebase.firestore().collection('posts').get();
+//         const fetchedPosts = snapshot.docs.map((doc) => ({
+//           id: doc.id,
+//           ...doc.data(),
+//         }));
+//         setPosts(fetchedPosts);
+//         setIsLoading(false);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     };
+
+//     fetchPosts();
+//   }, []);
+
+//   const formatDate = (date) => {
+//     return date.toLocaleDateString();
+//   };
+
+//   const handleCaptionLoad = () => {
+//     setIsCaptionLoaded(true);
+//   };
+
+//   return (
+//     <SafeAreaView>
+//       <Text style={styles.title}>Post Feed</Text>
+//       <TouchableOpacity onPress={() => navigation.navigate('AddPostFeedScreen')}>
+//         <Image style={styles.addPost} source={require('../images/addPost.png')} />
+//       </TouchableOpacity>
+//       <ScrollView>
+//         {!isLoading &&
+//           posts.map((post) => (
+//             <React.Fragment key={post.id}>
+//               <View style={[styles.postContainer, !post.imageUrl && styles.noImageContainer]}>
+//                 <Text style={styles.userName}>{post.userName}</Text>
+//                 {post.imageUrl && (
+//                   <Image
+//                     source={{ uri: post.imageUrl }}
+//                     style={styles.image}
+//                     onLoad={handleCaptionLoad}
+//                   />
+//                 )}
+//                 <Text style={styles.createdAt}>{formatDate(post.createdAt.toDate())}</Text>
+//                 <View style={styles.likeButtonContainer}>
+//                   <LikeButton postId={post.id} initialLikes={post.likesCount || 0} />
+//                 </View>
+//                 <Text style={[styles.caption, isCaptionLoaded && { marginTop: 10 }]}>
+//                   {post.caption}
+//                 </Text>
+//               </View>
+//               {isCaptionLoaded && <View style={styles.postLine} />}
+//             </React.Fragment>
+//           ))}
+//       </ScrollView>
+//     </SafeAreaView>
+//   );
+// };
+
+// const styles = StyleSheet.create({
+//   title: {
+//     fontWeight: 'bold',
+//     fontSize: 19,
+//     alignSelf: 'center',
+//     marginVertical: 10,
+//   },
+//   addPost: {
+//     height: 40,
+//     width: 40,
+//     alignSelf: 'flex-end',
+//     marginRight: 10,
+//   },
+//   postContainer: {
+//     padding: 10,
+//     marginVertical: 5,
+//     alignSelf: 'center',
+//     width: 360,
+//     borderRadius: 15,
+//   },
+//   noImageContainer: {
+//     height: 150,
+//   },
+//   userName: {
+//     fontWeight: 'bold',
+//     fontSize: 20,
+//     paddingStart: 20,
+//   },
+//   image: {
+//     width: 330,
+//     height: 180,
+//     marginVertical: 10,
+//     alignSelf: 'center',
+//     borderRadius: 15,
+//   },
+//   createdAt: {
+//     color: '#808080',
+//     fontWeight: 'bold',
+//     fontSize: 12,
+//     position: 'absolute',
+//     right: 10,
+//     bottom: 10,
+//   },
+//   likeButtonContainer: {
+//     flexDirection: 'row',
+//     alignItems: 'center',
+//     marginVertical: 5,
+//   },
+//   likesCount: {
+//     marginLeft: 5,
+//   },
+//   caption: {
+//     fontWeight: '500',
+//     fontSize: 16,
+//     textAlign: 'flex-start',
+//     marginTop: 10,
+//   },
+//   postLine: {
+//     borderBottomWidth: 2,
+//     borderBottomColor: '#E4E4E4',
+//     marginTop: 20,
+//     width: 1300,
+//     alignSelf: 'center',
+//     shadowColor: '#000',
+//     shadowOffset: {
+//       width: 0,
+//       height: 10,
+//     },
+//     shadowOpacity: 0.36,
+//     shadowRadius: 10.0,
+//     elevation: 21,
+//   },
+// });
+
+// export default PostFeedScreen;
+
+
+
+
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Image, Text, TouchableOpacity, ScrollView } from 'react-native';
 import { firebase } from '../../config';
@@ -1512,7 +1727,7 @@ const PostFeedScreen = () => {
       <TouchableOpacity onPress={() => navigation.navigate('AddPostFeedScreen')}>
         <Image style={styles.addPost} source={require('../images/addPost.png')} />
       </TouchableOpacity>
-      <ScrollView style={{ top: -800, maxHeight: 2000 }}>
+      <ScrollView style={{ top: -800, maxHeight: 700 }}>
        
           {!isLoading &&
             posts.map((post) => (
@@ -1635,8 +1850,6 @@ const styles = StyleSheet.create({
 });
 
 export default PostFeedScreen;
-
-
 
 
 
