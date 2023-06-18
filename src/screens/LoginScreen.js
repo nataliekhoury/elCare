@@ -11,7 +11,8 @@ import {
 import React, { useState,useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { useNavigation } from "@react-navigation/native";
-import Images from "../images"
+import Images from "../images";
+// import Field from "./Field";
 import { firebase } from "../../config";
 
 import 'expo-dev-client';
@@ -32,7 +33,8 @@ const LoginScreen = () => {
     const unsubscribe=firebase.auth().onAuthStateChanged
     (function(user){
       if (user){
-      navigation.replace('UserProfileScreen');
+      // navigation.replace('DrawerNav');
+      navigation.navigate('EventScreen');
      
       }else {
         navigation.canGoBack() 

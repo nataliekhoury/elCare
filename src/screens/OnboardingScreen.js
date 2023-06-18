@@ -10,7 +10,8 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Images from "../images";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from '@react-navigation/native';
+
 
 const OnboardingScreen = ({ navigation }) => {
   return (
@@ -76,7 +77,7 @@ const OnboardingScreen = ({ navigation }) => {
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.navigate("LoginScreen")}>
             <Text
-              style={{ fontSize: "15", marginBottom: 56, fontWeight: "bold" }}
+              style={{ fontSize: 15, marginBottom: 56, fontWeight: "bold" }}
             >
               already have an account
             </Text>

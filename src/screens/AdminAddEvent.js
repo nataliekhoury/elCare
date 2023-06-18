@@ -329,7 +329,7 @@ import { firebase } from "../../config";
 
 const AddPostFeedScreen = () => {
   const navigation = useNavigation();
-  const addPost = firebase.firestore().collection('events');
+  const addEvent = firebase.firestore().collection('events');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
@@ -352,8 +352,19 @@ const AddPostFeedScreen = () => {
         isSaved: isSaved,
         createdAt: timeStamp,
       };
+  
       try {
-        await addPost.add(data);
+        const docRef = await addEvent.add(data);
+        const eventId = docRef.id;
+        if (imageUrl) {
+          const imageRef = firebase.storage().ref().child(`images/${eventId}`);
+          const response = await fetch(imageUrl);
+          const blob = await response.blob();
+          await imageRef.put(blob);
+          const downloadURL = await imageRef.getDownloadURL();
+          await docRef.update({ imageUrl: downloadURL });
+        }
+  
         setTitle('');
         setDescription('');
         setDate('');
@@ -368,7 +379,7 @@ const AddPostFeedScreen = () => {
       }
     }
   };
-
+  
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -377,26 +388,91 @@ const AddPostFeedScreen = () => {
       quality: 1,
       borderRadius: 1800,
     });
+  
     if (!result.cancelled) {
       setImageUrl(result.uri);
     }
   };
-
+  
   const uploadImage = async () => {
-    setUploading(true);
-    try {
-      const responseUploading = await fetch(imageUrl);
-      const blob = await responseUploading.blob();
-      const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
-      const ref = firebase.storage().ref().child(filename);
-      await ref.put(blob);
-      Alert.alert('Photo uploaded');
-      setImageUrl(null);
-    } catch (error) {
-      console.log(error);
+    if (imageUrl) {
+      try {
+        const responseUploading = await fetch(imageUrl);
+        const blob = await responseUploading.blob();
+        const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+  
+        const ref = firebase.storage().ref().child(filename);
+        const snapshot = await ref.put(blob);
+  
+        const downloadURL = await snapshot.ref.getDownloadURL();
+        console.log('Download URL:', downloadURL);
+  
+        setImageUrl(downloadURL);
+      } catch (error) {
+        console.error('Error uploading image:', error);
+      }
     }
-    setUploading(false);
   };
+  
+
+  // const addInfo = async () => {
+  //   if (title.length > 0) {
+  //     const timeStamp = firebase.firestore.FieldValue.serverTimestamp();
+  //     const data = {
+  //       title: title,
+  //       description: description,
+  //       date: date,
+  //       time: time,
+  //       location: location,
+  //       imageUrl: imageUrl,
+  //       isSaved: isSaved,
+  //       createdAt: timeStamp,
+  //     };
+  //     try {
+  //       await addPost.add(data);
+  //       setTitle('');
+  //       setDescription('');
+  //       setDate('');
+  //       setTime('');
+  //       setLocation('');
+  //       setImageUrl(null);
+  //       Keyboard.dismiss();
+  //       Alert.alert("Your information has been updated!");
+  //       navigation.replace('EventScreen');
+  //     } catch (error) {
+  //       alert(error);
+  //     }
+  //   }
+  // };
+
+  // const pickImage = async () => {
+  //   let result = await ImagePicker.launchImageLibraryAsync({
+  //     mediaTypes: ImagePicker.MediaTypeOptions.All,
+  //     allowsEditing: true,
+  //     aspect: [4, 3],
+  //     quality: 1,
+  //     borderRadius: 1800,
+  //   });
+  //   if (!result.cancelled) {
+  //     setImageUrl(result.uri);
+  //   }
+  // };
+
+  // const uploadImage = async () => {
+  //   setUploading(true);
+  //   try {
+  //     const responseUploading = await fetch(imageUrl);
+  //     const blob = await responseUploading.blob();
+  //     const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+  //     const ref = firebase.storage().ref().child(filename);
+  //     await ref.put(blob);
+  //     Alert.alert('Photo uploaded');
+  //     setImageUrl(null);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  //   setUploading(false);
+  // };
 
   const handleSave = () => {
     console.log('Saved:', title, description, date, time, location, imageUrl);
@@ -605,7 +681,7 @@ textBox: {
 },
 
 saveButton: {
-  top: 20,
+  top: 10,
   alignSelf: 'center',
 },
 

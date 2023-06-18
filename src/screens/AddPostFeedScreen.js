@@ -999,14 +999,259 @@
 //   },
 // });
 
+// import React, { useState, useEffect } from "react";
+// import { View, Text, StyleSheet, TextInput, Button, SafeAreaView, Image, TouchableOpacity, Alert, Keyboard } from 'react-native';
+// import { ScrollView } from 'react-native-gesture-handler';
+// import { useNavigation } from "@react-navigation/native";
+// import * as ImagePicker from 'expo-image-picker';
+// import { GestureHandlerRootView } from 'react-native-gesture-handler';
+// import { firebase } from "../../config";
+// import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet, TextInput, Button, SafeAreaView, Image, TouchableOpacity, Alert, Keyboard } from 'react-native';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useNavigation } from "@react-navigation/native";
+// const AddPostFeedScreen = () => {
+//   const navigation = useNavigation();
+//   const addPost = firebase.firestore().collection('posts');
+//   const [caption, setCaption] = useState('');
+//   const [imageUrl, setImageUrl] = useState(null);
+//   const [isSaved, setIsSaved] = useState(false);
+//   const [userName, setUserName] = useState('');
+//   const [userImage, setUserImage] = useState(null);
+//   const [likeCount, setLikeCount] = useState(0);
+
+//   useEffect(() => {
+//     const fetchUser = async () => {
+//       try {
+//         const currentUser = firebase.auth().currentUser;
+//         if (currentUser) {
+//           const userDataRef = await firebase.firestore().collection("userData").where("userId", "==", currentUser.email).get();
+//           if (!userDataRef.empty) {
+//             const userData = userDataRef.docs[0].data();
+//             setUserName(userData.userName);
+//             setUserImage(userData.userImage);
+//           }
+//         }
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     };
+
+//     fetchUser();
+//   }, []);
+
+//   const addInfo = async () => {
+//     if (caption.length > 0) {
+//       const timeStamp = firebase.firestore.FieldValue.serverTimestamp();
+//       const data = {
+//         caption: caption,
+//         imageUrl: imageUrl,
+//         isSaved: isSaved,
+//         createdAt: timeStamp,
+//         userName: userName,
+//         userImage: userImage,
+//         likeCount: likeCount,
+//       };
+//       try {
+//         await addPost.add(data);
+//         setCaption('');
+//         setImageUrl(null);
+//         setUserName('');
+//         setUserImage(null);
+//         setLikeCount(0); // Reset likeCount after adding a post
+//         Keyboard.dismiss();
+//         Alert.alert("Your information has been updated!");
+//         navigation.replace('PostFeedScreen');
+//       } catch (error) {
+//         alert(error);
+//       }
+//     }
+//   };
+
+//   const pickImage = async () => {
+//     let result = await ImagePicker.launchImageLibraryAsync({
+//       mediaTypes: ImagePicker.MediaTypeOptions.All,
+//       allowsEditing: true,
+//       aspect: [4, 3],
+//       quality: 1,
+//       borderRadius: 1800,
+//     });
+//     if (!result.cancelled) {
+//       setImageUrl(result.uri);
+//     }
+//   };
+
+//   const uploadImage = async () => {
+//     if (imageUrl) {
+//       try {
+//         const responseUploading = await fetch(imageUrl);
+//         const blob = await responseUploading.blob();
+//         const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+//         const ref = firebase.storage().ref().child(filename);
+//         await ref.put(blob);
+//         Alert.alert('Photo uploaded');
+//         setImageUrl(null);
+//       } catch (error) {
+//         console.log(error);
+//       }
+//     }
+//   };
+
+//   const handleSave = () => {
+//     console.log('Saved:', caption, imageUrl);
+//     setIsSaved(true);
+//   };
+
+//   const handleLike = () => {
+//     setLikeCount(likeCount + 1);
+//   };
+
+//   useEffect(() => {
+//     if (isSaved) {
+//       setCaption('');
+//       setImageUrl(null);
+//       setUserName('');
+//       setUserImage(null);
+//       setIsSaved(false);
+//     }
+//   }, [isSaved]);
+
+//   const functionCombined = () => {
+//     addInfo();
+//     uploadImage();
+//     handleSave();
+//   };
+
+//   return (
+//     <GestureHandlerRootView style={{ flex: 1 }}>
+//       <SafeAreaView style={styles.container}>
+//         <TouchableOpacity onPress={() => navigation.navigate('PostFeedScreen')} style={styles.backButton}>
+//           <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
+//         </TouchableOpacity>
+//         <Image source={require('../images/Ellipse.png')} style={styles.topImage} />
+//         <Text style={styles.title}>Add Post</Text>
+//         <ScrollView contentContainerStyle={styles.contentContainer}>
+//           <TouchableOpacity onPress={pickImage}>
+//             <View style={styles.imageContainer}>
+//               {imageUrl ? (
+//                 <Image source={{ uri: imageUrl }} style={styles.selectedImage} />
+//               ) : (
+//                 <Image source={require("../images/addphoto.png")} style={styles.addPhotoIcon} />
+//               )}
+//             </View>
+//           </TouchableOpacity>
+//           <Text style={styles.fieldLabel}>Caption</Text>
+//           <TextInput
+//             style={styles.textInput}
+//             placeholder="Enter caption"
+//             placeholderTextColor="grey"
+//             autoCorrect={true}
+//             onChangeText={(caption) => setCaption(caption)}
+//             value={caption}
+//             multiline={false}
+//           />
+//           <View style={styles.buttonContainer}>
+//             <Button title="Like" onPress={handleLike} />
+//             <Text style={styles.likeCount}>{likeCount} Likes</Text>
+//           </View>
+//           <View style={styles.buttonContainer}>
+//             <Button title="Save" onPress={functionCombined} />
+//           </View>
+//         </ScrollView>
+//       </SafeAreaView>
+//     </GestureHandlerRootView>
+//   );
+// };
+
+// export default AddPostFeedScreen;
+
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     padding: 20,
+//     backgroundColor: '#FFFFFF',
+//   },
+//   backButton: {
+//     alignSelf: 'flex-start',
+//     marginBottom: 20,
+//   },
+//   backIcon: {
+//     width: 50,
+//     height: 50,
+//     paddingStart: 20,
+//   },
+//   topImage: {
+//     width: '100%',
+//     height: 200,
+//     resizeMode: 'contain',
+//     marginBottom: 20,
+//     top: -120,
+//   },
+//   title: {
+//     fontSize: 20,
+//     fontWeight: 'bold',
+//     marginBottom: 20,
+//   },
+//   contentContainer: {
+//     flexGrow: 1,
+//   },
+//   imageContainer: {
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//     height: 200,
+//     backgroundColor: '#EAEAEA',
+//     marginBottom: 20,
+//     borderRadius: 10,
+//   },
+//   addPhotoIcon: {
+//     width: 40,
+//     height: 40,
+//     resizeMode: 'contain',
+//     tintColor: '#666666',
+//   },
+//   selectedImage: {
+//     width: '100%',
+//     height: '100%',
+//     borderRadius: 10,
+//   },
+//   fieldLabel: {
+//     fontSize: 16,
+//     fontWeight: 'bold',
+//     marginBottom: 10,
+//   },
+//   textInput: {
+//     height: 40,
+//     borderColor: '#CCCCCC',
+//     borderWidth: 1,
+//     borderRadius: 5,
+//     paddingHorizontal: 10,
+//     marginBottom: 20,
+//   },
+//   buttonContainer: {
+//     marginTop: 20,
+//   },
+//   likeCount: {
+//     fontSize: 16,
+//     fontWeight: 'bold',
+//     marginTop: 10,
+//     textAlign: 'center',
+//   },
+// });
+
+import React, { useState, useEffect } from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Button,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+  Alert,
+  Keyboard,
+} from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import * as ImagePicker from 'expo-image-picker';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { firebase } from "../../config";
+import { firebase } from '../../config';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const AddPostFeedScreen = () => {
@@ -1017,14 +1262,17 @@ const AddPostFeedScreen = () => {
   const [isSaved, setIsSaved] = useState(false);
   const [userName, setUserName] = useState('');
   const [userImage, setUserImage] = useState(null);
-  const [user, setUser] = useState([]);
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const currentUser = firebase.auth().currentUser;
         if (currentUser) {
-          const userDataRef = await firebase.firestore().collection("userData").where("userId", "==", currentUser.email).get();
+          const userDataRef = await firebase
+            .firestore()
+            .collection('userData')
+            .where('userId', '==', currentUser.email)
+            .get();
           if (!userDataRef.empty) {
             const userData = userDataRef.docs[0].data();
             setUserName(userData.userName);
@@ -1044,20 +1292,28 @@ const AddPostFeedScreen = () => {
       const timeStamp = firebase.firestore.FieldValue.serverTimestamp();
       const data = {
         caption: caption,
-        imageUrl: imageUrl,
         isSaved: isSaved,
         createdAt: timeStamp,
-        userName: userName, // Use userName from the state
+        userName: userName,
         userImage: userImage,
       };
+  
       try {
-        await addPost.add(data);
+        const docRef = await addPost.add(data);
+        const postId = docRef.id;
+        if (imageUrl) {
+          const imageRef = firebase.storage().ref().child(`images/${postId}`);
+          const response = await fetch(imageUrl);
+          const blob = await response.blob();
+          await imageRef.put(blob);
+          const downloadURL = await imageRef.getDownloadURL();
+          await docRef.update({ imageUrl: downloadURL });
+        }
+  
         setCaption('');
         setImageUrl(null);
-        setUserName(''); 
-        setUserImage(null);
         Keyboard.dismiss();
-        Alert.alert("Your information has been updated!");
+        Alert.alert('Your information has been updated!');
         navigation.replace('PostFeedScreen');
       } catch (error) {
         alert(error);
@@ -1074,6 +1330,7 @@ const AddPostFeedScreen = () => {
       quality: 1,
       borderRadius: 1800,
     });
+
     if (!result.cancelled) {
       setImageUrl(result.uri);
     }
@@ -1085,12 +1342,16 @@ const AddPostFeedScreen = () => {
         const responseUploading = await fetch(imageUrl);
         const blob = await responseUploading.blob();
         const filename = imageUrl.substring(imageUrl.lastIndexOf('/') + 1);
+
         const ref = firebase.storage().ref().child(filename);
-        await ref.put(blob);
-        Alert.alert('Photo uploaded');
-        setImageUrl(null);
+        const snapshot = await ref.put(blob);
+
+        const downloadURL = await snapshot.ref.getDownloadURL();
+        console.log('Download URL:', downloadURL);
+
+        setImageUrl(downloadURL);
       } catch (error) {
-        console.log(error);
+        console.error('Error uploading image:', error);
       }
     }
   };
@@ -1104,52 +1365,45 @@ const AddPostFeedScreen = () => {
     if (isSaved) {
       setCaption('');
       setImageUrl(null);
-      setUserName('');
-      setUserImage(null);
       setIsSaved(false);
     }
   }, [isSaved]);
 
-  const functionCombined = () => {
-    addInfo();
-    uploadImage();
+  const functionCombined = async () => {
+    await uploadImage();
+    await addInfo();
     handleSave();
   };
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <SafeAreaView style={styles.container}>
-        <TouchableOpacity onPress={() => navigation.navigate('PostFeedScreen')} style={styles.backButton}>
-          <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
-        </TouchableOpacity>
-        <Image source={require('../images/Ellipse.png')} style={styles.topImage} />
-        <Text style={styles.title}>Add Post</Text>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
-          <TouchableOpacity onPress={pickImage}>
-            <View style={styles.imageContainer}>
-              {imageUrl ? (
-                <Image source={{ uri: imageUrl }} style={styles.selectedImage} />
-              ) : (
-                <Image source={require("../images/addphoto.png")} style={styles.addPhotoIcon} />
-              )}
-            </View>
-          </TouchableOpacity>
-          <Text style={styles.fieldLabel}>Caption</Text>
-          <TextInput
-            style={styles.textInput}
-            placeholder="Enter caption"
-            placeholderTextColor="grey"
-            autoCorrect={true}
-            onChangeText={(caption) => setCaption(caption)}
-            value={caption}
-            multiline={false}
-          />
-          <View style={styles.buttonContainer}>
-            <Button title="Save" onPress={functionCombined} />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </GestureHandlerRootView>
+    <SafeAreaView style={styles.container}>
+      <TouchableOpacity onPress={() => navigation.navigate('PostFeedScreen')}>
+        <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
+      </TouchableOpacity>
+      <Text style={styles.title}>Add a New Post</Text>
+      <TouchableOpacity onPress={pickImage}>
+        <View style={styles.imageContainer}>
+          {imageUrl ? (
+            <Image source={{ uri: imageUrl }} style={styles.selectedImage} />
+          ) : (
+            <Image source={require('../images/addphoto.png')} style={styles.addPhotoIcon} />
+          )}
+        </View>
+      </TouchableOpacity>
+      <Text style={styles.fieldLabel}>What's on your mind?</Text>
+      <TextInput
+        style={styles.textInput}
+        placeholder="Type Something..."
+        placeholderTextColor="grey"
+        autoCorrect={true}
+        onChangeText={(caption) => setCaption(caption)}
+        value={caption}
+        multiline={false}
+      />
+      <View style={styles.buttonContainer}>
+        <Button title="POST" color="white" onPress={functionCombined} />
+      </View>
+    </SafeAreaView>
   );
 };
 
@@ -1161,34 +1415,24 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#FFFFFF',
   },
-  backButton: {
-    alignSelf: 'flex-start',
-    marginBottom: 20,
-  },
   backIcon: {
-    width: 50,
-    height: 50,
-    paddingStart: 20,
-  },
-  topImage: {
-    width: '100%',
-    height: 200,
-    resizeMode: 'contain',
-    marginBottom: 20,
-    top: -120,
+    width: 40,
+    height: 40,
+    marginStart: 10,
   },
   title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  contentContainer: {
-    flexGrow: 1,
+    fontSize: 25,
+    fontStyle: 'italic',
+    fontWeight: '800',
+    marginBottom: -10,
+    paddingStart: 20,
   },
   imageContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    alignSelf: 'center',
     height: 200,
+    width: 350,
     backgroundColor: '#EAEAEA',
     marginBottom: 20,
     borderRadius: 10,
@@ -1205,20 +1449,38 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   fieldLabel: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
-    marginBottom: 10,
+    marginBottom: 20,
+    paddingStart: 20,
   },
   textInput: {
-    height: 40,
+    height: 140,
+    fontSize: 18,
     borderColor: '#CCCCCC',
+    width: 350,
+    alignSelf: 'center',
     borderWidth: 1,
     borderRadius: 5,
     paddingHorizontal: 10,
     marginBottom: 20,
   },
   buttonContainer: {
-    marginTop: 20,
+    marginTop: -25,
+    width: 200,
+    alignSelf: 'center',
+    backgroundColor: 'rgba(106, 97, 207, 0.84)',
+    borderRadius: 50,
+    paddingHorizontal: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: 10,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    elevation: 11,
   },
 });
-
