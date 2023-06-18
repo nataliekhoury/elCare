@@ -18,6 +18,7 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.elCare", 
       "supportsTablet": true
     },
     "android": {

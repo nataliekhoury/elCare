@@ -1348,6 +1348,7 @@ import { View, StyleSheet, Image, Text, ImageBackground, TouchableOpacity, Scrol
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../../config";
 
+
 const renderItems = (filteredLabels, handlePress) => {
   return filteredLabels.map((item, index) => (
     <TouchableOpacity key={index} onPress={() => handlePress(item)}>
@@ -1382,7 +1383,7 @@ const OptionItem = ({ setSelectedLabel }) => {
 
   return (
     <View>
-      <ScrollView horizontal={true}>
+      <ScrollView horizontal={true}> 
         {renderItems(filteredLabels, handlePress)}
       </ScrollView>
     </View>

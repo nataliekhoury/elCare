@@ -1,554 +1,565 @@
-import {
-    StyleSheet,
-    View,
-    Text,
-    ImageBackground,
-    Image,
-    TouchableOpacity,
-    Alert,
-    TextInput,
+// import {
+//     StyleSheet,
+//     View,
+//     Text,
+//     ImageBackground,
+//     Image,
+//     TouchableOpacity,
+//     Alert,
+//     TextInput,
    
-  } from "react-native";
-  // import {Picker} from '@react-native-picker/picker';
-  import RNPickerSelect from 'react-native-picker-select';
+//   } from "react-native";
+//   // import {Picker} from '@react-native-picker/picker';
+//   import RNPickerSelect from 'react-native-picker-select';
 
-  import React, { useState,useEffect } from "react";
-  import { NavigationContainer } from "@react-navigation/native";
-  import { useNavigation } from "@react-navigation/native";
-  import Images from "../images";
-  import { firebase } from "../../config";
-  import { SafeAreaView } from "react-native-safe-area-context";
-import { Keyboard } from "react-native";
-import { ScrollView } from "react-native";
-import * as ImagePicker from 'expo-image-picker'
- const InfoScreen = () => {
+//   import React, { useState,useEffect } from "react";
+//   import { NavigationContainer } from "@react-navigation/native";
+//   import { useNavigation } from "@react-navigation/native";
+//   import Images from "../images";
+//   import { firebase } from "../../config";
+//   import { SafeAreaView } from "react-native-safe-area-context";
+// import { Keyboard } from "react-native";
+// import { ScrollView } from "react-native";
+// import * as ImagePicker from 'expo-image-picker'
+//  const InfoScreen = () => {
 
-    const navigation = useNavigation();
-    const [currentUser, setCurrentUser] = useState('');
-    const uploadDta = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
-    const [name,setName]=useState('');
-    const [age,setAge]=useState('');
-    const [language,setLanguage]=useState('');
-    const [gender, setGender] = useState('');
-    const [city,setCity]=useState('');
-    const [hobbies,setHobbies]=useState('');
-    const [avaiDay,setAvaiDay]=useState('');
-    const [experience,setExperience]=useState('');
-    const [payment,setPayment]=useState('');
-    const [image,setImage]=useState(null);
-    const [uploading,setUploading]=useState(false);
+//     const navigation = useNavigation();
+//     const [currentUser, setCurrentUser] = useState('');
+//     const uploadDta = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
+//     const [name,setName]=useState('');
+//     const [age,setAge]=useState('');
+//     const [language,setLanguage]=useState('');
+//     const [gender, setGender] = useState('');
+//     const [city,setCity]=useState('');
+//     const [hobbies,setHobbies]=useState('');
+//     const [avaiDay,setAvaiDay]=useState('');
+//     const [experience,setExperience]=useState('');
+//     const [payment,setPayment]=useState('');
+//     const [image,setImage]=useState(null);
+//     const [uploading,setUploading]=useState(false);
 
 
-    //add a new field
-    const addInfo =async () =>{
-      // const currentUser = await firebase.auth()
-      // _id: firebase.auth()?.currentUser?.email
-      //check if we have new field data
-      if (age>19){
-        const timeStamp =firebase.firestore.FieldValue.serverTimestamp();
-        const user= firebase.auth()?.currentUser?.email;
-        const data ={
-          userName:name,
-          userAge :age,
-          userGender:gender,
-          userLanguage :language,
-          userCity:city,
-          userHobbies:hobbies,
-          userAvai:avaiDay,
-          userPay:payment,
-          userExperience:experience,
-          createdAt:timeStamp,
-          userId:user,
-          userImage:image.uri,
-        };
-        uploadDta.add(data).then(()=>{
-            setName('')
-            setGender('')
-            setAge('');
-            setLanguage('')
-            setCity('')
-            setHobbies('')
-            setAvaiDay('')
-            setPayment('')
-            setExperience('')
-          Keyboard.dismiss();
-        }) .then(() => {
-          Alert.alert("your information has been updated!");
-        })
-        .catch((error)=>{
-          alert(error)
-        })
-        .then(()=>{
-            navigation.replace('UserProfileScreen');
-        })
+//     //add a new field
+//     const addInfo =async () =>{
+//       // const currentUser = await firebase.auth()
+//       // _id: firebase.auth()?.currentUser?.email
+//       //check if we have new field data
+//       if (age>19){
+//         const timeStamp =firebase.firestore.FieldValue.serverTimestamp();
+//         const user= firebase.auth()?.currentUser?.email;
+//         const data ={
+//           userName:name,
+//           userAge :age,
+//           userGender:gender,
+//           userLanguage :language,
+//           userCity:city,
+//           userHobbies:hobbies,
+//           userAvai:avaiDay,
+//           userPay:payment,
+//           userExperience:experience,
+//           createdAt:timeStamp,
+//           userId:user,
+//           userImage:image.uri,
+//         };
+//         uploadDta.add(data).then(()=>{
+//             setName('')
+//             setGender('')
+//             setAge('');
+//             setLanguage('')
+//             setCity('')
+//             setHobbies('')
+//             setAvaiDay('')
+//             setPayment('')
+//             setExperience('')
+//           Keyboard.dismiss();
+//         }) .then(() => {
+//           Alert.alert("your information has been updated!");
+//         })
+//         .catch((error)=>{
+//           alert(error)
+//         })
+//         .then(()=>{
+//             navigation.replace('UserProfileScreen');
+//         })
 
-      }
-    }
+//       }
+//     }
 
-  const pickImage =async()=>{
-    let result =await ImagePicker.launchImageLibraryAsync({
-      mediaTypes:ImagePicker.MediaTypeOptions.All,
-      allowsEditing:true,
-      aspect :[4,3],
-      quality:1,
-      borderRadius:1800,
-    });
-    const source ={uri:result.assets[0].uri};
-    setImage(source);
-  };
+//   const pickImage =async()=>{
+//     let result =await ImagePicker.launchImageLibraryAsync({
+//       mediaTypes:ImagePicker.MediaTypeOptions.All,
+//       allowsEditing:true,
+//       aspect :[4,3],
+//       quality:1,
+//       borderRadius:1800,
+//     }); 
+//     const source ={uri:result.assets[0].uri};
+//     setImage(source);
+//   };
   
-   const uploadImage =async()=>{
-    setUploading(true);
-    const responseUploading =await fetch(image.uri);
-    const blob =await responseUploading.blob();
-    const filename=image.uri.substring(image.uri.lastIndexOf('/')+1);
-    var ref =firebase.storage().ref().child(filename).put(blob);
-    try{
-      await ref ;
-    }catch (e){
-      console.log(e);
-    }
-    setUploading(false);
-    // Alert.alert('photo uploaded');
-    setImage(null);
-   }
+//    const uploadImage =async()=>{
+//     setUploading(true);
+//     const responseUploading =await fetch(image.uri);
+//     const blob =await responseUploading.blob();
+//     const filename=image.uri.substring(image.uri.lastIndexOf('/')+1);
+//     var ref =firebase.storage().ref().child(filename).put(blob);
+//     try{
+//       await ref ;
+//     }catch (e){
+//       console.log(e);
+//     }
+//     setUploading(false);
+//     // Alert.alert('photo uploaded');
+//     setImage(null);
+//    }
 
 
 
-  // checks if the text input is empty or not 
-  const checkTextInput = () => {
-    //Check for the Name TextInput
-    if (age.trim()==0 || language.trim() ==0 || hobbies.trim() ==0 || avaiDay.trim() == 0 || experience.trim()==0 || city.trim()) {
-      Alert.alert('Please enter the empty fill ');
-      return;
-    }
+//   // checks if the text input is empty or not 
+//   const checkTextInput = () => {
+//     //Check for the Name TextInput
+//     if (age.trim()==0 || language.trim() ==0 || hobbies.trim() ==0 || avaiDay.trim() == 0 || experience.trim()==0 || city.trim()) {
+//       Alert.alert('Please enter the empty fill ');
+//       return;
+//     }
     
   
-  };
-  const functionCombined=()=>{
-    checkTextInput(); 
-    uploadImage();
-    addInfo();
+//   };
+//   const functionCombined=()=>{
+//     checkTextInput(); 
+//     uploadImage();
+//     addInfo();
 
     
-  }
+//   }
 
     
-    return (
-      <ScrollView>
-    <SafeAreaView> 
-            <Image
-                source={require("../images/rectangleBackground.png")}
-                style={{ left: -70, top: -45, resizeMode: "contain" }} />
-                  <Text style={styles.bigInfoStyle}>Info</Text>
+//     return (
+//       <ScrollView>
+//     <SafeAreaView> 
+//             <Image
+//                 source={require("../images/rectangleBackground.png")}
+//                 style={{ left: -70, top: -45, resizeMode: "contain" }} />
+//                   <Text style={styles.bigInfoStyle}>Info</Text>
            
-         <Text style={styles.infoStyle}>
-            {"\n"}Fill the info to continue register</Text>        
-              <View>
-              <TouchableOpacity onPress={pickImage}>
-                <Image
-               source={require("../images/addphoto.png")}
-               style={{ left:170, top:10, resizeMode: "contain" }} />
+//          <Text style={styles.infoStyle}>
+//             {"\n"}Fill the info to continue register</Text>        
+//               <View>
+//               <TouchableOpacity onPress={pickImage}>
+//                 <Image
+//                source={require("../images/addphoto.png")}
+//                style={{ left:170, top:10, resizeMode: "contain" }} />
 
         
-    </TouchableOpacity>
-    <View style={styles.imageContainer}>
-    {image && <Image source={{uri:image.uri}} style ={{width:300,height:300,borderRadius:200/2}}/>}
+//     </TouchableOpacity>
+//     <View style={styles.imageContainer}>
+//     {image && <Image source={{uri:image.uri}} style ={{width:300,height:300,borderRadius:200/2}}/>}
 
 
 
 
-    </View>
-    <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-           Full name
-          </Text>
-            <TextInput  style={{
-              borderRadius: 30,
-              color: "grey",
-              width: "80%",
-              backgroundColor: "white",
-              borderColor: "#D5D5D5",
-              paddingHorizontal: 30,
-              paddingVertical: 18,
-              marginBottom: 20,
-              borderBottomColor: "#D5D5D5",
-              marginVertical: 20,
-              shadowColor: "#000",
-              marginLeft: 40,
-              shadowOffset: {
-                width: 0,
-                height: 10,
-              },
-              shadowOpacity: 0.36,
-              shadowRadius: 10.0,
-              elevation: 11,}}
+//     </View>
+//     <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+//            Full name
+//           </Text>
+//             <TextInput  style={{
+//               borderRadius: 30,
+//               color: "grey",
+//               width: "80%",
+//               backgroundColor: "white",
+//               borderColor: "#D5D5D5",
+//               paddingHorizontal: 30,
+//               paddingVertical: 18,
+//               marginBottom: 20,
+//               borderBottomColor: "#D5D5D5",
+//               marginVertical: 20,
+//               shadowColor: "#000",
+//               marginLeft: 40,
+//               shadowOffset: {
+//                 width: 0,
+//                 height: 10,
+//               },
+//               shadowOpacity: 0.36,
+//               shadowRadius: 10.0,
+//               elevation: 11,}}
         
-           placeholder="ENTER your fill name please"
-          placeholderTextColor={'grey'}
-          utoCorrect="true"
+//            placeholder="ENTER your fill name please"
+//           placeholderTextColor={'grey'}
+//           utoCorrect="true"
 
-          onChangeText={(userName)=>setName(userName)}
+//           onChangeText={(userName)=>setName(userName)}
          
-          value={name}
-          multiline={false}
-          underlineColorAndroid='transparent'
-          ></TextInput>
-            <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-            Age
-          </Text>
-            <TextInput  style={{
-              borderRadius: 30,
-              color: "grey",
-              width: "80%",
-              backgroundColor: "white",
-              borderColor: "#D5D5D5",
-              paddingHorizontal: 30,
-              paddingVertical: 18,
-              marginBottom: 20,
-              borderBottomColor: "#D5D5D5",
-              marginVertical: 20,
-              shadowColor: "#000",
-              marginLeft: 40,
-              shadowOffset: {
-                width: 0,
-                height: 10,
-              },
-              shadowOpacity: 0.36,
-              shadowRadius: 10.0,
-              elevation: 11,}}
-              keyboardType="numeric"
-              // type="number" pattern="[0-9]*"
-           placeholder="Your age"
-          //  rules={{
-          //   required: "age is required",
-          // }}
-          // placeholderTextColor={'#6A61CF'}
-          placeholderTextColor={'grey'}
-          // onPress={checkTextInput}
-          // onChange={checkTextInput}
+//           value={name}
+//           multiline={false}
+//           underlineColorAndroid='transparent'
+//           ></TextInput>
+//             <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+//             Age
+//           </Text>
+//             <TextInput  style={{
+//               borderRadius: 30,
+//               color: "grey",
+//               width: "80%",
+//               backgroundColor: "white",
+//               borderColor: "#D5D5D5",
+//               paddingHorizontal: 30,
+//               paddingVertical: 18,
+//               marginBottom: 20,
+//               borderBottomColor: "#D5D5D5",
+//               marginVertical: 20,
+//               shadowColor: "#000",
+//               marginLeft: 40,
+//               shadowOffset: {
+//                 width: 0,
+//                 height: 10,
+//               },
+//               shadowOpacity: 0.36,
+//               shadowRadius: 10.0,
+//               elevation: 11,}}
+//               keyboardType="numeric"
+//               // type="number" pattern="[0-9]*"
+//            placeholder="Your age"
+//           //  rules={{
+//           //   required: "age is required",
+//           // }}
+//           // placeholderTextColor={'#6A61CF'}
+//           placeholderTextColor={'grey'}
+//           // onPress={checkTextInput}
+//           // onChange={checkTextInput}
 
-          onChangeText={(userAge)=>setAge(userAge)}
-          value={age}
-          multiline={false}
-          underlineColorAndroid='transparent'
-          ></TextInput>
-           <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-           gender
-          </Text>
+//           onChangeText={(userAge)=>setAge(userAge)}
+//           value={age}
+//           multiline={false}
+//           underlineColorAndroid='transparent'
+//           ></TextInput>
+//            <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+//            gender
+//           </Text>
           
-       <RNPickerSelect
-        value={gender}
-        onValueChange={(itemValue) => setGender(itemValue)}
-        items={[
-          { label: 'Select Gender', value: '' },
-          { label: 'Male', value: 'male' },
-          { label: 'Female', value: 'female' },
-        ]}
-      />
-   <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-            City
-          </Text>
-            <TextInput  style={{
-              borderRadius: 30,
-              color: "grey",
-              width: "80%",
-              backgroundColor: "white",
-              borderColor: "#D5D5D5",
-              paddingHorizontal: 30,
-              paddingVertical: 18,
-              marginBottom: 20,
-              borderBottomColor: "#D5D5D5",
-              marginVertical: 20,
-              shadowColor: "#000",
-              marginLeft: 40,
-              shadowOffset: {
-                width: 0,
-                height: 10,
-              },
-              shadowOpacity: 0.36,
-              shadowRadius: 10.0,
-              elevation: 11,}}
+//        <RNPickerSelect
+//         value={gender}
+//         onValueChange={(itemValue) => setGender(itemValue)}
+//         items={[
+//           { label: 'Select Gender', value: '' },
+//           { label: 'Male', value: 'male' },
+//           { label: 'Female', value: 'female' },
+//         ]}
+//       />
+//    <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+//             City
+//           </Text>
+//             <TextInput  style={{
+//               borderRadius: 30,
+//               color: "grey",
+//               width: "80%",
+//               backgroundColor: "white",
+//               borderColor: "#D5D5D5",
+//               paddingHorizontal: 30,
+//               paddingVertical: 18,
+//               marginBottom: 20,
+//               borderBottomColor: "#D5D5D5",
+//               marginVertical: 20,
+//               shadowColor: "#000",
+//               marginLeft: 40,
+//               shadowOffset: {
+//                 width: 0,
+//                 height: 10,
+//               },
+//               shadowOpacity: 0.36,
+//               shadowRadius: 10.0,
+//               elevation: 11,}}
         
-           placeholder="City"
-          placeholderTextColor={'grey'}
-          utoCorrect="true"
+//            placeholder="City"
+//           placeholderTextColor={'grey'}
+//           utoCorrect="true"
 
-          rules={{
-            required: "city is required",
-          }}
-          onChangeText={(userCity)=>setCity(userCity)}
+//           rules={{
+//             required: "city is required",
+//           }}
+//           onChangeText={(userCity)=>setCity(userCity)}
          
-          value={city}
-          multiline={false}
-          underlineColorAndroid='transparent'
-          ></TextInput>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-            Languages
-          </Text>
+//           value={city}
+//           multiline={false}
+//           underlineColorAndroid='transparent'
+//           ></TextInput>
+//           <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+//             Languages
+//           </Text>
         
-          <TextInput
-          style={{
-            borderRadius: 30,
-            color: "grey",
-            width: "80%",
-            backgroundColor: "white",
-            borderColor: "#D5D5D5",
-            paddingHorizontal: 30,
-            paddingVertical: 18,
-            marginBottom: 20,
-            borderBottomColor: "#D5D5D5",
-            marginVertical: 20,
-            shadowColor: "#000",
-            marginLeft: 40,
-            shadowOffset: {
-              width: 0,
-              height: 10,
-            },
-            shadowOpacity: 0.36,
-            shadowRadius: 10.0,
-            elevation: 11,}}
+//           <TextInput
+//           style={{
+//             borderRadius: 30,
+//             color: "grey",
+//             width: "80%",
+//             backgroundColor: "white",
+//             borderColor: "#D5D5D5",
+//             paddingHorizontal: 30,
+//             paddingVertical: 18,
+//             marginBottom: 20,
+//             borderBottomColor: "#D5D5D5",
+//             marginVertical: 20,
+//             shadowColor: "#000",
+//             marginLeft: 40,
+//             shadowOffset: {
+//               width: 0,
+//               height: 10,
+//             },
+//             shadowOpacity: 0.36,
+//             shadowRadius: 10.0,
+//             elevation: 11,}}
 
-  placeholder="english,hebrew...."
-  placeholderTextColor={'grey'}
-  onChangeText={(userLanguage) => setLanguage(userLanguage)}
-  value={language}
-  multiline={false}
-  underlineColorAndroid='transparent'
-  onBlur={() => {
-    const languages = language.split(',').map(lang => lang.trim());
-    setLanguage(languages.join(','));
-  }}
-/>
-   <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-            Hobbies
-          </Text>
-            <TextInput  style={{
-              borderRadius: 30,
-              color: "grey",
-              width: "80%",
-              backgroundColor: "white",
-              borderColor: "#D5D5D5",
-              paddingHorizontal: 30,
-              paddingVertical: 18,
-              marginBottom: 20,
-              borderBottomColor: "#D5D5D5",
-              marginVertical: 20,
-              shadowColor: "#000",
-              marginLeft: 40,
-              shadowOffset: {
-                width: 0,
-                height: 10,
-              },
-              shadowOpacity: 0.36,
-              shadowRadius: 10.0,
-              elevation: 11,}}
-           placeholder="Dance,running..."
-           placeholderTextColor={'grey'}
-          onChangeText={(userHobbies)=>setHobbies(userHobbies)}
-          onch
-          value={hobbies}
-          rules={{
-            required: "hobbies is required",
-          }}      
+//   placeholder="english,hebrew...."
+//   placeholderTextColor={'grey'}
+//   onChangeText={(userLanguage) => setLanguage(userLanguage)}
+//   value={language}
+//   multiline={false}
+//   underlineColorAndroid='transparent'
+//   onBlur={() => {
+//     const languages = language.split(',').map(lang => lang.trim());
+//     setLanguage(languages.join(','));
+//   }}
+// />
+//    <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+//             Hobbies
+//           </Text>
+//             <TextInput  style={{
+//               borderRadius: 30,
+//               color: "grey",
+//               width: "80%",
+//               backgroundColor: "white",
+//               borderColor: "#D5D5D5",
+//               paddingHorizontal: 30,
+//               paddingVertical: 18,
+//               marginBottom: 20,
+//               borderBottomColor: "#D5D5D5",
+//               marginVertical: 20,
+//               shadowColor: "#000",
+//               marginLeft: 40,
+//               shadowOffset: {
+//                 width: 0,
+//                 height: 10,
+//               },
+//               shadowOpacity: 0.36,
+//               shadowRadius: 10.0,
+//               elevation: 11,}}
+//            placeholder="Dance,running..."
+//            placeholderTextColor={'grey'}
+//           onChangeText={(userHobbies)=>setHobbies(userHobbies)}
+//           onch
+//           value={hobbies}
+//           rules={{
+//             required: "hobbies is required",
+//           }}      
          
-           underlineColorAndroid='transparent'
-          ></TextInput>
+//            underlineColorAndroid='transparent'
+//           ></TextInput>
 
-<Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-          Experience
-          </Text>
-           <TextInput  style={{
-              borderRadius: 30,
-              color: "grey",
-              width: "80%",
-              backgroundColor: "white",
-              borderColor: "#D5D5D5",
-              paddingHorizontal: 30,
-              paddingVertical: 18,
-              marginBottom: 20,
-              borderBottomColor: "#D5D5D5",
-              marginVertical: 20,
-              shadowColor: "#000",
-              marginLeft: 40,
-              shadowOffset: {
-                width: 0,
-                height: 10,
-              },
-              shadowOpacity: 0.36,
-              shadowRadius: 10.0,
-              elevation: 11,}}
-              keyboardType="numeric"
-              type="number" pattern="[0-9]*"
-           placeholder="Experience"
-           placeholderTextColor={'grey'}
-          onChangeText={(userExperience)=>setExperience(userExperience)}
-          onch
-          value={experience}
+// <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+//           Experience
+//           </Text>
+//            <TextInput  style={{
+//               borderRadius: 30,
+//               color: "grey",
+//               width: "80%",
+//               backgroundColor: "white",
+//               borderColor: "#D5D5D5",
+//               paddingHorizontal: 30,
+//               paddingVertical: 18,
+//               marginBottom: 20,
+//               borderBottomColor: "#D5D5D5",
+//               marginVertical: 20,
+//               shadowColor: "#000",
+//               marginLeft: 40,
+//               shadowOffset: {
+//                 width: 0,
+//                 height: 10,
+//               },
+//               shadowOpacity: 0.36,
+//               shadowRadius: 10.0,
+//               elevation: 11,}}
+//               keyboardType="numeric"
+//               type="number" pattern="[0-9]*"
+//            placeholder="Experience"
+//            placeholderTextColor={'grey'}
+//           onChangeText={(userExperience)=>setExperience(userExperience)}
+//           onch
+//           value={experience}
           
 
-          multiline={false}
-          underlineColorAndroid='transparent'
-          rules={{
-            required: "Experience days is required",
-          }}
-          ></TextInput>
+//           multiline={false}
+//           underlineColorAndroid='transparent'
+//           rules={{
+//             required: "Experience days is required",
+//           }}
+//           ></TextInput>
 
 
 
-<Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-Available
-          </Text>
-          <TextInput  style={{
-              borderRadius: 30,
-              color: "grey",
-              width: "80%",
-              backgroundColor: "white",
-              borderColor: "#D5D5D5",
-              paddingHorizontal: 30,
-              paddingVertical: 18,
-              marginBottom: 20,
-              borderBottomColor: "#D5D5D5",
-              marginVertical: 20,
-              shadowColor: "#000",
-              marginLeft: 40,
-              shadowOffset: {
-                width: 0,
-                height: 10,
-              },
-              shadowOpacity: 0.36,
-              shadowRadius: 10.0,
-              elevation: 11,}}
-           placeholder="Available working day"
-           placeholderTextColor={'grey'}
-          onChangeText={(userAvai)=>setAvaiDay(userAvai)}
-          onch
-          value={avaiDay}
-          onPress={checkTextInput}   
+// <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+// Available
+//           </Text>
+//           <TextInput  style={{
+//               borderRadius: 30,
+//               color: "grey",
+//               width: "80%",
+//               backgroundColor: "white",
+//               borderColor: "#D5D5D5",
+//               paddingHorizontal: 30,
+//               paddingVertical: 18,
+//               marginBottom: 20,
+//               borderBottomColor: "#D5D5D5",
+//               marginVertical: 20,
+//               shadowColor: "#000",
+//               marginLeft: 40,
+//               shadowOffset: {
+//                 width: 0,
+//                 height: 10,
+//               },
+//               shadowOpacity: 0.36,
+//               shadowRadius: 10.0,
+//               elevation: 11,}}
+//            placeholder="Available working day"
+//            placeholderTextColor={'grey'}
+//           onChangeText={(userAvai)=>setAvaiDay(userAvai)}
+//           onch
+//           value={avaiDay}
+//           onPress={checkTextInput}   
       
-          underlineColorAndroid='transparent'
+//           underlineColorAndroid='transparent'
        
-          ></TextInput>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-             Payment
-          </Text>
-          <TextInput  style={{
-              borderRadius: 30,
-              color: "grey",
-              width: "80%",
-              backgroundColor: "white",
-              borderColor: "#D5D5D5",
-              paddingHorizontal: 30,
-              paddingVertical: 18,
-              marginBottom: 20,
-              borderBottomColor: "#D5D5D5",
-              marginVertical: 20,
-              shadowColor: "#000",
-              marginLeft: 40,
-              shadowOffset: {
-                width: 0,
-                height: 10,
-              },
-              shadowOpacity: 0.36,
-              shadowRadius: 10.0,
-              elevation: 11,}}
-           placeholder="How would like to get payed ?"
-           placeholderTextColor={'grey'}
-          onChangeText={(userPay)=>setPayment(userPay)}
-          onch
-          value={payment}
-          onPress={checkTextInput}   
+//           ></TextInput>
+//           <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+//              Payment
+//           </Text>
+//           <TextInput  style={{
+//               borderRadius: 30,
+//               color: "grey",
+//               width: "80%",
+//               backgroundColor: "white",
+//               borderColor: "#D5D5D5",
+//               paddingHorizontal: 30,
+//               paddingVertical: 18,
+//               marginBottom: 20,
+//               borderBottomColor: "#D5D5D5",
+//               marginVertical: 20,
+//               shadowColor: "#000",
+//               marginLeft: 40,
+//               shadowOffset: {
+//                 width: 0,
+//                 height: 10,
+//               },
+//               shadowOpacity: 0.36,
+//               shadowRadius: 10.0,
+//               elevation: 11,}}
+//            placeholder="How would like to get payed ?"
+//            placeholderTextColor={'grey'}
+//           onChangeText={(userPay)=>setPayment(userPay)}
+//           onch
+//           value={payment}
+//           onPress={checkTextInput}   
       
-          underlineColorAndroid='transparent'
+//           underlineColorAndroid='transparent'
        
-          ></TextInput>
-        </View>
-        <TouchableOpacity style={styles.buttonLoginStyle}    onPress={functionCombined}>
-          <Text style={styles.logInStyle}
-          >
-            continue</Text>
-        </TouchableOpacity>
-        {/* </ScrollView> */}
+//           ></TextInput>
+//         </View>
+//         <TouchableOpacity style={styles.buttonLoginStyle}    onPress={functionCombined}>
+//           <Text style={styles.logInStyle}
+//           >
+//             continue</Text>
+//         </TouchableOpacity>
+//         {/* </ScrollView> */}
         
         
-     </SafeAreaView>
-      </ScrollView>
-    );
-  };
+//      </SafeAreaView>
+//       </ScrollView>
+//     );
+//   };
   
-  export default InfoScreen;
+//   export default InfoScreen;
   
-  const styles = StyleSheet.create({
+//   const styles = StyleSheet.create({
 
-    buttonMessageStyle: {
-    //   left: 180,
-    //   bottom: -50,
-      backgroundColor: "#ffff",
-      borderRadius: "40",
-      paddingHorizontal: 50,
-      justifyContent: "center",
-      alignItem: "center",
-      paddingVertical: 20,
-      marginRight: 230,
-      marginBottom: 40,
-     borderBottomColor:"#6A61CF"      
+//     buttonMessageStyle: {
+//     //   left: 180,
+//     //   bottom: -50,
+//       backgroundColor: "#ffff",
+//       borderRadius: "40",
+//       paddingHorizontal: 50,
+//       justifyContent: "center",
+//       alignItem: "center",
+//       paddingVertical: 20,
+//       marginRight: 230,
+//       marginBottom: 40,
+//      borderBottomColor:"#6A61CF"      
     
-    },
-    infoStyle: {
+//     },
+//     infoStyle: {
         
-        fontSize:27,
-        color: "#9E9E9E",
-        // fontWeight: "bold",
-        textAlign: "center",
-        marginVertical: 10,
-        marginTop: -30,
-        right:17,
-      },
-      bigInfoStyle: {
+//         fontSize:27,
+//         color: "#9E9E9E",
+//         // fontWeight: "bold",
+//         textAlign: "center",
+//         marginVertical: 10,
+//         marginTop: -30,
+//         right:17,
+//       },
+//       bigInfoStyle: {
         
-        fontSize:30,
-        color: "black",
-        fontWeight: "bold",
-        textAlign: "center",
-        marginVertical: 10,
-        marginTop: -90,
-        right: 10,
-      },
-      buttonLoginStyle: {
-        backgroundColor: "#6A61CF",
-        borderRadius: "40",
-        paddingHorizontal: 60,
-        justifyContent: "center",
-        alignItem: "center",
-        paddingVertical: 15,
-        marginLeft: 220,
-        right:20,
-        marginBottom: -50,
-        shadowOffset: {
-          width: 0,
-          height: 5,
-        },
-        shadowOpacity: 0.36,
-        shadowRadius: 10.0,
-        elevation: 11,
-      },
-      logInStyle: {
-        fontWeight: "bold",
-        fontSize: "17",
-        color: "#1DFFD6",
-      },
-      uploadButton:{
-       borderRadius:5,
-       width:150,
-       height:50,
-       justifyContent:'center',
+//         fontSize:30,
+//         color: "black",
+//         fontWeight: "bold",
+//         textAlign: "center",
+//         marginVertical: 10,
+//         marginTop: -90,
+//         right: 10,
+//       },
+//       buttonLoginStyle: {
+//         backgroundColor: "#6A61CF",
+//         borderRadius: "40",
+//         paddingHorizontal: 60,
+//         justifyContent: "center",
+//         alignItem: "center",
+//         paddingVertical: 15,
+//         marginLeft: 220,
+//         right:20,
+//         marginBottom: -50,
+//         shadowOffset: {
+//           width: 0,
+//           height: 5,
+//         },
+//         shadowOpacity: 0.36,
+//         shadowRadius: 10.0,
+//         elevation: 11,
+//       },
+//       logInStyle: {
+//         fontWeight: "bold",
+//         fontSize: "17",
+//         color: "#1DFFD6",
+//       },
+//       uploadButton:{
+//        borderRadius:5,
+//        width:150,
+//        height:50,
+//        justifyContent:'center',
 
-      },
-      imageContainer:{
-        overflow: 'hidden',
-        marginTop :30,
-        marginBottom:50,
-        alignItems:'center',
-        borderRadius: 1400,
-      }
-  });
+//       },
+//       imageContainer:{
+//         overflow: 'hidden',
+//         marginTop :30,
+//         marginBottom:50,
+//         alignItems:'center',
+//         borderRadius: 1400,
+//       }
+//   });
+  import { View, Text } from 'react-native'
+  import React from 'react'
   
+  const InfoScreen = () => {
+    return (
+      <View>
+        <Text>InfoScreen</Text>
+      </View>
+    )
+  }
+  
+  export default InfoScreen

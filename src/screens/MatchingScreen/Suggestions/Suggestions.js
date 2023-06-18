@@ -7,8 +7,7 @@ import { getChatCompletion, getSortedCaregivers } from './openAI';
 
 export const Suggestions = ({ suggestedRole }) => {
 	const [users, setUsers] = useState([]);
-	// const [openAIMessage, setOpenAIMessage] = useState('');
-
+	const [openAIMessage, setOpenAIMessage] = useState('');
 	
 	useEffect(() => {
 
@@ -61,9 +60,9 @@ export const Suggestions = ({ suggestedRole }) => {
 		});
 	}, []);
 
-	// useEffect(() => {
-	// 	console.log(openAIMessage);
-	// }, [openAIMessage]);
+	useEffect(() => {
+		console.log(openAIMessage);
+	}, [openAIMessage]);
 
 	const removeUser = (id) => {
 		const filteredUsers = users.filter((careGiver) => careGiver.userId !== id);
@@ -80,7 +79,7 @@ export const Suggestions = ({ suggestedRole }) => {
 			>{`Here you can see your matching ${suggestedRole.toLowerCase()}`}</Text>
 			<Cards users={users} role={suggestedRole} removeUser={removeUser} />
 
-			{/* <Text>{openAIMessage}</Text> */}
+			<Text>{openAIMessage}</Text>
 		</SafeAreaView>
 	);
 };

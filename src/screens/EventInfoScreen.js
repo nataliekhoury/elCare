@@ -432,7 +432,7 @@
 
 
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image, Alert, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, Image, Alert, StyleSheet, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from "../../config";
 import { GestureHandlerRootView, NativeViewGestureHandler } from 'react-native-gesture-handler';
@@ -482,33 +482,39 @@ const EventInfoScreen = ({route}) => {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-    <View>
+    <SafeAreaView>
       <View>
         <Image source={{ uri: event.imageUrl }} style={styles.imageDesign} />
   
         <TouchableOpacity onPress={() => navigation.navigate('EventScreen')}>
           <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
         </TouchableOpacity>
+        <Image style={styles.swipeIcon} source={require('../images/swipeIcon.png')} />
+
   
         <View>
        
-            <ScrollView style = {{top:-30, minHeight: '100%'}}>
+            <ScrollView style = {{top:-50, minHeight: '100%'}}>
               <Text style={styles.title}>{event.title}</Text>
-  
-              <Text style={styles.des}>Description</Text>
-              <Text style={styles.desInfo}>{event.description}</Text>
-  
-              <View style={{ bottom: '35%' }}>
+
+              <View style = {{top: -26}}>
                 <Image style={styles.calender} source={require('../images/CalenderVector.png')} />
                 <Text style={styles.calenderInfo}>{event.date}</Text>
-              </View>
+             </View>
   
-              <View style={{ bottom: '41%', right: '-60%' }}>
+              <View style={{ top:-50, right: -250}}>
                 <Image style={styles.clock} source={require('../images/ClockVector.png')} />
                 <Text style={styles.clockInfo}>{event.time}</Text>
               </View>
+ 
   
-              <View>
+  <View style = {{top:-80}}>
+              <Text style={styles.des}>Description</Text>
+              <Text style={styles.desInfo}>{event.description}</Text>
+  </View>
+            
+  
+              <View style = {{top: -80}}>
                 <Text style={styles.loc}>Location</Text>
                 <Text style={styles.locInfo}>{event.location}</Text>
               </View>
@@ -516,7 +522,7 @@ const EventInfoScreen = ({route}) => {
           
         </View>
       </View>
-    </View>
+    </SafeAreaView>
     </GestureHandlerRootView>
   );
   
@@ -524,9 +530,11 @@ const EventInfoScreen = ({route}) => {
 
 const styles = StyleSheet.create({
   imageDesign: {
-    width: 400,
+    width: 450,
     height: 310,
-    borderRadius: 40,
+    borderRadius: 50,
+    alignSelf: 'center',
+    top: -60,
   },
   title: {
     fontSize: 30,
@@ -544,7 +552,6 @@ const styles = StyleSheet.create({
   calenderInfo: {
     marginStart: 70,
     color: '#9E9E9E',
-    fontWeight: 'bold',
     fontSize: 18,
     top: 42,
   },
@@ -558,7 +565,6 @@ const styles = StyleSheet.create({
     top: 27,
     bottom: '-135%',
     color: '#9E9E9E',
-    fontWeight: 'bold',
     fontSize: 18,
   },
   des: {
@@ -569,7 +575,6 @@ const styles = StyleSheet.create({
     paddingStart: 20,
   },
   desInfo: {
-    fontWeight: 'bold',
     fontSize: 18,
     top: '20%',
     color: '#9E9E9E',
@@ -583,7 +588,6 @@ const styles = StyleSheet.create({
     paddingStart: 20,
   },
   locInfo: {
-    fontWeight: 'bold',
     fontSize: 18,
     top: '20%',
     color: '#9E9E9E',
@@ -591,7 +595,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     right: -10,
-    bottom: 270,
+    bottom: 320,
   },
   loadingContainer: {
     flex: 1,
@@ -601,6 +605,10 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 20,
   },
+  swipeIcon: {
+    alignSelf: 'center',
+    top: -60,
+  }
 });
 
 export default EventInfoScreen;

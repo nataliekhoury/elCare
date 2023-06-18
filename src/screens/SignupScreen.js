@@ -8,67 +8,31 @@ import {
   Alert,
   TextInput,
   ScrollView,
-  StatusBar,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import { NavigationContainer } from "@react-navigation/native";
+// import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer } from '@react-navigation/native';
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../../config";
 import { Checkbox } from "react-native-paper";
-const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-
+const EMAIL_REGEX = /^\w+([\.-]?\w+)@\w+([\.-]?\w+)(\.\w\w+)+$/;
+const PHONE_REGEX=/^05\d([-]{0,1})\d{7}$/;
 const SignupScreen = () => {
   const navigation = useNavigation();
   const [checked, setChecked] = React.useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [role, setRole] = useState("");
-
-  // const [user,setUser]=useState(null);// current user
-  // const [users,setUsers]=useState([]); //other users
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-//   //fetching the data of the current user 
-// useEffect(()=>{
-//   firebase().collection("users").doc(firebase.auth().currentUser.uid).get()
-//   .then(user => {
-//     setUser(user.data())
-//   })
-// },[])
-   
-//  useEffect(()=>{
-//   if (user)
-//   firebase.firestore.collection("users").where("role","==", (user?.role === "Elderly" ? "Caregiver":"Elderly"))
-//   .onSnapshot(users=>{
-//     if (!users.empty){
-//       const USERS =[] 
-//       users.forEach (user =>{
-//         USERS.push(user.data())
-//       })
-//       setUsers(USERS);
-//     }
-//   })
-// },[user])
+  const handleChange = () => {
+    setChecked(!checked);
+  };
 
+ 
 
-
-
-
-
-
-
-const handleChange = () => {
-  setIsSubscribed(!isSubscribed);
-};
-
-
-
-
-
-
-  SignupUser = async (email, password, name) => {
+  SignupUser = async (email, password,phone,role) => {
     await firebase
       .auth()
       .createUserWithEmailAndPassword(email, password)
@@ -80,10 +44,13 @@ const handleChange = () => {
             url: "https://elcare-bb10b.firebaseapp.com",
           })
           .then(() => {
+            
             alert("Verification email sent");
+            navigation.navigate('DetailScreen');
+
           })
           .catch((error) => {
-            alert(error.message);
+            Alert.alert(error.message);
           })
           .then(() => {
             firebase
@@ -91,18 +58,19 @@ const handleChange = () => {
               .collection("user")
               .doc(firebase.auth().currentUser.uid) 
               .set({
-                name,
+              
                 email,
-              });
-              navigation.replace('InfoScreen');
-       
+                phone,
+                role,
+              })
+              navigation.replace('DetailScreen');
           })
-          .catch((error) => {s
-            alert(error.message);
+          .catch((error) => {
+            Alert.alert(error.message);
           });
       })
       .catch((error) => {
-        alert(error.message);
+        Alert.alert(error.message);
       });
 
   };
@@ -177,115 +145,40 @@ const handleChange = () => {
           Registration
         </Text>
 
-        <View
-          style={{
-            bottom: -20,
-            backgroundColor: "rgba(93, 86, 180, 0.84)",
-            width: 170,
-            height: 170,
-            borderRadius: 20,
-            left: 12,
-          }}
-        >
+        <View>
+
+            <View style={styles.checkboxContainer}>
           <Checkbox
             status={checked ? "checked" : "unchecked"}
-            onPress={() => {
-              setChecked(!checked);
-            }}
+            onPress={handleChange}
           />
-          <Text
-            style={{
+          <Text    style={{
               color: "white",
               left: 22,
               bottom: -35,
               fontSize: 20,
               fontWeight: "bold",
-            }}
-          >
-            I am a
-          </Text>
-          <Text
-            style={{
+            }}>I am a</Text>
+          <Text   style={{
               color: "white",
               left: 29,
               bottom: -40,
               fontSize: 25,
               fontWeight: "bold",
-            }}
-          >
-            Caregiver
-          </Text>
+            }}>Caregiver</Text>
         </View>
 
-        <View
-          style={{
-            backgroundColor: "rgba(212, 212, 212, 0.35)",
-            width: 170,
-            height: 170,
-            borderRadius: 20,
-            left: 220,
-            top: -148,
-          }}
-        >
-          {/* <Checkbox
-            status={checked ? "unchecked" : "checked"}
-            onPress={() => {
-              setChecked(!checked);
-            }}
-          /> */}
-      <View>
-    <Checkbox
-      checked={isSubscribed}
-      onChange={handleChange}
-    />
-    <Text>
-      {isSubscribed ? "Subscribed" : "Not Subscribed"}
-    </Text>
-  </View>
-          
-          <Text
-            style={{ left: 22, bottom: -35, fontSize: 20, fontWeight: "bold" }}
-          >
-            I am a
-          </Text>
-          <Text
-            style={{ left: 29, bottom: -40, fontSize: 25, fontWeight: "bold" }}
-          >
-            Elderly
-          </Text>
+        <View style={styles.checkboxContainer2}>
+          <Checkbox
+            status={!checked ? "checked" : "unchecked"}
+            onPress={handleChange}
+          />
+          <Text  style={{ left: 22, bottom: -35, fontSize: 20, fontWeight: "bold" }}>I am an</Text>
+          <Text   style={{ left: 29, bottom: -40, fontSize: 25, fontWeight: "bold" }}>Elderly</Text>
+        </View>
+
         </View>
         <View style={{ top: -120 }}>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-            Name
-          </Text>
-          <TextInput
-            style={{
-              borderRadius: 30,
-              color: "grey",
-              width: "80%",
-              backgroundColor: "white",
-              borderColor: "#D5D5D5",
-              paddingHorizontal: 30,
-              paddingVertical: 18,
-              marginBottom: 20,
-              borderBottomColor: "#D5D5D5",
-              marginVertical: 20,
-              shadowColor: "#000",
-              marginLeft: 40,
-              shadowOffset: {
-                width: 0,
-
-                height: 10,
-              },
-              shadowOpacity: 0.36,
-              shadowRadius: 10.0,
-              elevation: 11,
-            }}
-            placeholder="Name"
-            onChangeText={(name) => setName(name)}
-            autoCapitalize="none"
-            autoCorrect="none"
-          ></TextInput>
           <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
             Email
           </Text>
@@ -382,9 +275,16 @@ const handleChange = () => {
               shadowRadius: 10.0,
               elevation: 11,
             }}
+            rules={{
+              required: "Phone number required",
+              pattern: { value:PHONE_REGEX, message: "Phone is invalid" },
+              
+            }}
+               keyboardType="numeric"
             placeholder="phone number"
             onChangeText={(phone) => setPhone(phone)}
           ></TextInput>
+
         </View>
 
         <Text style={styles.text}>
@@ -420,7 +320,8 @@ const handleChange = () => {
             shadowRadius: 10.0,
             elevation: 11,
           }}
-          onPress={() => SignupUser(email, password, phone)}
+          onPress={() => SignupUser(email, password,phone,checked ? "Caregiver" :"Elderly")}
+          
         >
           <Text
             style={{
@@ -435,7 +336,7 @@ const handleChange = () => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonJoinNowStyle}
-          onPress={() => navigation.navigate("InfoScreen")}
+          onPress={() => navigation.navigate("LoginScreen")}
         >
           <Text style={styles.joinStyle}>Login</Text>
         </TouchableOpacity>
@@ -515,4 +416,25 @@ const styles = StyleSheet.create({
     color: "rgba(106, 97, 207, 0.84)",
     fontWeight: "bold",
   },
+  checkboxContainer: {
+    backgroundColor: "rgba(212, 212, 212, 0.35)",
+            width: 170,
+            height: 170,
+            borderRadius: 20,
+            left: 220,
+            top: 40,
+  },
+  checkboxContainer2: {
+    bottom: 130,
+    backgroundColor: "rgba(93, 86, 180, 0.84)",
+    width: 170,
+    height: 170,
+    borderRadius: 20,
+    left: 12,
+  },
+  checkboxText: {
+    marginLeft: 8,
+    fontSize: 16,
+  },
+
 });

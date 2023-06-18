@@ -221,7 +221,6 @@
 
 
 import React, { useState, useEffect } from "react";
-import i18n from "./src/languages/i18n";
 import { firebase } from "./config";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
@@ -325,272 +324,130 @@ function App() {
 
   if (initializing) return null;
 
-  if (!user) {
-    return (
-      <NavigationContainer>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
-        <Stack.Screen name="WalkthroughtScreen" component={WalkthroughtScreen} />
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
-        <Stack.Screen name="ForgetPasswordScreen" component={ForgetPasswordScreen} />
-        <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
-        <Stack.Screen name="DetailScreen" component={DetailScreen} />
-        <Stack.Screen name="EventScreen" component={EventScreen} />
-
-      </Stack.Navigator>
-      </NavigationContainer>
-    );
-  }
-
   return (
     <NavigationContainer>
       <StatusBar style="auto" />
-      
-<Tab.Navigator screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
-  <Tab.Screen
-    name="UserStack"
-    component={UserStack}
-    options={{
-      tabBarIcon: ({ focused }) => (
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Image
-            source={require('./src/images/profileIcon.png')}
-            resizeMode="contain"
-            style={{
-              width: 25,
-              height: 25,
-              tintColor: focused ? '#943ADA' : 'black',
+
+      {!user ? (
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
+          <Stack.Screen name="WalkthroughtScreen" component={WalkthroughtScreen} />
+          <Stack.Screen name="SignupScreen" component={SignupScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="ForgetPasswordScreen" component={ForgetPasswordScreen} />
+          <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
+          {/* <Stack.Screen name="DetailScreen" component={DetailScreen} /> */}
+          <Stack.Screen name="EventScreen" component={EventScreen} />
+        </Stack.Navigator>
+      ) : (
+        <Tab.Navigator screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
+          <Tab.Screen
+            name="UserStack"
+            component={UserStack}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <Image
+                    source={require('./src/images/profileIcon.png')}
+                    resizeMode="contain"
+                    style={{
+                      width: 25,
+                      height: 25,
+                      tintColor: focused ? '#943ADA' : 'black',
+                    }}
+                  />
+                  <Text style={{ color: focused ? '#943ADA' : 'black', fontSize: 12 }}>Profile</Text>
+                </View>
+              ),
             }}
           />
-          <Text style={{ color: focused ? '#943ADA' : 'black', fontSize: 12 }}>Profile</Text>
-        </View>
-      ),
-    }}
-  />
 
-  <Tab.Screen
-    name="PostFeedStack"
-    component={PostFeedStack}
-    options={{
-      tabBarIcon: ({ focused }) => (
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Image
-            source={require('./src/images/home.png')}
-            resizeMode="contain"
-            style={{
-              width: 25,
-              height: 25,
-              tintColor: focused ? '#943ADA' : 'black',
+          <Tab.Screen
+            name="PostFeedStack"
+            component={PostFeedStack}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <Image
+                    source={require('./src/images/home.png')}
+                    resizeMode="contain"
+                    style={{
+                      width: 25,
+                      height: 25,
+                      tintColor: focused ? '#943ADA' : 'black',
+                    }}
+                  />
+                  <Text style={{ color: focused ? '#943ADA' : 'black', fontSize: 12 }}>Post Feed</Text>
+                </View>
+              ),
             }}
           />
-          <Text style={{ color: focused ? '#943ADA' : 'black', fontSize: 12 }}>Post Feed</Text>
-        </View>
-      ),
-    }}
-  />
 
-  <Tab.Screen
-    name="EventStack"
-    component={EventStack}
-    options={{
-      tabBarIcon: ({ focused }) => (
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Image
-            source={require('./src/images/eventIcon.png')}
-            resizeMode="contain"
-            style={{
-              width: 25,
-              height: 25,
-              tintColor: focused ? '#943ADA' : 'black',
+          <Tab.Screen
+            name="EventStack"
+            component={EventStack}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <Image
+                    source={require('./src/images/eventIcon.png')}
+                    resizeMode="contain"
+                    style={{
+                      width: 25,
+                      height: 25,
+                      tintColor: focused ? '#943ADA' : 'black',
+                    }}
+                  />
+                  <Text style={{ color: focused ? '#943ADA' : 'black', fontSize: 12 }}>Events</Text>
+                </View>
+              ),
             }}
           />
-          <Text style={{ color: focused ? '#943ADA' : 'black', fontSize: 12 }}>Events</Text>
-        </View>
-      ),
-    }}
-  />
 
-  <Tab.Screen
-    name="MatchingScreen"
-    component={MatchingScreen}
-    options={{
-      tabBarIcon: ({ focused }) => (
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Image
-            source={require('./src/images/matchIcon.png')}
-            resizeMode="contain"
-            style={{
-              width: 25,
-              height: 25,
-              tintColor: focused ? '#943ADA' : 'black',
+          <Tab.Screen
+            name="MatchingScreen"
+            component={MatchingScreen}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <Image
+                    source={require('./src/images/matchIcon.png')}
+                    resizeMode="contain"
+                    style={{
+                      width: 25,
+                      height: 25,
+                      tintColor: focused ? '#943ADA' : 'black',
+                    }}
+                  />
+                  <Text style={{ color: focused ? '#943ADA' : 'black', fontSize: 12 }}>Match</Text>
+                </View>
+              ),
             }}
           />
-          <Text style={{ color: focused ? '#943ADA' : 'black', fontSize: 12 }}>Match</Text>
-        </View>
-      ),
-    }}
-  />
 
-  <Tab.Screen
-    name="ChatStack"
-    component={ChatStack}
-    options={{
-      tabBarIcon: ({ focused }) => (
-        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-          <Image
-            source={require('./src/images/chatIcon.png')}
-            resizeMode="contain"
-            style={{
-              width: 25,
-              height: 25,
-              tintColor: focused ? '#943ADA' : 'black',
+          <Tab.Screen
+            name="ChatStack"
+            component={ChatStack}
+            options={{
+              tabBarIcon: ({ focused }) => (
+                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                  <Image
+                    source={require('./src/images/chatIcon.png')}
+                    resizeMode="contain"
+                    style={{
+                      width: 25,
+                      height: 25,
+                      tintColor: focused ? '#943ADA' : 'black',
+                    }}
+                  />
+                  <Text style={{ color: focused ? '#943ADA' : 'black', fontSize: 12 }}>Chat</Text>
+                </View>
+              ),
             }}
           />
-          <Text style={{ color: focused ? '#943ADA' : 'black', fontSize: 12 }}>Chat</Text>
-        </View>
-      ),
-    }}
-  />
-</Tab.Navigator>
-      {/* <Tab.Navigator
-    
-    screenOptions ={{
-        tabBarShowLabel: false,
-        headerShown: false,
-   style:{
-    position:'absolute',
-    bottom:'20',
-    left:'20',
-    right:'20',
-    height:50,
-    backgroundColor:'rgba(0,0,0,0.5)',
-    borderRdius: '30',
-    shadowColor: "#000",
-    shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      elevation: 11,
-
-   }
-
-    }}
-    
-    
-    
-    >
-        <Tab.Screen name="Home" component={EventScreen} 
-        
-        options={{
-            tabBarIcon:({focused}) =>(
-         <View style= {{alignItems :'center', justifyConten: 'center ', top :"10"}}>
-            <Image
-            source={require("./src/images/home.png")}
-            resizeMode= 'contain'
-            style ={{
-                width:25,
-                height:25,
-                tintColor: focused ? '#943ADA' : 'black'
-            }}
-            />
-            <Text style={{ color:focused ? '#943ADA' : 'black', fontSize:12}}>Home</Text>
-            
-            
-
-         </View>
-            ),
-
-        }}
-        />
-        <Tab.Screen name="Profile" component={UserProfileScreen} 
-           options={{
-            tabBarIcon:({focused}) =>(
-         <View style= {{alignItems :'center', justifyConten: 'center ', top :"10"}}>
-            <Image
-            source={require("./src/images/home.png")}
-            resizeMode= 'contain'
-            style ={{
-                width:25,
-                height:25,
-                tintColor: focused ? '#943ADA' : 'black'
-            }}
-            />
-            <Text style={{ color:focused ? '#943ADA' : 'black', fontSize:12}}>Profile</Text>
-            
-            
-
-         </View>
-            ),
-
-        }}/>
-        <Tab.Screen name="Feed" component={PostFeedStack}
-          options={{
-            tabBarIcon : ({focused}) =>(
-                <Image
-                source={require("./src/images/home.png")}
-                resizeMode= 'contain'
-                style ={{
-                    width:'30',
-                    height:'30',
-                    tintColor: 'black'
-                }}
-                />
-            ),
-            tabBarButton : (props) =>(
-                <CustomTabBarButton {...props}/>
-            )
-          }}
-
-         />
-        <Tab.Screen name="Chat" component={PostFeedScreen} 
-           options={{
-            tabBarIcon:({focused}) =>(
-         <View style= {{alignItems :'center', justifyConten: 'center ', top :"10"}}>
-            <Image
-            source={require("./src/images/home.png")}
-            resizeMode= 'contain'
-            style ={{
-                width:25,
-                height:25,
-                tintColor: focused ? '#943ADA': 'black'
-            }}
-            />
-            <Text style={{ color:focused ? '#943ADA' : 'black', fontSize:12}}>Chat</Text>
-            
-            
-
-         </View>
-            ),
-
-        }}/>
-        <Tab.Screen name="matching" component={UserProfileScreen}
-           options={{
-            tabBarIcon:({focused}) =>(
-         <View style= {{alignItems :'center', justifyConten: 'center ', top :"10"}}>
-            <Image
-            source={require("./src/images/home.png")}
-            resizeMode= 'contain'
-            style ={{
-                width:25,
-                height:25,
-                tintColor: focused ? '#943ADA' : 'black'
-            }}
-            />
-            <Text style={{ color:focused ? '#943ADA' : 'black', fontSize:12}}>Matching</Text>
-            
-            
-
-         </View>
-            ),
-
-        }} />
-
-        
-    </Tab.Navigator> */}
+        </Tab.Navigator>
+      )}
     </NavigationContainer>
   );
 }
-
 export default App;
