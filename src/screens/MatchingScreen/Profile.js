@@ -11,6 +11,9 @@ import {
   StyleSheet,
 } from "react-native";
 const Profile = ({ route }) => {
+
+
+
   const {
     userGender,
     userName,
@@ -24,7 +27,7 @@ const Profile = ({ route }) => {
     userPay,
     userId,
     userImage,
-  } = route.params;
+  } = route.params ;
   const item = route.params;
   console.log('testProfile',route.params)
 
@@ -47,17 +50,17 @@ const Profile = ({ route }) => {
       <SafeAreaView>
         <View>
           <Image
-            source={require("../images/userBack.png")}
+            source={require("../../images/userBack.png")}
             style={{ left: -70, top: -90, resizeMode: "contain" }}
           />
           <Image
-            source={require("../images/userBack2.png")}
+            source={require("../../images/userBack2.png")}
             style={{ left: 50, top: -180, resizeMode: "contain" }}
           />
           <View>
             <TouchableOpacity>
               <Image
-                source={require("../images/messageBack.png")}
+                source={require("../../images/messageBack.png")}
                 style={{ left: 240, top: -250, resizeMode: "contain" }}
               />
 
@@ -100,7 +103,7 @@ const Profile = ({ route }) => {
               <Text style={styles.userAge}>age: {item.userAge}</Text>
               <View style={styles.userLocation}>
                 <Image
-                  source={require("../images/locationIcon.png")}
+                  source={require("../../images/locationIcon.png")}
                   style={styles.locationIcon}
                 />
                 <Text style={styles.userInfoCity}>{item.userCity}</Text>
@@ -129,7 +132,7 @@ const Profile = ({ route }) => {
               </View>
               <View>
                 <Image // the small rectangle back
-                  source={require("../images/userInfoBottomBox.png")}
+                  source={require("../../images/userInfoBottomBox.png")}
                   style={{ left: -10, top: 30, resizeMode: "contain" }}
                 />
 
@@ -165,7 +168,7 @@ const Profile = ({ route }) => {
                     }}
                   >
                     {" "}
-                    Expertise
+                    Experience
                   </Text>
 
                   <Text
@@ -230,7 +233,7 @@ const Profile = ({ route }) => {
                     marginTop: 10,
                   }}
                 >
-                  Searching for:{" "}
+                  skill:{" "}
                 </Text>
                 {item.userSkill.map((skill, index) => (
                   <Text key={index} style={styles.skillText}>
@@ -246,226 +249,240 @@ const Profile = ({ route }) => {
   );
 };
 
-export default Profile;
-
-const styles = StyleSheet.create({
-  userInfoContainer: {
-    bottom: 530,
-    alignSelf: "center",
-  },
-  userInfo: {
-    alignItems: "center",
-  },
-  userImage: {
-    height: 120,
-    width: 120,
-    borderRadius: 75,
-  },
-  userName: {
-    textAlign: "center",
-    color: "#000000",
-    fontSize: 17,
-    marginTop: 15,
-    fontWeight: "bold",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+export default Profile;const styles = StyleSheet.create({
+    userInfoContainer: {
+      bottom: 530,
+      alignSelf: 'center',
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  icon: {
-    left: 100,
-    bottom: 30,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+    userInfo: {
+      alignItems: 'center',
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  userAge: {
-    textAlign: "center",
-    marginTop: -20,
-    marginBottom: 10,
-    color: "#9E9E9E",
-    fontSize: 17,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+    userImage: {
+      height: 120,
+      width: 120,
+      borderRadius: 75,
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  userLocation: {
-    flexDirection: "row",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+    userName: {
+      textAlign: 'center',
+      color: "#000000",
+      fontSize: 17,
+      marginTop: 15,
+      fontWeight: 'bold',
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  locationIcon: {
-    resizeMode: "contain",
-    marginRight: 4,
-    marginTop: -8,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+    icon: {
+      left: 100,
+      bottom: 30,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  userInfoCity: {
-    textAlign: "center",
-    color: "#9E9E9E",
-    fontSize: 17,
-    marginTop: -8,
-    marginRight: 30,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+    userAge: {
+      textAlign: 'center',
+      marginTop: -20,
+      marginBottom: 10,
+      color: "#9E9E9E",
+      fontSize: 17,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  userDetailsContainer: {
-    bottom: 390,
-    left: 120,
-    alignSelf: "center",
-    marginRight: 120,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+    userLocation: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  userDetails: {
-    alignItems: "left",
-    marginRight: 120,
-    marginTop: -30,
-  },
-  userDetailsSection: {
-    marginBottom: 20,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-  },
-  languageContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 5,
-  },
-  skillsContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    textAlign: "left",
-  },
-  language: {
-    textAlign: "center",
-    color: "#000000",
-    fontSize: 17,
-    marginTop: 9,
-    borderWidth: 2,
-    borderColor: "rgba(148, 58, 218, 0.83)",
-    width: 90,
-    height: 25,
-    borderRadius: 10,
-    marginRight: 10, // Added margin to create space between the language items
-    marginBottom: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+    locationIcon: {
+      resizeMode: "contain",
+      marginRight: 4,
+      marginTop: -8,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  hobbiesContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 5,
-  },
-  hobby: {
-    textAlign: "center",
-    color: "#000000",
-    fontSize: 17,
-    marginTop: 9,
-    borderWidth: 2,
-    borderColor: "rgba(148, 58, 218, 0.83)",
-    width: 90,
-    height: 25,
-    borderRadius: 10,
-    marginRight: 10,
-    marginBottom: 10,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+    userInfoCity: {
+      textAlign: 'center',
+      color: "#9E9E9E",
+      fontSize: 17,
+      marginTop: -8,
+      marginRight: 30,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  bottomBox: {
-    left: -10,
-    top: 60,
-    resizeMode: "contain",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+    userDetailsContainer: {
+      bottom: 390,
+      left: 120,
+      alignSelf: 'center',
+      marginRight: 120,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  userDetailsText: {
-    textAlign: "center",
-    color: "#000000",
-    fontSize: 17,
-    marginTop: 15,
-    width: 90,
-    height: 25,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 10,
+    userDetails: {
+      alignItems: 'left',
+      marginRight: 120,
+      marginTop: -30,
+      
     },
-    shadowOpacity: 0.36,
-    shadowRadius: 10.0,
-    elevation: 11,
-  },
-  skillText: {
-    textAlign: "center",
-    color: "#000000",
-    fontSize: 17,
-    backgroundColor: "#FFFFFF",
-    marginRight: 10,
-    marginBottom: 10,
-    padding: 5,
-    borderRadius: 10,
-    overflow: "hidden",
-    borderWidth: 1,
-    borderColor: "rgba(148, 58, 218, 0.83)",
-  },
-});
+    userDetailsSection: {
+      marginBottom: 20,
+    },
+    sectionTitle: {
+      fontSize: 18,
+      fontWeight: 'bold',
+      
+    },
+    languageContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      marginTop: 5,
+      
+      
+    },
+    skillsContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      textAlign: 'left'
+    },
+    language: {
+      height:30,
+      textAlign: 'center',
+      color: "#000000",
+      marginTop: 9,
+      borderWidth: 10,
+      textAlign: 'center',
+      color: '#000000',
+      fontSize: 17,
+      backgroundColor: '#FFFFFF',
+      padding: 5,
+      borderRadius: 10,
+      overflow: 'hidden', 
+      borderWidth: 1,
+      borderColor: 'rgba(148, 58, 218, 0.83)',
+      width: 90,
+      marginRight: 10, // Added margin to create space between the language items
+      marginBottom: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,
+    },
+    hobbiesContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      marginTop: 5,
+    },
+    hobby: {
+      height:30,
+      textAlign: 'center',
+      color: "#000000",
+      marginTop: 9,
+      borderWidth: 10,
+      textAlign: 'center',
+      color: '#000000',
+      fontSize: 17,
+      backgroundColor: '#FFFFFF',
+      padding: 5,
+      borderRadius: 10,
+      overflow: 'hidden', 
+      borderWidth: 1,
+      borderColor: 'rgba(148, 58, 218, 0.83)',
+      width: 90,
+      marginRight: 10, // Added margin to create space between the language items
+      marginBottom: 10,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,
+    },
+    bottomBox: {
+      left: -10,
+      top: 60,
+      resizeMode: "contain",
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,
+    },
+    userDetailsText: {
+      textAlign: 'center',
+      color: "#000000",
+      fontSize: 17,
+      marginTop: 15,
+      width: 90,
+      height: 25,
+      shadowColor: "#000",
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.36,
+      shadowRadius: 10.0,
+      elevation: 11,
+    },
+    skillText: {
+      textAlign: 'center',
+      color: '#000000',
+      fontSize: 17,
+      backgroundColor: '#FFFFFF',
+      marginRight: 10,
+      marginBottom: 10,
+      padding: 5,
+      borderRadius: 10,
+      overflow: 'hidden', 
+      borderWidth: 1,
+      borderColor: 'rgba(148, 58, 218, 0.83)',
+    },
+    
+  });

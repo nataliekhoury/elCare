@@ -54,7 +54,7 @@ const LoginScreen = () => {
       </View>
       <View style={{ bottom: 110 }}>
         <View>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             Email
           </Text>
           <TextInput
@@ -84,7 +84,7 @@ const LoginScreen = () => {
             autoCapitalize="none"
             autoCorrect="none"
           ></TextInput>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             password
           </Text>
           <TextInput
@@ -150,7 +150,7 @@ const LoginScreen = () => {
             style={{
               color: "grey",
               fontWeight: "bold",
-              fontSize: "20",
+              fontSize: 20,
               marginRight: 280,
               top: -100,
             }}
@@ -197,7 +197,7 @@ const styles = StyleSheet.create({
   },
   logInStyle: {
     fontWeight: "bold",
-    fontSize: "17",
+    fontSize: 17,
     color: "white",
     textAlign: "center",
   },
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   joinStyle: {
     // fontSize:'12',
     fontWeight: "bold",
-    fontSize: "17",
+    fontSize: 17,
     color: "#6A61CF",
   },
 });

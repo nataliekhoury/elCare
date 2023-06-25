@@ -1,4 +1,53 @@
 
+// import React, { useEffect, useState } from 'react';
+// import { View, Text } from 'react-native';
+// import { firebase } from "../../config";
+// import { useNavigation } from '@react-navigation/native';
+
+// const UserProfileScreen = ({navigation}) => {
+//   const [userRole, setUserRole] = useState('');
+//   // const navigation = useNavigation();
+
+//   useEffect(() => {
+//     // Fetch user role from Firestore
+//     const fetchUserRole = async () => {
+//       try {
+//         const user = firebase.auth().currentUser;
+//         const userDocument = await firebase.firestore()
+//           .collection('user')
+//           .doc(user.uid)
+//           .get();
+
+//         setUserRole(userDocument.data().role);
+//       } catch (error) {
+//         console.log('Error fetching user role:', error);
+//       }
+//     };
+
+//     fetchUserRole();
+//   }, []);
+
+//   useEffect(() => {
+//     // Navigate based on user role
+//     if (userRole === 'Elderly') {
+//       navigation.navigate('ElderlyProfileScreen');
+//     } else if (userRole === 'Caregiver') {
+//       navigation.navigate('CaregiverProfileScreen');
+//     }
+//   }, [userRole]);
+
+//   return (
+//     <View>
+//       <Text>Loading...</Text>
+//     </View>
+//   );
+// };
+
+// export default UserProfileScreen;
+
+
+
+
 import React, { useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { firebase } from "../../config";
@@ -6,19 +55,31 @@ import { useNavigation } from '@react-navigation/native';
 
 const UserProfileScreen = ({navigation}) => {
   const [userRole, setUserRole] = useState('');
-  // const navigation = useNavigation();
 
   useEffect(() => {
-    // Fetch user role from Firestore
+  // feetching the role user 
     const fetchUserRole = async () => {
       try {
         const user = firebase.auth().currentUser;
-        const userDocument = await firebase.firestore()
-          .collection('user')
-          .doc(user.uid)
-          .get();
 
-        setUserRole(userDocument.data().role);
+        if (user) {
+          const userDocument = await firebase.firestore()
+            .collection('user')
+            .doc(user.uid)
+            .get();
+      
+
+          if (userDocument.exists) { // check if document exists
+            const data = userDocument.data();
+            if (data) { // check if data is not undefined
+              setUserRole(data.role);
+            }
+          } else {
+            console.log("No such document!");
+          }
+        } else {
+          console.log('No user is signed in');
+        }
       } catch (error) {
         console.log('Error fetching user role:', error);
       }
@@ -30,17 +91,13 @@ const UserProfileScreen = ({navigation}) => {
   useEffect(() => {
     // Navigate based on user role
     if (userRole === 'Elderly') {
-      navigation.navigate('ElderlyProfileScreen');
+      navigation.replace('ElderlyProfileScreen');
     } else if (userRole === 'Caregiver') {
-      navigation.navigate('CaregiverProfileScreen');
+      navigation.replace('CaregiverProfileScreen');
     }
   }, [userRole]);
 
-  return (
-    <View>
-      <Text>Loading...</Text>
-    </View>
-  );
+ 
 };
 
 export default UserProfileScreen;

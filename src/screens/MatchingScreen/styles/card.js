@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
 	image: {
-		height: 200,
+		height: 180,
 		width: 120,
 		display: 'flex',
 		justifyContent: 'flex-end',

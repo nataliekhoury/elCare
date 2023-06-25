@@ -58,7 +58,7 @@ const ForgetPasswordScreen = () => {
       </View>
       <View style={{ bottom: 180 }}>
         <View>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             Email Adress
           </Text>
           <TextInput
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   submitStyle: {
     fontWeight: "bold",
-    fontSize: "25",
+    fontSize: 25,
     color: "white",
     textAlign: "center",
   },

@@ -179,7 +179,7 @@ const SignupScreen = () => {
 
         </View>
         <View style={{ top: -120 }}>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             Email
           </Text>
           <TextInput
@@ -212,7 +212,7 @@ const SignupScreen = () => {
               pattern: { value: EMAIL_REGEX, message: "Email is invalid" },
             }}
           ></TextInput>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             password
           </Text>
           <TextInput
@@ -250,7 +250,7 @@ const SignupScreen = () => {
             }}
           ></TextInput>
 
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             phone
           </Text>
           <TextInput
@@ -326,7 +326,7 @@ const SignupScreen = () => {
           <Text
             style={{
               fontWeight: "bold",
-              fontSize: "17",
+              fontSize: 17,
               color: "white",
               textAlign: "center",
             }}
@@ -351,7 +351,7 @@ const SignupScreen = () => {
             style={{
               color: "grey",
               fontWeight: "bold",
-              fontSize: "18",
+              fontSize: 18,
               marginRight: 240,
               bottom: 215,
               shadowColor: "#000",
@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
   joinStyle: {
     // fontSize:'12',
     fontWeight: "bold",
-    fontSize: "17",
+    fontSize: 17,
     color: "#6A61CF",
     right: -20,
     justifyContent: "center",

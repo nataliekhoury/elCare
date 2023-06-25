@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import {React,useState,useEffect} from 'react';
-import { Button, ImageBackground, View } from 'react-native';
+import { Button, ImageBackground, View ,Image,TouchableOpacity} from 'react-native';
 import { styles } from '../styles/card';
 
 const BASE_URL = '/BASE_URL';
@@ -62,7 +62,7 @@ export const Card = ({
 	userId,
 	userImage,
 		}
-		alertUserMatcher('' + (score * 100) +'% ' +description + 'id '+id, profileInfo)
+		alertUserMatcher('' + (score * 100) +'% ' +description , profileInfo)
 	}
 	
 
@@ -74,8 +74,15 @@ export const Card = ({
 			style={styles.image}
 		>
 			<View style={styles.actions}>
-				<Button onPress={onRemove} title="X" style={styles.action} />
-				<Button onPress={onAlert} title="V" style={styles.button} />
+				{/* <Button onPress={onRemove} title="X" style={styles.action} >
+					
+					</Button> */}
+					       <TouchableOpacity onPress={onRemove} style={styles.action}>
+          <Image source={require('../../../images/ignoreIcon.png')} style={styles.imageButton} />
+        </TouchableOpacity>
+		<TouchableOpacity onPress={onAlert} style={styles.button}>
+          <Image source={require('../../../images/likeIcon.png')} style={styles.imageButton} />
+        </TouchableOpacity>
 
 			</View>
 		</ImageBackground>

@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, Text,Alert } from 'react-native';
+import { SafeAreaView, Text,Alert ,Image} from 'react-native';
 import { Cards } from './Cards';
 import { firebase } from '../../../../config';
 import { styles } from '../styles/suggestions';
 import { getChatCompletion, getSortedCaregivers } from './openAI';
 import { useNavigation } from "@react-navigation/native";
+import { ScrollView } from 'react-native-gesture-handler';
 export const Suggestions = ({ suggestedRole,currUserData}) => {
 	
 	const navigation = useNavigation();
 	const [users, setUsers] = useState([]);
+	const [usersFB, setUsersFB] = useState([]);
+
 	const [openAIMessage, setOpenAIMessage] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const getSuggestions = async (inpUsers) => {
+		setOpenAIMessage('Getting suggestions ..');
+		try {
+			const res = await getSortedCaregivers(currUserData, inpUsers);
+			res && setUsers(prevState =>{
+				return [...res]
+			})
+			// setOpenAIMessage('here is your suggestions');
+			
+			console.log('testgetSortedCaregivers',res[0])		
+		} catch (error) {
+			console.error('errrSuggis',error);
+			setOpenAIMessage('error ' + error);
 
+		}
+	};
 	useEffect(() => {
+		console.log('suggestedRole',suggestedRole);
 		const fetchUsers = async () => {
 			try {
 				const db = firebase.firestore();
@@ -26,39 +45,29 @@ export const Suggestions = ({ suggestedRole,currUserData}) => {
 				const emailAddresses = userSnapshot.docs.map((doc) =>
 					doc.data().email.toLowerCase()
 				);
+
 				const userDataSnapshot = await userDataCollection
-					.where('userId', 'in', emailAddresses)
-					.get();
-				const users = userDataSnapshot.docs.map((doc) => {
-					const currObj = doc.data();
-					return currObj;
-				});
-				return users
+				.where('userId', 'in', emailAddresses)
+				.get();
+
+				const usersFromFB = userDataSnapshot.docs
+				.map((doc) => doc.data())
+				// .filter((userData) => emailAddresses.includes(userData.userId));
+			  return usersFromFB;
 			} catch (error) {
-				console.log('Error:', error);
+			  console.error('Error fetching users:', error);
+			  return [];
 			}
+		  
 		};
+		const usersRes =  fetchUsers();
+		usersRes.then((res)=>{
+			// console.log('getSugestionInput',res.length)
+			res && getSuggestions(res)
+		})
+	}, [],);
+	
 
-		const getSuggestions = async (users) => {
-			setOpenAIMessage('Getting suggestions ..');
-			try {
-				const res = await getSortedCaregivers(currUserData, users);
-				console.log('getSortedCaregiversRESALL ',res);
-				setUsers([...res]);
-				setOpenAIMessage('here is your suggestions');
-			} catch (error) {
-				console.error('errrSuggis',error);
-			}
-		};
-
-		fetchUsers().then((res) => {
-			getSuggestions(res);
-		});
-	}, []);
-
-	// useEffect(() => {
-	// 	console.log('openAIMessage',openAIMessage);
-	// }, [openAIMessage]);
 
 	const removeUser = (id) => {
 		const filteredUsers = users.filter((careGiver) => careGiver.userId !== id);
@@ -70,13 +79,16 @@ export const Suggestions = ({ suggestedRole,currUserData}) => {
 	}
 
 	return (
+		<ScrollView>
 		<SafeAreaView style={styles.container}>
+	 <Image
+		source={require("../../../images/userBack.png")}
+		style={{ left: -20, top: -130, resizeMode: "contain" }}
+	  />		
 			<Text
 				style={styles.title}
-			>{`Your matching ${suggestedRole.toLowerCase()=='elderly'?'Cargever':'Elderley'}`}</Text>
-			<Text
-				style={styles.tagline}
-			>{`Here you can see your matching ${suggestedRole.toLowerCase()=='elderly'?'Cargever':'Elderley'}`}</Text>
+			>{`Your matching ${suggestedRole.toLowerCase()=='elderly'?'Caregiver':'Elderly'}`}</Text>
+			<Text style={styles.tagline}>{`Here you can see your matching ${suggestedRole.toLowerCase()=='elderly'?'Caregiver':'Elderly'}`}</Text>
 			<Cards 
 			users={users} 
 			role={suggestedRole} 
@@ -85,6 +97,6 @@ export const Suggestions = ({ suggestedRole,currUserData}) => {
 			/>
 
 			<Text>{openAIMessage}</Text>
-		</SafeAreaView>
+		</SafeAreaView></ScrollView>
 	);
 };

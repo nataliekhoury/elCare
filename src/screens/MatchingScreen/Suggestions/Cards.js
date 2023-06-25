@@ -1,13 +1,19 @@
 import React from 'react';
 import { View } from 'react-native';
-import { Card } from './Card';
+import { Card,Image } from './Card';
 import { styles } from '../styles/cards';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export const Cards = ({ users, role, removeUser,alertUserMatcher,onPressSuggestedUser }) => {	
 	return (
-		<View style={styles.container}>
+	
+
+	  <ScrollView>
+	  <View style={styles.container}>
+		
 			{users.map((user,key) => (
-				<Card
+				<Card 
+				
 					key={user.userId +key }
 					id={user.userId}
 					userImage={user.userImage}
@@ -21,5 +27,7 @@ export const Cards = ({ users, role, removeUser,alertUserMatcher,onPressSuggeste
 				/>
 			))}
 		</View>
+		</ScrollView>
+	
 	);
 };

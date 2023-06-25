@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = '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';
 const OPENAI_API_URL = 'https://api.openai.com/v1/completions';
 
 const getChatCompletion = async (message) => {	
@@ -42,7 +42,7 @@ const getChatCompletion = async (message) => {
 
 export const getSortedCaregivers = async (elder, caregivers) => {
 	const currUser = elder;
-	console.log(' currUserResToCompare',currUser)
+	console.log(' currUserResToComparelengthin',caregivers.length)
 	const originalUsersCopy = [...caregivers];
 	const GROUP_SIZE = 3;
 	const arrAttr = [
@@ -78,13 +78,22 @@ export const getSortedCaregivers = async (elder, caregivers) => {
 	// i need the result of my question to be a json store it in result as json such that when i parse the result of the api to get the array already i dont need any code only the result 
 	// elder: ${filteredElder} caregiversArr:`;
 
-	const intialMarkupQuestion = `Given an elder object elder= ${JSON.stringify(currUser)} and other caregiversArr array of objects, 
-	I would like to return a new array that contains scores out of range 0 to  1 the scores are based on how much each caregiversArr object  elment
-	does it most sutiable to take care  to the requrment and the needs of elder object also if same city languges and so on.
+	// I would like to return a new array that contains scores out of range 0 to 1 the scores are based on how much each caregiversArr object element
+	// is more sutiable to take care to the requirments and the needs of the elder object also if same city languages and so on.
+	// Please note that you are giving priorityOfAttr =${priorityOfAttr}. 
+	// This array is ordered according to the priority of explaining in details how much each attribute is important, where priorityOfAttr[0] is the most important.
+	// Output score = {userId, userRole, description: 'match reason in details how much does it fit to the requirements of the needs of elder object', score: }.
+	// No explnation of the scores needed store the output in the RESULT_ARRAY_OF_SCORES
+    
+	const intialMarkupQuestion = `Given an elder object elder= ${JSON.stringify(currUser)} and other users array of objects, 
+	I want to return a new array containing scroing range 0 to 1 that is based of the elements object that best fits the givern elder, according
+	to the requirements and needs registered, same language, city, etc. 
 	Please note that you are giving priorityOfAttr =${priorityOfAttr}. 
-	This array is ordered according to the priority of how much each attribute is important, where priorityOfAttr[0] is the most important.
-	Output score = {userId, userRole, description: 'match reason how much does it fit to the requrment of the needs of elder object', score: }.
-	No explnation of the scores needed store the output in the RESULT_ARRAY_OF_SCORES 
+	This array is ordered according to the priority of explaining how much each attribute is important, where priorityOfAttr[0] is the most important.
+	Output score = {userId, userRole, description: 'match reason in details how much does it fit to the requirements of the needs of elder object', score: }.
+	No explaination of the scores is needed, just a more detailed explantion for the rest criterias, store the output in the RESULT_ARRAY_OF_SCORES 
+
+	 
 	elder: ${filteredElder} caregiversArr:`
 	const promises = groups.map(async (array) => {
 		const markupQuestion = `${intialMarkupQuestion}${JSON.stringify(array)} RESULT_ARRAY_OF_SCORES`;
