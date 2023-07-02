@@ -21,9 +21,9 @@ const MatchingScreen = () => {
 					.doc(user.uid)
 					.get();
 					const _userRole = userDocument.data().role;
-
 					setCurrUserData({...userDocumentData.data()});
-				setUserRole(_userRole);
+					setUserRole(_userRole);
+
 			} catch (error) {
 				console.log('Error fetching user role:', error);
 			}
@@ -32,7 +32,7 @@ const MatchingScreen = () => {
 		fetchUserRole();
 	}, []);
 	
-		return <Suggestions suggestedRole={userRole} currUserData={currUserData}/>;
+		return userRole?<Suggestions suggestedRole={userRole} currUserData={currUserData}/>:null;
 };
 
 export default MatchingScreen;

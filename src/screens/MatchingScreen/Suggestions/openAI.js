@@ -40,11 +40,15 @@ const getChatCompletion = async (message) => {
 
 
 
-export const getSortedCaregivers = async (elder, caregivers) => {
+export const getSortedCaregivers = async (elder, caregivers,suggestedRole) => {
+	console.log('=====getSortedCaregivers=elder',elder);
+	console.log('=====getSortedCaregivers=caregivers.length',caregivers.length)
+	console.log('=====getSortedCaregivers=suggestedRole',suggestedRole)
+
 	const currUser = elder;
-	console.log(' currUserResToComparelengthin',caregivers.length)
 	const originalUsersCopy = [...caregivers];
-	const GROUP_SIZE = 3;
+	const MAX_GROUP_LEN = 5;
+	let GROUP_SIZE = caregivers.length<MAX_GROUP_LEN?caregivers.length :MAX_GROUP_LEN;
 	const arrAttr = [
 		"userId",
 		"userName",
@@ -70,36 +74,21 @@ export const getSortedCaregivers = async (elder, caregivers) => {
 	const groups = createGroups(filteredCaregivers,GROUP_SIZE);
 	// filteredCaregivers = getRelevantUsers(filteredCaregivers,currUser);
 	const filteredElder = getObjByAttr(elder,arrAttr);
-	// const intialMarkupQuestion = 
-	// `Given an elder object and other caregiversArr array of objects, 
-	// I would like to return new  array that contains scores out of 1 how much the object are similar 
-	// please note that you arr giving priorityOfAttr = ${JSON.stringify(priorityOfAttr)} this is orderd according priority of how much each attrIs important priorityOfAttr[0] is most important
- 	// output score = {userId,userRole, description: 'match reason how man simliarite ',score:}.
-	// i need the result of my question to be a json store it in result as json such that when i parse the result of the api to get the array already i dont need any code only the result 
-	// elder: ${filteredElder} caregiversArr:`;
 
-	// I would like to return a new array that contains scores out of range 0 to 1 the scores are based on how much each caregiversArr object element
-	// is more sutiable to take care to the requirments and the needs of the elder object also if same city languages and so on.
-	// Please note that you are giving priorityOfAttr =${priorityOfAttr}. 
-	// This array is ordered according to the priority of explaining in details how much each attribute is important, where priorityOfAttr[0] is the most important.
-	// Output score = {userId, userRole, description: 'match reason in details how much does it fit to the requirements of the needs of elder object', score: }.
-	// No explnation of the scores needed store the output in the RESULT_ARRAY_OF_SCORES
-    
-	const intialMarkupQuestion = `Given an elder object elder= ${JSON.stringify(currUser)} and other users array of objects, 
-	I want to return a new array containing scroing range 0 to 1 that is based of the elements object that best fits the givern elder, according
+	const intialMarkupQuestion = `Given an ${suggestedRole} object suggestedRole= ${JSON.stringify(currUser)} and other users array of objects, 
+	I want to return a new array containing scroing range 0 to 1 that is based of the elements object that best fits the givern suggestedRole, according
 	to the requirements and needs registered, same language, city, etc. 
-	Please note that you are giving priorityOfAttr =${priorityOfAttr}. 
+	Please note that you are giving priorityOfAttr = ${priorityOfAttr}. 
 	This array is ordered according to the priority of explaining how much each attribute is important, where priorityOfAttr[0] is the most important.
 	Output score = {userId, userRole, description: 'match reason in details how much does it fit to the requirements of the needs of elder object', score: }.
-	No explaination of the scores is needed, just a more detailed explantion for the rest criterias, store the output in the RESULT_ARRAY_OF_SCORES 
+	No explaination of the scores is needed, just a more detailed explantion for the rest criterias in case the score bellow 0.6 say why, store the output in the RESULT_ARRAY_OF_SCORES 
+	elder: ${filteredElder} caregiversArr:`;
 
-	 
-	elder: ${filteredElder} caregiversArr:`
 	const promises = groups.map(async (array) => {
 		const markupQuestion = `${intialMarkupQuestion}${JSON.stringify(array)} RESULT_ARRAY_OF_SCORES`;
-		console.log('testMarkup',markupQuestion)
+		// console.log('testMarkup',markupQuestion)
 		const openAiRes = await getChatCompletion(markupQuestion);
-		console.log('openAiRes',openAiRes)
+		// console.log('openAiRes',openAiRes)
 		return openAiRes;
 	  });
 	  

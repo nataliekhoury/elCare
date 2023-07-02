@@ -17,13 +17,12 @@ export const Suggestions = ({ suggestedRole,currUserData}) => {
 	const getSuggestions = async (inpUsers) => {
 		setOpenAIMessage('Getting suggestions ..');
 		try {
-			const res = await getSortedCaregivers(currUserData, inpUsers);
+			const res = suggestedRole && await getSortedCaregivers(currUserData, inpUsers,suggestedRole);
 			res && setUsers(prevState =>{
 				return [...res]
 			})
-			// setOpenAIMessage('here is your suggestions');
+			setOpenAIMessage('here is your suggestions');
 			
-			console.log('testgetSortedCaregivers',res[0])		
 		} catch (error) {
 			console.error('errrSuggis',error);
 			setOpenAIMessage('error ' + error);
@@ -31,7 +30,6 @@ export const Suggestions = ({ suggestedRole,currUserData}) => {
 		}
 	};
 	useEffect(() => {
-		console.log('suggestedRole',suggestedRole);
 		const fetchUsers = async () => {
 			try {
 				const db = firebase.firestore();

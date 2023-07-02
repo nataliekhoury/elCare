@@ -22,11 +22,18 @@ import { IconButton } from 'react-native-paper';
 
 
 const ChatScreen = ({ route }) => {
-  const { userId } = route.params;
+  const { userId,currUserId } = route.params;
+  const currUserArr = userId && userId.split("@")
+  const otherUserId = currUserArr && currUserArr[0];
+
+  const chatGroupId = currUserId+otherUserId;
+ 
+
   const navigation = useNavigation();
   const [user, setUser] = useState(null);
   const [messages, setMessages] = useState([]);
   useLayoutEffect(()=>{
+    // fillter by chatGroupId first 
      const unsubscribe=firebase.firestore().collection('chats').orderBy('createdAt','desc').onSnapshot(snapshot =>setMessages(snapshot.docs.map(doc =>({ 
       _id:doc.data()._id,
       createdAt:doc.data().createdAt.toDate(),
@@ -53,7 +60,7 @@ const ChatScreen = ({ route }) => {
       return () => unsubscribe();
     }
   }, [userId]);
-
+  // when sending do dataBase add the chatGroupId
   const onSend = useCallback((messages = []) => {
     setMessages(previousMessages => GiftedChat.append(previousMessages, messages))
     const {
@@ -66,7 +73,8 @@ const ChatScreen = ({ route }) => {
     _id,
     createdAt,
     text,
-    user
+    user,
+    // chatGroupId
    })
   }, [])
 

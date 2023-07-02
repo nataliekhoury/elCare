@@ -6,11 +6,19 @@ import ChatScreen from "./ChatScreen";
 
 const ChatListScreen = () => {
   const [users, setUsers] = useState([]);
+  const [currUserKey, setUserKey] = useState('');
+
   const [search, setSearch] = useState('');
   const currentUser = firebase.auth().currentUser;
   const navigation = useNavigation();
 
   useEffect(() => {
+    console.log('ChatListScreencurrentUser',currentUser.email)
+    // this is the userKey to use in the chatGroupId 
+    const currUserArr = currentUser.email && currentUser.email.split("@")
+    const currUserId = currUserArr && currUserArr[0];
+    console.log('ChatListScreencurrentUser',currUserId);
+    setUserKey(currUserId)
     const unsubscribe = firebase.firestore()
       .collection('userData').where("userId", "!=", currentUser.email)
       .onSnapshot((querySnapshot) => {
@@ -31,7 +39,7 @@ const ChatListScreen = () => {
   
     return (
       <TouchableOpacity
-      onPress={() => navigation.navigate('ChatScreen', { userId: item.userId })}
+      onPress={() => navigation.navigate('ChatScreen', { userId: item.userId,currUserId:currUserKey})}
       style={{ flexDirection: 'row', alignItems: 'center', padding: 10 }}
       >
         <Image
