@@ -2093,7 +2093,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 21,
+    // elevation: 21,
   },
 });
 

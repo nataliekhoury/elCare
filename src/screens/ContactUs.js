@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react';
 
 
 const ContactUs = () => {
+  const navigation = useNavigation();
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -44,6 +45,9 @@ const ContactUs = () => {
         <SafeAreaView>
             
              <Image source={require('../images/backContact.png')} style = {styles.topImage} />
+             <TouchableOpacity onPress={() => navigation.navigate('UserProfileScreen')}>
+        <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
+      </TouchableOpacity>
              
        <Text style = {styles.title}> Contact Us</Text>
        
@@ -203,6 +207,16 @@ const styles = StyleSheet.create({
         
 
     },
+    backIcon: {
+      width: 40,
+      height: 40,
+      marginStart: 10,
+      bottom:740,
+      left:15,
+      resizeMode: 'contain',
+      tintColor: '#666666',
+  
+    },
     topImage: {
         // left: -5,
         bottom: 50,
@@ -219,7 +233,7 @@ const styles = StyleSheet.create({
     title: {
       fontWeight: 'bold',
       fontSize: 25,
-      bottom: 780,
+      bottom: 750,
       alignContent: 'center',
       alignSelf: 'center',
     },

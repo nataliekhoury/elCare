@@ -275,7 +275,7 @@ export default Profile;const styles = StyleSheet.create({
       },
       shadowOpacity: 0.36,
       shadowRadius: 10.0,
-      elevation: 11,
+      // elevation: 11,
     },
     icon: {
       left: 100,
@@ -301,7 +301,7 @@ export default Profile;const styles = StyleSheet.create({
       },
       shadowOpacity: 0.36,
       shadowRadius: 10.0,
-      elevation: 11,
+      // elevation: 11,
     },
     userLocation: {
       flexDirection: 'row',
@@ -313,7 +313,7 @@ export default Profile;const styles = StyleSheet.create({
       },
       shadowOpacity: 0.36,
       shadowRadius: 10.0,
-      elevation: 11,
+      // elevation: 11,
     },
     locationIcon: {
       resizeMode: "contain",
@@ -326,7 +326,7 @@ export default Profile;const styles = StyleSheet.create({
       },
       shadowOpacity: 0.36,
       shadowRadius: 10.0,
-      elevation: 11,
+      // elevation: 11,
     },
     userInfoCity: {
       textAlign: 'center',
@@ -341,7 +341,7 @@ export default Profile;const styles = StyleSheet.create({
       },
       shadowOpacity: 0.36,
       shadowRadius: 10.0,
-      elevation: 11,
+      // elevation: 11,
     },
     userDetailsContainer: {
       bottom: 390,
@@ -355,7 +355,7 @@ export default Profile;const styles = StyleSheet.create({
       },
       shadowOpacity: 0.36,
       shadowRadius: 10.0,
-      elevation: 11,
+      // elevation: 11,
     },
     userDetails: {
       alignItems: 'left',
@@ -408,7 +408,7 @@ export default Profile;const styles = StyleSheet.create({
       },
       shadowOpacity: 0.36,
       shadowRadius: 10.0,
-      elevation: 11,
+      // elevation: 11,
     },
     hobbiesContainer: {
       flexDirection: 'row',
@@ -440,7 +440,7 @@ export default Profile;const styles = StyleSheet.create({
       },
       shadowOpacity: 0.36,
       shadowRadius: 10.0,
-      elevation: 11,
+      // elevation: 11,
     },
     bottomBox: {
       left: -10,
@@ -453,7 +453,7 @@ export default Profile;const styles = StyleSheet.create({
       },
       shadowOpacity: 0.36,
       shadowRadius: 10.0,
-      elevation: 11,
+      // elevation: 11,
     },
     userDetailsText: {
       textAlign: 'center',
@@ -469,7 +469,7 @@ export default Profile;const styles = StyleSheet.create({
       },
       shadowOpacity: 0.36,
       shadowRadius: 10.0,
-      elevation: 11,
+      // elevation: 11,
     },
     skillText: {
       textAlign: 'center',

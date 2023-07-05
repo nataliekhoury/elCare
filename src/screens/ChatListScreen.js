@@ -74,7 +74,7 @@ const ChatListScreen = () => {
           },
           shadowOpacity: 0.6,
           shadowRadius: 3,
-          elevation: 11, // Android elevation
+          // elevation: 11, // Android elevation
         }}
         
         placeholder=" 🔍Search Contact"

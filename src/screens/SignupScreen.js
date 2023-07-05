@@ -206,7 +206,7 @@ const SignupScreen = () => {
             }}
             placeholder="Email"
             onChangeText={(email) => setEmail(email)}
-            autoCorrect={false}
+            // autoCorrect={false}
             rules={{
               required: "Email is required",
               pattern: { value: EMAIL_REGEX, message: "Email is invalid" },
@@ -239,7 +239,7 @@ const SignupScreen = () => {
             }}
             placeholder="password"
             onChangeText={(password) => setPassword(password)}
-            autoCorrect={false}
+            // autoCorrect={false}
             secureTextEntry={true}
             rules={{
               required: "Password is required",
@@ -303,8 +303,8 @@ const SignupScreen = () => {
             width: "60%",
             top: -140,
             backgroundColor: "rgba(106, 97, 207, 0.84)",
-            borderRadius: "50",
-            borderRadius: "50",
+            borderRadius: 50,
+            borderRadius: 50,
             paddingHorizontal: 60,
             justifyContent: "center",
             alignItem: "center",
@@ -380,7 +380,7 @@ const styles = StyleSheet.create({
     left: 200,
     bottom: 70,
     backgroundColor: "#D4D4D4",
-    borderRadius: "40",
+    borderRadius: 40,
     paddingHorizontal: 50,
     justifyContent: "center",
     alignItem: "center",

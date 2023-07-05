@@ -493,6 +493,11 @@ const ElderlyProfileScreen = () => {
             source={require("../images/userBack.png")}
             style={{ left: -70, top: -90, resizeMode: "contain" }}
           />
+
+      <TouchableOpacity onPress={() => navigation.navigate('ContactUs')}>
+        <Image style={styles.help} source={require('../images/helpIcon.png')} />
+      </TouchableOpacity>
+
           <Image
             source={require("../images/userBack2.png")}
             style={{ left: 50, top: -180, resizeMode: "contain" }}
@@ -636,7 +641,13 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
+  },
+  help:{
+    bottom: 205,
+    left: 320,
+    // height: 40,
+    // width: 40,
   },
   icon: {
     left: 100,
@@ -648,7 +659,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userAge: {
     textAlign: 'center',
@@ -663,7 +674,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userLocation: {
     flexDirection: 'row',
@@ -675,7 +686,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   locationIcon: {
     resizeMode: "contain",
@@ -688,7 +699,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userInfoCity: {
     textAlign: 'center',
@@ -703,7 +714,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userDetailsContainer: {
     bottom: 390,
@@ -717,7 +728,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userDetails: {
     alignItems: 'left',
@@ -770,7 +781,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   hobbiesContainer: {
     flexDirection: 'row',
@@ -802,7 +813,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   bottomBox: {
     left: -10,
@@ -815,7 +826,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userDetailsText: {
     textAlign: 'center',
@@ -831,7 +842,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   skillText: {
     textAlign: 'center',

@@ -82,7 +82,7 @@ const LoginScreen = () => {
             placeholder="Email"
             onChangeText={(email) => setEmail(email)}
             autoCapitalize="none"
-            autoCorrect="none"
+            // autoCorrect="none"
           ></TextInput>
           <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             password
@@ -111,7 +111,7 @@ const LoginScreen = () => {
             }}
             placeholder="password"
             onChangeText={(password) => setPassword(password)}
-            autoCorrect={false}
+            // autoCorrect={false}
             secureTextEntry={true}
           ></TextInput>
         </View>
@@ -179,7 +179,7 @@ const styles = StyleSheet.create({
   buttonLoginStyle: {
     width: "80%",
     backgroundColor: "rgba(106, 97, 207, 0.84)",
-    borderRadius: "50",
+    borderRadius: 50,
     paddingHorizontal: 60,
     justifyContent: "center",
     alignItem: "center",
@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
     left: 180,
     bottom: -50,
     backgroundColor: "#D4D4D4",
-    borderRadius: "40",
+    borderRadius: 40,
     paddingHorizontal: 50,
     justifyContent: "center",
     alignItem: "center",

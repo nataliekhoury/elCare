@@ -1740,6 +1740,12 @@ export default function EventScreen({ navigation }) {
           </TouchableOpacity>
         )}
 
+{/* {userEmail === 'elcare2023@gmail.com' && (
+              <TouchableOpacity onPress={() => navigation.navigate('AdminContactUs')}>
+                <Image source={require('../images/helpIcon.png')} style={styles.help} />
+              </TouchableOpacity>
+            )} */}
+
         <View style={{ bottom: 50 }}>
           <OptionItem setSelectedLabel={setSelectedLabel} />
         </View>
@@ -1764,6 +1770,12 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingStart: 20,
   },
+  help:{
+    bottom: 200,
+    left: 30,
+    // height: 40,
+    // width: 40,
+  },
   image: {
     alignItems: 'center',
     alignSelf: 'center',
@@ -1785,8 +1797,8 @@ const styles = StyleSheet.create({
     bottom:60,
   },
   addInfo: {
-    bottom: 240,
-    left: 330,
+    bottom: 260,
+    left: 40,
     height: 25,
     width: 25,
   },

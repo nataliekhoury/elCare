@@ -817,7 +817,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   icon: {
     left: 100,
@@ -843,7 +843,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userLocation: {
     flexDirection: 'row',
@@ -855,7 +855,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   locationIcon: {
     resizeMode: "contain",
@@ -868,7 +868,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userInfoCity: {
     textAlign: 'center',
@@ -883,7 +883,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userDetailsContainer: {
     bottom: 390,
@@ -897,7 +897,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userDetails: {
     alignItems: 'left',
@@ -950,7 +950,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   hobbiesContainer: {
     flexDirection: 'row',
@@ -982,7 +982,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   bottomBox: {
     left: -10,
@@ -995,7 +995,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userDetailsText: {
     textAlign: 'center',
@@ -1011,7 +1011,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   skillText: {
     textAlign: 'center',
