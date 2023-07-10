@@ -944,7 +944,7 @@ const DetailScreen = () => {
             setExperience('')
           Keyboard.dismiss();
         }) .then(() => {
-          navigation.navigate('LoginScreen');    /// this is the change 
+          navigation.navigate('UserProfileScreen');    /// this is the change 
           Alert.alert("your information has been updated!");
 
         })
@@ -1426,7 +1426,7 @@ const styles = StyleSheet.create({
     borderRadius: "40",
     paddingHorizontal: 50,
     justifyContent: "center",
-    alignItem: "center",
+    // alignItem: "center",
     paddingVertical: 20,
     marginRight: 230,
     marginBottom: 40,
@@ -1458,7 +1458,7 @@ const styles = StyleSheet.create({
       borderRadius: "40",
       paddingHorizontal: 60,
       justifyContent: "center",
-      alignItem: "center",
+      // alignItem: "center",
       paddingVertical: 15,
       marginLeft: 220,
       right:20,
@@ -1487,7 +1487,7 @@ const styles = StyleSheet.create({
       overflow: 'hidden',
       marginTop :30,
       marginBottom:50,
-      alignItems:'center',
+      // alignItems:'center',
       borderRadius: 1400,
     }
 });

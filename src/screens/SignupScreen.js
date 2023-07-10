@@ -133,6 +133,7 @@ const SignupScreen = () => {
             fontWeight: "bold",
             fontSize: 26,
             left: 130,
+            bottom: -20,
             shadowOffset: {
               width: 6,
               height: 10,
@@ -153,14 +154,14 @@ const SignupScreen = () => {
             onPress={handleChange}
           />
           <Text    style={{
-              color: "white",
+              color: "black",
               left: 22,
               bottom: -35,
               fontSize: 20,
               fontWeight: "bold",
             }}>I am a</Text>
           <Text   style={{
-              color: "white",
+              color: "black",
               left: 29,
               bottom: -40,
               fontSize: 25,
@@ -173,8 +174,8 @@ const SignupScreen = () => {
             status={!checked ? "checked" : "unchecked"}
             onPress={handleChange}
           />
-          <Text  style={{ left: 22, bottom: -35, fontSize: 20, fontWeight: "bold" }}>I am an</Text>
-          <Text   style={{ left: 29, bottom: -40, fontSize: 25, fontWeight: "bold" }}>Elderly</Text>
+          <Text  style={{ left: 22, bottom: -35, fontSize: 20, fontWeight: "bold", color: "white" }}>I am an</Text>
+          <Text   style={{ left: 29, bottom: -40, fontSize: 25, fontWeight: "bold", color: "white" }}>Elderly</Text>
         </View>
 
         </View>
@@ -353,7 +354,7 @@ const SignupScreen = () => {
               fontWeight: "bold",
               fontSize: 18,
               marginRight: 240,
-              bottom: 215,
+              bottom: 240,
               shadowColor: "#000",
               shadowOffset: {
                 width: 0,
@@ -378,7 +379,7 @@ export default SignupScreen;
 const styles = StyleSheet.create({
   buttonJoinNowStyle: {
     left: 200,
-    bottom: 70,
+    bottom: 100,
     backgroundColor: "#D4D4D4",
     borderRadius: 40,
     paddingHorizontal: 50,

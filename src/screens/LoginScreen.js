@@ -47,12 +47,12 @@ const LoginScreen = () => {
     <View>
       <Image
         source={require("../images/loginBackground.png")}
-        style={{ left: -210, top: -90, resizeMode: "contain" }}
+        style={{ left: -210, top: -130, resizeMode: "contain" }}
       />
       <View>
         <Text style={styles.logintext}>Login</Text>
       </View>
-      <View style={{ bottom: 110 }}>
+      <View style={{ bottom: 150 }}>
         <View>
           <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             Email
@@ -151,8 +151,8 @@ const LoginScreen = () => {
               color: "grey",
               fontWeight: "bold",
               fontSize: 20,
-              marginRight: 280,
-              top: -100,
+              marginRight: 250,
+              top: -150,
             }}
           >
             {"\n"}
@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
     paddingVertical: 20,
     marginLeft: 38,
     // marginBottom:-59,
-    marginTop: 50,
+    marginTop: 20,
     shadowOffset: {
       width: 0,
       height: 10,
@@ -203,7 +203,7 @@ const styles = StyleSheet.create({
   },
   buttonJoinNowStyle: {
     left: 180,
-    bottom: -50,
+    bottom: -20,
     backgroundColor: "#D4D4D4",
     borderRadius: 40,
     paddingHorizontal: 50,

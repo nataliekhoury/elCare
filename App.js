@@ -76,17 +76,20 @@ function UserStack() {
       <Stack.Screen name="CaregiverProfileScreen" component={CaregiverProfileScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ElderlyProfileScreen" component={ElderlyProfileScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: false }} />
-      {/* <Stack.Screen name="ChatScreen" component={ChatScreen} options={{ headerShown: false }} /> */}
-
+      <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ headerShown: false }} />
+      {/* <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} /> */}
     </Stack.Navigator>
   );
 }
+
 
 function MatchStack(){
   return (
     <Stack.Navigator>
       <Stack.Screen name="MatchingScreen" component={MatchingScreen} options={{ headerShown: false }} />
       <Stack.Screen name="SelectedUserProfileScreen" component={Profile} options={{ headerShown: false }} />
+      <Stack.Screen name="ChatListScreen" component={ChatListScreen} options={{ headerShown: false }} />
+
     </Stack.Navigator>
   ); 
 }
@@ -102,6 +105,30 @@ function ViewUsersStack(){
     </Stack.Navigator>
   ); 
 }
+
+// function SignupStack({ navigation }) {
+//   const [signedUp, setSignedUp] = useState(false);
+
+//   useEffect(() => {
+//     // Check if the user has signed up successfully
+//     // You can update this condition with your own logic
+//     if (signedUp) {
+//       // Navigate to the DetailScreen
+//       navigation.replace('DetailScreen');
+//     }
+//   }, [signedUp, navigation]);
+
+//   return (
+//     <Stack.Navigator>
+//       <Stack.Screen name="SignupScreen">
+//         {(props) => <SignupScreen {...props} setSignedUp={setSignedUp} />}
+//       </Stack.Screen>
+//       <Stack.Screen name="DetailScreen" component={DetailScreen} />
+//     </Stack.Navigator>
+//   );
+// }
+
+
 
 function App() {
   const [initializing, setInitializing] = useState(true);
@@ -128,13 +155,18 @@ function App() {
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="OnboardingScreen" component={OnboardingScreen} />
           <Stack.Screen name="WalkthroughtScreen" component={WalkthroughtScreen} />
-          <Stack.Screen name="SignupScreen" component={SignupScreen} />
           <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="SignupScreen" component={SignupScreen} />
+
           <Stack.Screen name="ForgetPasswordScreen" component={ForgetPasswordScreen} />
           <Stack.Screen name="LanguageScreen" component={LanguageScreen} />
+          {/* <Stack.Screen name="DetailScreen" component={DetailScreen}/> */}
+
           <Stack.Screen name="EventScreen" component={EventScreen} />
+
         </Stack.Navigator>
       ) : (
+        
         <Tab.Navigator screenOptions={{ tabBarShowLabel: false, headerShown: false }}>
         
           {isAdmin ? (

@@ -11,7 +11,9 @@ const ChatListScreen = () => {
   const [search, setSearch] = useState('');
   const currentUser = firebase.auth().currentUser;
   const navigation = useNavigation();
-
+  
+  
+  
   useEffect(() => {
     console.log('ChatListScreencurrentUser',currentUser.email)
     // this is the userKey to use in the chatGroupId 
@@ -91,3 +93,5 @@ const ChatListScreen = () => {
 };
 
 export default ChatListScreen;
+
+

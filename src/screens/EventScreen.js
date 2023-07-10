@@ -1677,8 +1677,10 @@ const ImgOptionItem = ({ selectedLabel, userEmail }) => {
   const navigation = useNavigation();
   return (
     <SafeAreaView>
-      <ScrollView style={{ bottom: 530, minHeight: '100%' }}>
+      <ScrollView style={{ bottom: 530, height: 700}}>
+        
         {filteredEvents.map((event, index) => (
+
           <View key={`${index}-${event.id}`}>
             <TouchableOpacity onPress={() => navigation.navigate('EventInfoScreen', { event })}>
               <Image source={{ uri: event.imageUrl }} style={styles.image} />

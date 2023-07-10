@@ -12,6 +12,7 @@ import {
 } from "react-native";
 const Profile = ({ route }) => {
 
+  const navigation = useNavigation();
 
 
   const {
@@ -37,7 +38,7 @@ const Profile = ({ route }) => {
       flexDirection: "row",
       flexWrap: "wrap",
       justifyContent: numberOfSkills > 4 ? "flex-start" : "center",
-      alignItems: "center",
+      // alignItems: "center",
       marginTop: 76,
     };
   };
@@ -46,19 +47,22 @@ const Profile = ({ route }) => {
   }, []);
 
   return (
-    <ScrollView>
       <SafeAreaView>
         <View>
           <Image
             source={require("../../images/userBack.png")}
             style={{ left: -70, top: -90, resizeMode: "contain" }}
           />
+           <TouchableOpacity onPress={() => navigation.navigate('MatchingScreen')}>
+          <Image style={styles.backIcon} source={require('../../images/backIcon.png')} />
+        </TouchableOpacity>
           <Image
             source={require("../../images/userBack2.png")}
-            style={{ left: 50, top: -180, resizeMode: "contain" }}
+            style={{ left: 50, top: -200, resizeMode: "contain" }}
           />
+           
           <View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('ChatListScreen')} >
               <Image
                 source={require("../../images/messageBack.png")}
                 style={{ left: 240, top: -250, resizeMode: "contain" }}
@@ -72,7 +76,8 @@ const Profile = ({ route }) => {
                   top: -283,
                   width: 90,
                   height: 25,
-                  textAlign: "center",
+                  left: 15,
+                  // textAlign: "center",
                 }}
               >
                 {" "}
@@ -111,6 +116,8 @@ const Profile = ({ route }) => {
             </View>
           </View>
           <View style={styles.userDetailsContainer}>
+          <ScrollView style = {{width: '50%', marginStart: 10, paddingTop: 40, minHeight: '100%'}}>
+
             <View style={styles.userDetails}>
               <View style={styles.userDetailsSection}>
                 <Text style={styles.sectionTitle}>Spoken languages</Text>
@@ -122,6 +129,7 @@ const Profile = ({ route }) => {
                   ))}
                 </View>
               </View>
+              
               <View style={styles.userDetailsSection}>
                 <Text style={styles.sectionTitle}>Hobbies</Text>
                 <View style={styles.hobbiesContainer}>
@@ -129,15 +137,23 @@ const Profile = ({ route }) => {
                     <Text style={styles.hobby}>{hobby.trim()}</Text>
                   ))}
                 </View>
+                {/* <View style={styles.hobbiesContainer}>
+  {item.userHobbies.split(",").map((hobby, index) => (
+    <Text key={index} style={styles.hobby}>
+      {hobby.trim()}
+    </Text>
+  ))}
+</View> */}
+
               </View>
               <View>
                 <Image // the small rectangle back
                   source={require("../../images/userInfoBottomBox.png")}
-                  style={{ left: -10, top: 30, resizeMode: "contain" }}
+                  style={{ left: 0, top: 30, resizeMode: "contain" }}
                 />
 
                 <Text
-                  style={{ fontSize: 15, fontWeight: "bold", marginTop: -55 }}
+                  style={{ fontSize: 15, fontWeight: "bold", marginTop: -55, left: 10 }}
                 >
                   Desired days
                 </Text>
@@ -146,12 +162,13 @@ const Profile = ({ route }) => {
                   style={[
                     styles.userInfonnnnname,
                     {
-                      textAlign: "center",
+                      // textAlign: "center",
                       color: "#000000",
                       fontSize: 17,
                       marginTop: 15,
                       width: 90,
                       height: 25,
+                      left: 30,
                     },
                   ]}
                 >
@@ -164,7 +181,7 @@ const Profile = ({ route }) => {
                       fontSize: 15,
                       fontWeight: "bold",
                       marginTop: -58,
-                      left: 120,
+                      left: 130,
                     }}
                   >
                     {" "}
@@ -175,14 +192,14 @@ const Profile = ({ route }) => {
                     style={[
                       styles.userInfonnnnname,
                       {
-                        textAlign: "center",
+                        // textAlign: "center",
                         color: "#000000",
                         fontSize: 17,
                         marginTop: 15,
                         width: 90,
                         height: 25,
                         marginTop: 13,
-                        left: 120,
+                        left: 130,
                       },
                     ]}
                   >
@@ -205,12 +222,12 @@ const Profile = ({ route }) => {
                     style={[
                       styles.userInfonnnnname,
                       {
-                        textAlign: "center",
+                        // textAlign: "center",
                         color: "#000000",
                         fontSize: 17,
                         marginTop: 4,
                         marginTop: 13,
-                        left: 105,
+                        left: 255,
                       },
                     ]}
                   >
@@ -229,11 +246,12 @@ const Profile = ({ route }) => {
                   style={{
                     fontSize: 18,
                     fontWeight: "bold",
-                    right: 75,
+                    right: 40,
                     marginTop: 10,
+                    marginStart: 40,
                   }}
                 >
-                  skill:{" "}
+                  Skills:{" "}
                 </Text>
                 {item.userSkill.map((skill, index) => (
                   <Text key={index} style={styles.skillText}>
@@ -242,247 +260,504 @@ const Profile = ({ route }) => {
                 ))}
               </View>
             </View>
+</ScrollView>
           </View>
+
         </View>
+                                 
+
       </SafeAreaView>
-    </ScrollView>
   );
 };
 
 export default Profile;const styles = StyleSheet.create({
-    userInfoContainer: {
-      bottom: 530,
-      alignSelf: 'center',
+  userInfoContainer: {
+    bottom: 550,
+    alignSelf: 'center',
+    paddingBottom: -20,
+  },
+      backIcon: {
+      right: -20,
+      bottom: 230,
     },
-    userInfo: {
-      alignItems: 'center',
+  userInfo: {
+    alignItems: 'center',
+  },
+  userImage: {
+    height: 120,
+    width: 120,
+    borderRadius: 75,
+  },
+  userName: {
+    textAlign: 'center',
+    color: "#000000",
+    fontSize: 17,
+    marginTop: 15,
+    fontWeight: 'bold',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
     },
-    userImage: {
-      height: 120,
-      width: 120,
-      borderRadius: 75,
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    // elevation: 11,
+  },
+  icon: {
+    left: -120,
+    bottom: 190,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
     },
-    userName: {
-      textAlign: 'center',
-      color: "#000000",
-      fontSize: 17,
-      marginTop: 15,
-      fontWeight: 'bold',
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      // elevation: 11,
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+  },
+  userAge: {
+    textAlign: 'center',
+    marginTop: -20,
+    marginBottom: 10,
+    color: "#9E9E9E",
+    fontSize: 17,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
     },
-    icon: {
-      left: 100,
-      bottom: 30,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    // elevation: 11,
+  },
+  userLocation: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
     },
-    userAge: {
-      textAlign: 'center',
-      marginTop: -20,
-      marginBottom: 10,
-      color: "#9E9E9E",
-      fontSize: 17,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      // elevation: 11,
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    // elevation: 11,
+  },
+  locationIcon: {
+    resizeMode: "contain",
+    marginRight: 4,
+    marginTop: -8,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
     },
-    userLocation: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      // elevation: 11,
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    // elevation: 11,
+  },
+  userInfoCity: {
+    textAlign: 'center',
+    color: "#9E9E9E",
+    fontSize: 17,
+    marginTop: -8,
+    marginRight: 30,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
     },
-    locationIcon: {
-      resizeMode: "contain",
-      marginRight: 4,
-      marginTop: -8,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      // elevation: 11,
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    // elevation: 11,
+  },
+  userDetailsContainer: {
+    bottom: 400,
+    left: 120,
+    height: 300,
+    alignSelf: 'center',
+    marginRight: 120,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
     },
-    userInfoCity: {
-      textAlign: 'center',
-      color: "#9E9E9E",
-      fontSize: 17,
-      marginTop: -8,
-      marginRight: 30,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      // elevation: 11,
-    },
-    userDetailsContainer: {
-      bottom: 390,
-      left: 120,
-      alignSelf: 'center',
-      marginRight: 120,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      // elevation: 11,
-    },
-    userDetails: {
-      alignItems: 'left',
-      marginRight: 120,
-      marginTop: -30,
-      
-    },
-    userDetailsSection: {
-      marginBottom: 20,
-    },
-    sectionTitle: {
-      fontSize: 18,
-      fontWeight: 'bold',
-      
-    },
-    languageContainer: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      marginTop: 5,
-      
-      
-    },
-    skillsContainer: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      textAlign: 'left'
-    },
-    language: {
-      height:30,
-      textAlign: 'center',
-      color: "#000000",
-      marginTop: 9,
-      borderWidth: 10,
-      textAlign: 'center',
-      color: '#000000',
-      fontSize: 17,
-      backgroundColor: '#FFFFFF',
-      padding: 5,
-      borderRadius: 10,
-      overflow: 'hidden', 
-      borderWidth: 1,
-      borderColor: 'rgba(148, 58, 218, 0.83)',
-      width: 90,
-      marginRight: 10, // Added margin to create space between the language items
-      marginBottom: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      // elevation: 11,
-    },
-    hobbiesContainer: {
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      marginTop: 5,
-    },
-    hobby: {
-      height:30,
-      textAlign: 'center',
-      color: "#000000",
-      marginTop: 9,
-      borderWidth: 10,
-      textAlign: 'center',
-      color: '#000000',
-      fontSize: 17,
-      backgroundColor: '#FFFFFF',
-      padding: 5,
-      borderRadius: 10,
-      overflow: 'hidden', 
-      borderWidth: 1,
-      borderColor: 'rgba(148, 58, 218, 0.83)',
-      width: 90,
-      marginRight: 10, // Added margin to create space between the language items
-      marginBottom: 10,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      // elevation: 11,
-    },
-    bottomBox: {
-      left: -10,
-      top: 60,
-      resizeMode: "contain",
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      // elevation: 11,
-    },
-    userDetailsText: {
-      textAlign: 'center',
-      color: "#000000",
-      fontSize: 17,
-      marginTop: 15,
-      width: 90,
-      height: 25,
-      shadowColor: "#000",
-      shadowOffset: {
-        width: 0,
-        height: 10,
-      },
-      shadowOpacity: 0.36,
-      shadowRadius: 10.0,
-      // elevation: 11,
-    },
-    skillText: {
-      textAlign: 'center',
-      color: '#000000',
-      fontSize: 17,
-      backgroundColor: '#FFFFFF',
-      marginRight: 10,
-      marginBottom: 10,
-      padding: 5,
-      borderRadius: 10,
-      overflow: 'hidden', 
-      borderWidth: 1,
-      borderColor: 'rgba(148, 58, 218, 0.83)',
-    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    // elevation: 11,
+  },
+  userDetails: {
+    // alignItems: 'left',
+    marginRight: 120,
+    marginTop: -30,    
+  },
+  userDetailsSection: {
+    marginBottom: 20,
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
     
-  });
+  },
+  languageContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 5,
+    
+    
+  },
+  skillsContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    textAlign: 'left',
+    marginStart: 15,
+  },
+  language: {
+    height:30,
+    textAlign: 'center',
+    color: "#000000",
+    marginTop: 9,
+    borderWidth: 10,
+    textAlign: 'center',
+    color: '#000000',
+    fontSize: 17,
+    backgroundColor: '#FFFFFF',
+    padding: 5,
+    borderRadius: 10,
+    overflow: 'hidden', 
+    borderWidth: 1,
+    borderColor: 'rgba(148, 58, 218, 0.83)',
+    width: 90,
+    marginRight: 10, // Added margin to create space between the language items
+    marginBottom: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    // elevation: 11,
+  },
+  hobbiesContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginTop: 5,
+  },
+  hobby: {
+    height:30,
+    textAlign: 'center',
+    color: "#000000",
+    marginTop: 9,
+    borderWidth: 10,
+    textAlign: 'center',
+    color: '#000000',
+    fontSize: 17,
+    backgroundColor: '#FFFFFF',
+    padding: 5,
+    borderRadius: 10,
+    overflow: 'hidden', 
+    borderWidth: 1,
+    borderColor: 'rgba(148, 58, 218, 0.83)',
+    width: 90,
+    marginRight: 10, // Added margin to create space between the language items
+    marginBottom: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    // elevation: 11,
+  },
+  bottomBox: {
+    left: -10,
+    top: 60,
+    resizeMode: "contain",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    // elevation: 11,
+  },
+  userDetailsText: {
+    textAlign: 'center',
+    color: "#000000",
+    fontSize: 17,
+    marginTop: 15,
+    width: 90,
+    height: 25,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 10.0,
+    // elevation: 11,
+  },
+  skillText: {
+    textAlign: 'center',
+    color: '#000000',
+    fontSize: 17,
+    backgroundColor: '#FFFFFF',
+    marginRight: 10,
+    marginBottom: 10,
+    padding: 5,
+    borderRadius: 10,
+    overflow: 'hidden', 
+    borderWidth: 1,
+    borderColor: 'rgba(148, 58, 218, 0.83)',
+    left: -20,
+  },
+  
+});
+  //   userInfoContainer: {
+  //     bottom: 530,
+  //     alignSelf: 'center',
+  //   },
+  //   userInfo: {
+  //     // alignItems: 'center',
+  //   },
+  //   backIcon: {
+  //     right: -20,
+  //     bottom: 230,
+  //   },
+  //   userImage: {
+  //     height: 120,
+  //     width: 120,
+  //     borderRadius: 75,
+  //   },
+  //   userName: {
+  //     // textAlign: 'center',
+  //     color: "#000000",
+  //     fontSize: 17,
+  //     marginTop: 15,
+  //     fontWeight: 'bold',
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //     // elevation: 11,
+  //   },
+  //   icon: {
+  //     left: 200,
+  //   bottom: 180,
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //   },
+  //   userAge: {
+  //     // textAlign: 'center',
+  //     marginTop: -20,
+  //     marginBottom: 10,
+  //     color: "#9E9E9E",
+  //     fontSize: 17,
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //     // elevation: 11,
+  //   },
+  //   userLocation: {
+  //     flexDirection: 'row',
+  //     // alignItems: 'center',
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //     // elevation: 11,
+  //   },
+  //   locationIcon: {
+  //     resizeMode: "contain",
+  //     marginRight: 4,
+  //     marginTop: -8,
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //     // elevation: 11,
+  //   },
+  //   userInfoCity: {
+  //     // textAlign: 'center',
+  //     color: "#9E9E9E",
+  //     fontSize: 17,
+  //     marginTop: -8,
+  //     marginRight: 30,
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //     // elevation: 11,
+  //   },
+  //   userDetailsContainer: {
+  //     bottom: 390,
+  //     left: 120,
+  //     alignSelf: 'center',
+  //     marginRight: 120,
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //     // elevation: 11,
+  //   },
+  //   userDetails: {
+  //     // alignItems: 'left',
+  //     marginRight: 120,
+  //     marginTop: -30,
+      
+  //   },
+  //   userDetailsSection: {
+  //     marginBottom: 20,
+  //   },
+  //   sectionTitle: {
+  //     fontSize: 18,
+  //     fontWeight: 'bold',
+      
+  //   },
+  //   languageContainer: {
+  //     flexDirection: 'row',
+  //     flexWrap: 'wrap',
+  //     marginTop: 5,
+      
+      
+  //   },
+  //   skillsContainer: {
+  //     flexDirection: 'row',
+  //     flexWrap: 'wrap',
+  //     // textAlign: 'left'
+  //   },
+  //   language: {
+  //     height:30,
+  //     // textAlign: 'center',
+  //     color: "#000000",
+  //     marginTop: 9,
+  //     borderWidth: 10,
+  //     // textAlign: 'center',
+  //     color: '#000000',
+  //     fontSize: 17,
+  //     backgroundColor: '#FFFFFF',
+  //     padding: 5,
+  //     borderRadius: 10,
+  //     overflow: 'hidden', 
+  //     borderWidth: 1,
+  //     borderColor: 'rgba(148, 58, 218, 0.83)',
+  //     width: 90,
+  //     marginRight: 10, // Added margin to create space between the language items
+  //     marginBottom: 10,
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //     // elevation: 11,
+  //   },
+  //   hobbiesContainer: {
+  //     flexDirection: 'row',
+  //     flexWrap: 'wrap',
+  //     marginTop: 5,
+  //   },
+  //   hobby: {
+  //     height:30,
+  //     // textAlign: 'center',
+  //     color: "#000000",
+  //     marginTop: 9,
+  //     borderWidth: 10,
+  //     // textAlign: 'center',
+  //     color: '#000000',
+  //     fontSize: 17,
+  //     backgroundColor: '#FFFFFF',
+  //     padding: 5,
+  //     borderRadius: 10,
+  //     overflow: 'hidden', 
+  //     borderWidth: 1,
+  //     borderColor: 'rgba(148, 58, 218, 0.83)',
+  //     width: 90,
+  //     marginRight: 10, // Added margin to create space between the language items
+  //     marginBottom: 10,
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //     // elevation: 11,
+  //   },
+  //   bottomBox: {
+  //     left: -10,
+  //     top: 60,
+  //     resizeMode: "contain",
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //     // elevation: 11,
+  //   },
+  //   userDetailsText: {
+  //     // textAlign: 'center',
+  //     color: "#000000",
+  //     fontSize: 17,
+  //     marginTop: 15,
+  //     width: 90,
+  //     height: 25,
+  //     shadowColor: "#000",
+  //     shadowOffset: {
+  //       width: 0,
+  //       height: 10,
+  //     },
+  //     shadowOpacity: 0.36,
+  //     shadowRadius: 10.0,
+  //     // elevation: 11,
+  //   },
+  //   skillText: {
+  //     // textAlign: 'center',
+  //     color: '#000000',
+  //     fontSize: 17,
+  //     backgroundColor: '#FFFFFF',
+  //     marginRight: 10,
+  //     marginBottom: 10,
+  //     padding: 5,
+  //     borderRadius: 10,
+  //     overflow: 'hidden', 
+  //     borderWidth: 1,
+  //     borderColor: 'rgba(148, 58, 218, 0.83)',
+  //   },
+    
+  // });
+
+
+
+
+
+
+ 

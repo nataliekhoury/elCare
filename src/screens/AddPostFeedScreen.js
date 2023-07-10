@@ -1655,7 +1655,7 @@ const AddPostFeedScreen = () => {
         multiline={false}
       />
       <View style={styles.buttonContainer}>
-        <Button title="POST" color="white" onPress={functionCombined} />
+        <Button title="POST" color= 'rgba(1, 1, 1, -0.5)' onPress={functionCombined}/>
       </View>
     </SafeAreaView>
   );
@@ -1675,7 +1675,7 @@ const styles = StyleSheet.create({
     height: 40,
     marginStart: 10,
     bottom:95,
-    left:20,
+    left:-10,
     resizeMode: 'contain',
     tintColor: '#666666',
 
@@ -1732,7 +1732,7 @@ const styles = StyleSheet.create({
 
   },
   buttonContainer: {
-    marginTop: -25,
+    marginTop: -60,
     width: 200,
     alignSelf: 'center',
     backgroundColor: 'rgba(106, 97, 207, 0.84)',

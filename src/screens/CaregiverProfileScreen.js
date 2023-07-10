@@ -614,6 +614,8 @@ import ChatScreen from "./ChatScreen";
 const CaregiverProfileScreen = () => {
   const navigation = useNavigation();
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const getFlexContainerStyle = (skillArray) => {
     const numberOfSkills = skillArray.length;
     return {
@@ -666,12 +668,23 @@ const CaregiverProfileScreen = () => {
           });
         });
         setUsers(users);
+        setLoading(false);
       });
     }
   }, []);
 
+  useEffect(() => {
+    if (!loading) {
+      // Check if user data is empty
+      if (users.length === 0) {
+        // Navigate to DetailScreen if user data is not found
+        navigation.replace('DetailScreen');
+      }
+    }
+  }, [loading, users]);
+
   return (
-   <ScrollView>
+   
       <SafeAreaView>
         
         <View>
@@ -679,12 +692,14 @@ const CaregiverProfileScreen = () => {
             source={require("../images/userBack.png")}
             style={{ left: -70, top: -90, resizeMode: "contain" }}
           />
+
+
           <Image
             source={require("../images/userBack2.png")}
-            style={{ left: 50, top: -180, resizeMode: "contain" }}
+            style={{ left: 50, top: -200, resizeMode: "contain" }}
           />
 
-          <View>
+          {/* <View>
             <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
               <Image
                 source={require("../images/messageBack.png")}
@@ -693,8 +708,12 @@ const CaregiverProfileScreen = () => {
            
               <Text style={{ color: "#000000", fontWeight: "bold", marginLeft: 249, top: -283, width: 90, height: 25, textAlign: 'center' }}> message</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           
+<TouchableOpacity onPress={() => navigation.navigate('ContactUs')}>
+            <Image style={styles.help} source={require('../images/contactUsIcon.png')} />
+          </TouchableOpacity>
+
           <View style={styles.userInfoContainer}>
             {users.map((item, index) => (
               <View key={index} style={styles.userInfo}>
@@ -719,7 +738,9 @@ const CaregiverProfileScreen = () => {
               </View>
             ))}
           </View>
+        
           <View style={styles.userDetailsContainer}>
+              <ScrollView style = {{minHeight: '100%', width: '50%', marginStart: 10, paddingTop: 40}}>
             {users.map((item, index) => (
               <View key={index} style={styles.userDetails}>
                 <View style={styles.userDetailsSection}>
@@ -742,12 +763,12 @@ const CaregiverProfileScreen = () => {
             <View>
                 <Image // the small rectangle back
                 source={require("../images/userInfoBottomBox.png")}
-                       style={{ left: -10, top:30, resizeMode: "contain" }} />
+                       style={{  top:30, resizeMode: "contain" }} />
                          
 
 
 
-   <Text style={{fontSize:15,fontWeight:'bold', marginTop: -55}}>Available days</Text>
+   <Text style={{fontSize:15,fontWeight:'bold', marginTop: -55, left: 8}}>Available days</Text>
 
       <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25}]}>
         {item.userAvai}
@@ -755,7 +776,7 @@ const CaregiverProfileScreen = () => {
 
 
       <View>
-        <Text style={{fontSize:15,fontWeight:'bold', marginTop: -58,left:120}}>Experience</Text>
+        <Text style={{fontSize:15,fontWeight:'bold', marginTop: -58,left:135}}>Experience</Text>
 
       <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25, marginTop: 13,left:120}]}>
       {item.userExperience +'  year(s)'}
@@ -770,7 +791,7 @@ const CaregiverProfileScreen = () => {
       </View>
         </View>
     <View style={[styles.skillsContainer, getFlexContainerStyle(item.userSkill)]}>
-  <Text style={{fontSize:18,fontWeight:'bold',right:75, marginTop: 10}}>Skills</Text>
+  <Text style={{fontSize:18,fontWeight:'bold',right:-10, marginTop: 10}}>Skills: </Text>
   {item.userSkill.map((skill, index) => (
     <Text key={index} style={styles.skillText}>{skill}</Text>
   ))}
@@ -778,13 +799,13 @@ const CaregiverProfileScreen = () => {
        
               </View>
             ))}
-            
+            </ScrollView> 
           </View>
-          
+         
         </View>
         
       </SafeAreaView>
-      </ScrollView>
+      
    
   );
 };
@@ -793,8 +814,15 @@ export default CaregiverProfileScreen;
 
 const styles = StyleSheet.create({
   userInfoContainer: {
-    bottom: 530,
+    bottom: 500,
     alignSelf: 'center',
+    paddingBottom: -20,
+  },
+  help:{
+    bottom: 510,
+    left: 310,
+    height: 40,
+    width: 40,
   },
   userInfo: {
     alignItems: 'center',
@@ -820,8 +848,8 @@ const styles = StyleSheet.create({
     // elevation: 11,
   },
   icon: {
-    left: 100,
-    bottom: 30,
+    left: -110,
+    bottom: 210,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -886,8 +914,9 @@ const styles = StyleSheet.create({
     // elevation: 11,
   },
   userDetailsContainer: {
-    bottom: 390,
+    bottom: 430,
     left: 120,
+    height: 350,
     alignSelf: 'center',
     marginRight: 120,
     shadowColor: "#000",
@@ -902,8 +931,7 @@ const styles = StyleSheet.create({
   userDetails: {
     alignItems: 'left',
     marginRight: 120,
-    marginTop: -30,
-    
+    marginTop: -30,    
   },
   userDetailsSection: {
     marginBottom: 20,
@@ -923,7 +951,7 @@ const styles = StyleSheet.create({
   skillsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   language: {
     height:30,
@@ -1025,6 +1053,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden', 
     borderWidth: 1,
     borderColor: 'rgba(148, 58, 218, 0.83)',
+    left: 30,
   },
   
 });
