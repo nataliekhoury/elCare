@@ -47,14 +47,14 @@ const LoginScreen = () => {
     <View>
       <Image
         source={require("../images/loginBackground.png")}
-        style={{ left: -210, top: -90, resizeMode: "contain" }}
+        style={{ left: -210, top: -130, resizeMode: "contain" }}
       />
       <View>
         <Text style={styles.logintext}>Login</Text>
       </View>
-      <View style={{ bottom: 110 }}>
+      <View style={{ bottom: 150 }}>
         <View>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             Email
           </Text>
           <TextInput
@@ -82,9 +82,9 @@ const LoginScreen = () => {
             placeholder="Email"
             onChangeText={(email) => setEmail(email)}
             autoCapitalize="none"
-            autoCorrect="none"
+            // autoCorrect="none"
           ></TextInput>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             password
           </Text>
           <TextInput
@@ -111,7 +111,7 @@ const LoginScreen = () => {
             }}
             placeholder="password"
             onChangeText={(password) => setPassword(password)}
-            autoCorrect={false}
+            // autoCorrect={false}
             secureTextEntry={true}
           ></TextInput>
         </View>
@@ -150,9 +150,9 @@ const LoginScreen = () => {
             style={{
               color: "grey",
               fontWeight: "bold",
-              fontSize: "20",
-              marginRight: 280,
-              top: -100,
+              fontSize: 20,
+              marginRight: 250,
+              top: -150,
             }}
           >
             {"\n"}
@@ -179,14 +179,14 @@ const styles = StyleSheet.create({
   buttonLoginStyle: {
     width: "80%",
     backgroundColor: "rgba(106, 97, 207, 0.84)",
-    borderRadius: "50",
+    borderRadius: 50,
     paddingHorizontal: 60,
     justifyContent: "center",
     alignItem: "center",
     paddingVertical: 20,
     marginLeft: 38,
     // marginBottom:-59,
-    marginTop: 50,
+    marginTop: 20,
     shadowOffset: {
       width: 0,
       height: 10,
@@ -197,15 +197,15 @@ const styles = StyleSheet.create({
   },
   logInStyle: {
     fontWeight: "bold",
-    fontSize: "17",
+    fontSize: 17,
     color: "white",
     textAlign: "center",
   },
   buttonJoinNowStyle: {
     left: 180,
-    bottom: -50,
+    bottom: -20,
     backgroundColor: "#D4D4D4",
-    borderRadius: "40",
+    borderRadius: 40,
     paddingHorizontal: 50,
     justifyContent: "center",
     alignItem: "center",
@@ -224,7 +224,7 @@ const styles = StyleSheet.create({
   joinStyle: {
     // fontSize:'12',
     fontWeight: "bold",
-    fontSize: "17",
+    fontSize: 17,
     color: "#6A61CF",
   },
 });

@@ -52,14 +52,14 @@ const ForgetPasswordScreen = () => {
       </View>
       <View>
         <Text style={styles.ForgetPasswordDownText}>
-          Don’t worry,it happens please enter the email associated with your
+          Don’t worry, it happens please enter the email associated with your
           account
         </Text>
       </View>
       <View style={{ bottom: 180 }}>
         <View>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
-            Email Adress
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
+            Email Address
           </Text>
           <TextInput
             style={{
@@ -83,10 +83,10 @@ const ForgetPasswordScreen = () => {
               shadowRadius: 10.0,
               elevation: 11,
             }}
-            placeholder="Email Adress"
+            placeholder="Email Address"
             onChangeText={(email) => setEmail(email)}
             autoCapitalize="none"
-            autoCorrect="none"
+            // autoCorrect="none"
           ></TextInput>
         </View>
         <TouchableOpacity
@@ -132,14 +132,14 @@ const styles = StyleSheet.create({
   submitButtonStyle: {
     width: "50%",
     backgroundColor: "rgba(106, 97, 207, 0.84)",
-    borderRadius: "50",
+    borderRadius: 50,
     paddingHorizontal: 60,
     justifyContent: "center",
     alignItem: "center",
     paddingVertical: 20,
     marginLeft: 100,
     // marginBottom:-59,
-    marginTop: 50,
+    marginTop: 20,
     shadowOffset: {
       width: 0,
       height: 10,
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   submitStyle: {
     fontWeight: "bold",
-    fontSize: "25",
+    fontSize: 24,
     color: "white",
     textAlign: "center",
   },

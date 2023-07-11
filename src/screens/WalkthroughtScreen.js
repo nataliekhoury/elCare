@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   buttonLoginStyle: {
     backgroundColor: "#6A61CF",
-    borderRadius: "40",
+    borderRadius: 40,
     paddingHorizontal: 60,
     justifyContent: "center",
     alignItem: "center",
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   },
   buttonJoinNowStyle: {
     backgroundColor: "#D4D4D4",
-    borderRadius: "40",
+    borderRadius: 40,
     paddingHorizontal: 50,
     justifyContent: "center",
     alignItem: "center",
@@ -146,12 +146,12 @@ const styles = StyleSheet.create({
   joinStyle: {
     // fontSize:'12',
     fontWeight: "bold",
-    fontSize: "17",
+    fontSize: 17,
     color: "#6A61CF",
   },
   logInStyle: {
     fontWeight: "bold",
-    fontSize: "17",
+    fontSize: 17,
     color: "#1DFFD6",
   },
 });

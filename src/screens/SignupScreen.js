@@ -131,6 +131,7 @@ const SignupScreen = () => {
             fontWeight: "bold",
             fontSize: 26,
             left: 130,
+            bottom: -20,
             shadowOffset: {
               width: 6,
               height: 10,
@@ -151,14 +152,14 @@ const SignupScreen = () => {
             onPress={handleChange}
           />
           <Text    style={{
-              color: "white",
+              color: "black",
               left: 22,
               bottom: -35,
               fontSize: 20,
               fontWeight: "bold",
             }}>I am a</Text>
           <Text   style={{
-              color: "white",
+              color: "black",
               left: 29,
               bottom: -40,
               fontSize: 25,
@@ -171,13 +172,13 @@ const SignupScreen = () => {
             status={!checked ? "checked" : "unchecked"}
             onPress={handleChange}
           />
-          <Text  style={{ left: 22, bottom: -35, fontSize: 20, fontWeight: "bold" }}>I am an</Text>
-          <Text   style={{ left: 29, bottom: -40, fontSize: 25, fontWeight: "bold" }}>Elderly</Text>
+          <Text  style={{ left: 22, bottom: -35, fontSize: 20, fontWeight: "bold", color: "white" }}>I am an</Text>
+          <Text   style={{ left: 29, bottom: -40, fontSize: 25, fontWeight: "bold", color: "white" }}>Elderly</Text>
         </View>
 
         </View>
         <View style={{ top: -120 }}>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             Email
           </Text>
           <TextInput
@@ -204,13 +205,13 @@ const SignupScreen = () => {
             }}
             placeholder="Email"
             onChangeText={(email) => setEmail(email)}
-            autoCorrect={false}
+            // autoCorrect={false}
             rules={{
               required: "Email is required",
               pattern: { value: EMAIL_REGEX, message: "Email is invalid" },
             }}
           ></TextInput>
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             password
           </Text>
           <TextInput
@@ -237,7 +238,7 @@ const SignupScreen = () => {
             }}
             placeholder="password"
             onChangeText={(password) => setPassword(password)}
-            autoCorrect={false}
+            // autoCorrect={false}
             secureTextEntry={true}
             rules={{
               required: "Password is required",
@@ -248,7 +249,7 @@ const SignupScreen = () => {
             }}
           ></TextInput>
 
-          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: "19" }}>
+          <Text style={{ marginLeft: 50, color: "#9E9E9E", fontSize: 19 }}>
             phone
           </Text>
           <TextInput
@@ -301,8 +302,8 @@ const SignupScreen = () => {
             width: "60%",
             top: -140,
             backgroundColor: "rgba(106, 97, 207, 0.84)",
-            borderRadius: "50",
-            borderRadius: "50",
+            borderRadius: 50,
+            borderRadius: 50,
             paddingHorizontal: 60,
             justifyContent: "center",
             alignItem: "center",
@@ -324,7 +325,7 @@ const SignupScreen = () => {
           <Text
             style={{
               fontWeight: "bold",
-              fontSize: "17",
+              fontSize: 17,
               color: "white",
               textAlign: "center",
             }}
@@ -349,9 +350,9 @@ const SignupScreen = () => {
             style={{
               color: "grey",
               fontWeight: "bold",
-              fontSize: "18",
+              fontSize: 18,
               marginRight: 240,
-              bottom: 215,
+              bottom: 240,
               shadowColor: "#000",
               shadowOffset: {
                 width: 0,
@@ -376,9 +377,9 @@ export default SignupScreen;
 const styles = StyleSheet.create({
   buttonJoinNowStyle: {
     left: 200,
-    bottom: 70,
+    bottom: 100,
     backgroundColor: "#D4D4D4",
-    borderRadius: "40",
+    borderRadius: 40,
     paddingHorizontal: 50,
     justifyContent: "center",
     alignItem: "center",
@@ -398,7 +399,7 @@ const styles = StyleSheet.create({
   joinStyle: {
     // fontSize:'12',
     fontWeight: "bold",
-    fontSize: "17",
+    fontSize: 17,
     color: "#6A61CF",
     right: -20,
     justifyContent: "center",

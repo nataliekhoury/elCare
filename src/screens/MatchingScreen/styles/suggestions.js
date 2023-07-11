@@ -8,12 +8,12 @@ export const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	title: {
-		fontSize: 15,
-		marginBottom: 8,
-		marginTop: 32,
+		fontSize: 17,
+		marginBottom: 18,
+		marginTop: -80,
 	},
 	tagline: {
-		fontSize: 12,
+		fontSize: 14,
 		color: '#9E9E9E',
 		marginBottom: 16,
 	},

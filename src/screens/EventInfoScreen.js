@@ -494,7 +494,7 @@ const EventInfoScreen = ({route}) => {
   
         <View>
        
-            <ScrollView style = {{top:-50, minHeight: '100%'}}>
+            <ScrollView style = {{top:-50, minHeight: '100%', height: 400}}>
               <Text style={styles.title}>{event.title}</Text>
 
               <View style = {{top: -26}}>
@@ -595,7 +595,7 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     right: -10,
-    bottom: 320,
+    bottom: 280,
   },
   loadingContainer: {
     flex: 1,

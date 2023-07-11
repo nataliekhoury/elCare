@@ -4,22 +4,21 @@
 // import { SafeAreaView } from "react-native-safe-area-context";
 // import FontAwesome from "react-native-vector-icons/FontAwesome";
 // import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-// import ChatScreen from "./ChatScreen";
+// // import ChatScreen from "./ChatScreen";
 // const CaregiverProfileScreen = () => {
 //   const navigation = useNavigation();
 //   const [users, setUsers] = useState([]);
 //   const getFlexContainerStyle = (skillArray) => {
-//     const numberOfSkills = skillArray.length;
+//     const numberOfSkills = skillArray?.length || 0;
 //     return {
 //       flexDirection: 'row',
 //       flexWrap: 'wrap',
 //       justifyContent: numberOfSkills > 4 ? 'flex-start' : 'center',
 //       alignItems: 'center',
 //       marginTop: 76,
-      
 //     };
 //   };
-  
+
 //   useEffect(() => {
 //     const currentUser = firebase.auth().currentUser;
 //     if (currentUser) {
@@ -146,7 +145,7 @@
 
 
 
-//    <Text style={{fontSize:15,fontWeight:'bold', marginTop: -55}}>Desired days</Text>
+//    <Text style={{fontSize:15,fontWeight:'bold', marginTop: -55}}>Available days</Text>
 
 //       <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25}]}>
 //         {item.userAvai}
@@ -154,7 +153,7 @@
 
 
 //       <View>
-//         <Text style={{fontSize:15,fontWeight:'bold', marginTop: -58,left:120}}>   Expertise</Text>
+//         <Text style={{fontSize:15,fontWeight:'bold', marginTop: -58,left:120}}>Experience</Text>
 
 //       <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25, marginTop: 13,left:120}]}>
 //       {item.userExperience +'  year(s)'}
@@ -169,7 +168,7 @@
 //       </View>
 //         </View>
 //     <View style={[styles.skillsContainer, getFlexContainerStyle(item.userSkill)]}>
-//   <Text style={{fontSize:18,fontWeight:'bold',right:25, marginTop: 10}}>Searching for :</Text>
+//   <Text style={{fontSize:18,fontWeight:'bold',right:75, marginTop: 10}}>Skills</Text>
 //   {item.userSkill.map((skill, index) => (
 //     <Text key={index} style={styles.skillText}>{skill}</Text>
 //   ))}
@@ -416,6 +415,195 @@
 //   },
   
 // });
+
+// // import React, { useState, useEffect } from "react";
+// // import { useNavigation } from "@react-navigation/native";
+// // import { firebase } from "../../config";
+// // import { SafeAreaView } from "react-native-safe-area-context";
+// // import FontAwesome from "react-native-vector-icons/FontAwesome";
+// // import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
+
+// // const CaregiverProfileScreen = () => {
+// //   const navigation = useNavigation();
+// //   const [users, setUsers] = useState([]);
+
+// //   const getFlexContainerStyle = (skillArray) => {
+// //     const numberOfSkills = skillArray?.length || 0;
+// //     return {
+// //       flexDirection: 'row',
+// //       flexWrap: 'wrap',
+// //       justifyContent: numberOfSkills > 4 ? 'flex-start' : 'center',
+// //       alignItems: 'center',
+// //       marginTop: 76,
+// //     };
+// //   };
+
+// //   useEffect(() => {
+// //     const currentUser = firebase.auth().currentUser;
+// //     if (currentUser) {
+// //       const userDataRef = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
+
+// //       userDataRef.get().then((querySnapshot) => {
+// //         const users = [];
+// //         querySnapshot.forEach((doc) => {
+// //           const {
+// //             userGender,
+// //             userName,
+// //             userAge,
+// //             userSkill,
+// //             userLanguage,
+// //             userCity,
+// //             userHobbies,
+// //             userAvai,
+// //             userExperience,
+// //             userPay,
+// //             userId,
+// //             userImage,
+// //           } = doc.data();
+
+// //           users.push({
+// //             id: doc.id,
+// //             userName,
+// //             userGender,
+// //             userAge,
+// //             userSkill: userSkill || [],
+// //             userLanguage,
+// //             userCity,
+// //             userHobbies,
+// //             userAvai,
+// //             userPay,
+// //             userExperience,
+// //             userId,
+// //             userImage,
+// //           });
+// //         });
+// //         setUsers(users);
+// //       });
+// //     }
+// //   }, []);
+
+// //   return (
+// //     <ScrollView>
+// //       <SafeAreaView>
+// //         <View>
+// //           <Image
+// //             source={require("../images/userBack.png")}
+// //             style={{ left: -70, top: -90, resizeMode: "contain" }}
+// //           />
+// //           <Image
+// //             source={require("../images/userBack2.png")}
+// //             style={{ left: 50, top: -180, resizeMode: "contain" }}
+// //           />
+// //           <View>
+// //             <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
+// //               <Image
+// //                 source={require("../images/messageBack.png")}
+// //                 style={{ left: 240, top: -250, resizeMode: "contain" }}
+// //               />
+// //               <Text style={{ color: "#000000", fontWeight: "bold", marginLeft: 249, top: -283, width: 90, height: 25, textAlign: 'center' }}> message</Text>
+// //             </TouchableOpacity>
+// //           </View>
+// //           <View style={styles.userInfoContainer}>
+// //             {users.map((item, index) => (
+// //               <View key={index} style={styles.userInfo}>
+// //                 <Image
+// //                   style={styles.userImage}
+// //                   source={{ uri: item.userImage }}
+// //                 />
+// //                 <Text style={styles.userName}>{item.userName}</Text>
+// //                 {item.userGender === 'male' ? (
+// //                   <FontAwesome name="male" style={styles.icon} size={30} color="#1B92D6" />
+// //                 ) : item.userGender === 'female' ? (
+// //                   <FontAwesome name="female" style={styles.icon} size={30} color="#943ADA" />
+// //                 ) : null}
+// //                 <Text style={styles.userAge}>age: {item.userAge}</Text>
+// //                 <View style={styles.userLocation}>
+// //                   <Image
+// //                     source={require("../images/locationIcon.png")}
+// //                     style={styles.locationIcon}
+// //                   />
+// //                   <Text style={styles.locationText}>{item.userCity}</Text>
+// //                 </View>
+// //               </View>
+// //             ))}
+// //           </View>
+// //           <View style={styles.skillsContainer}>
+// //             {users.map((item, index) => (
+// //               <React.Fragment key={index}>
+// //                 <Text style={{ fontSize: 18, fontWeight: "bold", right: 75, marginTop: 10 }}>
+// //                   Skills
+// //                 </Text>
+// //                 <View style={[styles.skillsContainer, getFlexContainerStyle(item.userSkill)]}>
+// //                   {item.userSkill?.map((skill, index) => (
+// //                     <Text key={index} style={styles.skillText}>{skill}</Text>
+// //                   ))}
+// //                 </View>
+// //               </React.Fragment>
+// //             ))}
+// //           </View>
+// //         </View>
+// //       </SafeAreaView>
+// //     </ScrollView>
+// //   );
+// // };
+
+// // const styles = StyleSheet.create({
+// //   userInfoContainer: {
+// //     alignItems: "center",
+// //     marginTop: 30,
+// //   },
+// //   userInfo: {
+// //     alignItems: "center",
+// //     marginBottom: 20,
+// //   },
+// //   userImage: {
+// //     width: 100,
+// //     height: 100,
+// //     borderRadius: 50,
+// //   },
+// //   userName: {
+// //     fontSize: 20,
+// //     fontWeight: "bold",
+// //     marginTop: 10,
+// //   },
+// //   icon: {
+// //     marginTop: 10,
+// //   },
+// //   userAge: {
+// //     marginTop: 5,
+// //   },
+// //   userLocation: {
+// //     flexDirection: "row",
+// //     alignItems: "center",
+// //     marginTop: 5,
+// //   },
+// //   locationIcon: {
+// //     width: 12,
+// //     height: 12,
+// //     marginRight: 5,
+// //   },
+// //   locationText: {
+// //     fontSize: 12,
+// //   },
+// //   skillsContainer: {
+// //     marginTop: 20,
+// //     marginLeft: 10,
+// //     marginRight: 10,
+// //   },
+// //   skillText: {
+// //     backgroundColor: "#E0E0E0",
+// //     color: "#333333",
+// //     padding: 5,
+// //     borderRadius: 5,
+// //     marginRight: 5,
+// //     marginBottom: 5,
+// //   },
+// // });
+
+// // export default CaregiverProfileScreen;
+
+
+
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { firebase } from "../../config";
@@ -426,6 +614,8 @@ import ChatScreen from "./ChatScreen";
 const CaregiverProfileScreen = () => {
   const navigation = useNavigation();
   const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
   const getFlexContainerStyle = (skillArray) => {
     const numberOfSkills = skillArray.length;
     return {
@@ -478,12 +668,23 @@ const CaregiverProfileScreen = () => {
           });
         });
         setUsers(users);
+        setLoading(false);
       });
     }
   }, []);
 
+  useEffect(() => {
+    if (!loading) {
+      // Check if user data is empty
+      if (users.length === 0) {
+        // Navigate to DetailScreen if user data is not found
+        navigation.replace('DetailScreen');
+      }
+    }
+  }, [loading, users]);
+
   return (
-   <ScrollView>
+   
       <SafeAreaView>
         
         <View>
@@ -491,17 +692,14 @@ const CaregiverProfileScreen = () => {
             source={require("../images/userBack.png")}
             style={{ left: -70, top: -90, resizeMode: "contain" }}
           />
+
+
           <Image
             source={require("../images/userBack2.png")}
-            style={{ left: 50, top: -180, resizeMode: "contain" }}
+            style={{ left: 50, top: -200, resizeMode: "contain" }}
           />
-               {/* <TouchableOpacity onPress={() => navigation.navigate("EditProfile", {users})}>
-             <Image
-                source={require("../images/editIcon.png")}
-                style={{ left: 320, top: -485,}}
-              />
-                 </TouchableOpacity>  */}
-          <View>
+
+          {/* <View>
             <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
               <Image
                 source={require("../images/messageBack.png")}
@@ -510,8 +708,12 @@ const CaregiverProfileScreen = () => {
            
               <Text style={{ color: "#000000", fontWeight: "bold", marginLeft: 249, top: -283, width: 90, height: 25, textAlign: 'center' }}> message</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
           
+<TouchableOpacity onPress={() => navigation.navigate('ContactUs')}>
+            <Image style={styles.help} source={require('../images/contactUsIcon.png')} />
+          </TouchableOpacity>
+
           <View style={styles.userInfoContainer}>
             {users.map((item, index) => (
               <View key={index} style={styles.userInfo}>
@@ -536,7 +738,9 @@ const CaregiverProfileScreen = () => {
               </View>
             ))}
           </View>
+        
           <View style={styles.userDetailsContainer}>
+              <ScrollView style = {{minHeight: '100%', width: '50%', marginStart: 10, paddingTop: 40}}>
             {users.map((item, index) => (
               <View key={index} style={styles.userDetails}>
                 <View style={styles.userDetailsSection}>
@@ -559,12 +763,12 @@ const CaregiverProfileScreen = () => {
             <View>
                 <Image // the small rectangle back
                 source={require("../images/userInfoBottomBox.png")}
-                       style={{ left: -10, top:30, resizeMode: "contain" }} />
+                       style={{  top:30, resizeMode: "contain" }} />
                          
 
 
 
-   <Text style={{fontSize:15,fontWeight:'bold', marginTop: -55}}>Available days</Text>
+   <Text style={{fontSize:15,fontWeight:'bold', marginTop: -55, left: 8}}>Available days</Text>
 
       <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25}]}>
         {item.userAvai}
@@ -572,7 +776,7 @@ const CaregiverProfileScreen = () => {
 
 
       <View>
-        <Text style={{fontSize:15,fontWeight:'bold', marginTop: -58,left:120}}>Experience</Text>
+        <Text style={{fontSize:15,fontWeight:'bold', marginTop: -58,left:135}}>Experience</Text>
 
       <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25, marginTop: 13,left:120}]}>
       {item.userExperience +'  year(s)'}
@@ -587,7 +791,7 @@ const CaregiverProfileScreen = () => {
       </View>
         </View>
     <View style={[styles.skillsContainer, getFlexContainerStyle(item.userSkill)]}>
-  <Text style={{fontSize:18,fontWeight:'bold',right:75, marginTop: 10}}>Skills</Text>
+  <Text style={{fontSize:18,fontWeight:'bold',right:-10, marginTop: 10}}>Skills: </Text>
   {item.userSkill.map((skill, index) => (
     <Text key={index} style={styles.skillText}>{skill}</Text>
   ))}
@@ -595,13 +799,13 @@ const CaregiverProfileScreen = () => {
        
               </View>
             ))}
-            
+            </ScrollView> 
           </View>
-          
+         
         </View>
         
       </SafeAreaView>
-      </ScrollView>
+      
    
   );
 };
@@ -610,8 +814,15 @@ export default CaregiverProfileScreen;
 
 const styles = StyleSheet.create({
   userInfoContainer: {
-    bottom: 530,
+    bottom: 500,
     alignSelf: 'center',
+    paddingBottom: -20,
+  },
+  help:{
+    bottom: 510,
+    left: 310,
+    height: 40,
+    width: 40,
   },
   userInfo: {
     alignItems: 'center',
@@ -634,11 +845,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   icon: {
-    left: 100,
-    bottom: 30,
+    left: -110,
+    bottom: 210,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -646,7 +857,6 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
   },
   userAge: {
     textAlign: 'center',
@@ -661,7 +871,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userLocation: {
     flexDirection: 'row',
@@ -673,7 +883,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   locationIcon: {
     resizeMode: "contain",
@@ -686,7 +896,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userInfoCity: {
     textAlign: 'center',
@@ -701,11 +911,12 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userDetailsContainer: {
-    bottom: 390,
+    bottom: 430,
     left: 120,
+    height: 350,
     alignSelf: 'center',
     marginRight: 120,
     shadowColor: "#000",
@@ -715,13 +926,12 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userDetails: {
     alignItems: 'left',
     marginRight: 120,
-    marginTop: -30,
-    
+    marginTop: -30,    
   },
   userDetailsSection: {
     marginBottom: 20,
@@ -741,18 +951,24 @@ const styles = StyleSheet.create({
   skillsContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    textAlign: 'left'
+    textAlign: 'left',
   },
   language: {
+    height:30,
     textAlign: 'center',
     color: "#000000",
-    fontSize: 17,
     marginTop: 9,
-    borderWidth: 2,
+    borderWidth: 10,
+    textAlign: 'center',
+    color: '#000000',
+    fontSize: 17,
+    backgroundColor: '#FFFFFF',
+    padding: 5,
+    borderRadius: 10,
+    overflow: 'hidden', 
+    borderWidth: 1,
     borderColor: 'rgba(148, 58, 218, 0.83)',
     width: 90,
-    height: 25,
-    borderRadius: 10,
     marginRight: 10, // Added margin to create space between the language items
     marginBottom: 10,
     shadowColor: "#000",
@@ -762,7 +978,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   hobbiesContainer: {
     flexDirection: 'row',
@@ -770,16 +986,22 @@ const styles = StyleSheet.create({
     marginTop: 5,
   },
   hobby: {
+    height:30,
     textAlign: 'center',
     color: "#000000",
-    fontSize: 17,
     marginTop: 9,
-    borderWidth: 2,
+    borderWidth: 10,
+    textAlign: 'center',
+    color: '#000000',
+    fontSize: 17,
+    backgroundColor: '#FFFFFF',
+    padding: 5,
+    borderRadius: 10,
+    overflow: 'hidden', 
+    borderWidth: 1,
     borderColor: 'rgba(148, 58, 218, 0.83)',
     width: 90,
-    height: 25,
-    borderRadius: 10,
-    marginRight: 10, 
+    marginRight: 10, // Added margin to create space between the language items
     marginBottom: 10,
     shadowColor: "#000",
     shadowOffset: {
@@ -788,7 +1010,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   bottomBox: {
     left: -10,
@@ -801,7 +1023,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   userDetailsText: {
     textAlign: 'center',
@@ -817,7 +1039,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.36,
     shadowRadius: 10.0,
-    elevation: 11,
+    // elevation: 11,
   },
   skillText: {
     textAlign: 'center',
@@ -831,6 +1053,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden', 
     borderWidth: 1,
     borderColor: 'rgba(148, 58, 218, 0.83)',
+    left: 30,
   },
   
 });

@@ -1,496 +1,49 @@
-// import React, { useState, useEffect } from "react";
-// import { useNavigation } from "@react-navigation/native";
-// import { firebase } from "../../config";
-// import { SafeAreaView } from "react-native-safe-area-context";
-// import FontAwesome from "react-native-vector-icons/FontAwesome";
-// import { ScrollView, View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
-// import ChatScreen from "./ChatScreen";
-// const UserProfileScreen = () => {
-//   const navigation = useNavigation();
-//   const [users, setUsers] = useState([]);
-//   const getFlexContainerStyle = (skillArray) => {
-//     const numberOfSkills = skillArray.length;
-//     return {
-//       flexDirection: 'row',
-//       flexWrap: 'wrap',
-//       justifyContent: numberOfSkills > 4 ? 'flex-start' : 'center',
-//       alignItems: 'center',
-//       marginTop: 76,
-      
-//     };
-//   };
-  
-//   useEffect(() => {
-//     const currentUser = firebase.auth().currentUser;
-//     if (currentUser) {
-//       const userDataRef = firebase.firestore().collection("userData").where("userId", "==", currentUser.email);
 
-//       userDataRef.get().then((querySnapshot) => {
-//         const users = [];
-//         querySnapshot.forEach((doc) => {
-//           const {
-//             userGender,
-//             userName,
-//             userAge,
-//             userSkill,
-//             userLanguage,
-//             userCity,
-//             userHobbies,
-//             userAvai,
-//             userExperience,
-//             userPay,
-//             userId,
-//             userImage,
-//           } = doc.data();
-
-//           users.push({
-//             id: doc.id,
-//             userName,
-//             userGender,
-//             userAge,
-//             userSkill,
-//             userLanguage,
-//             userCity,
-//             userHobbies,
-//             userAvai,
-//             userPay,
-//             userExperience,
-//             userId,
-//             userImage,
-//           });
-//         });
-//         setUsers(users);
-//       });
-//     }
-//   }, []);
-
-//   return (
-//    <ScrollView>
-//       <SafeAreaView>
-        
-//         <View>
-//           <Image
-//             source={require("../images/userBack.png")}
-//             style={{ left: -70, top: -90, resizeMode: "contain" }}
-//           />
-//           <Image
-//             source={require("../images/userBack2.png")}
-//             style={{ left: 50, top: -180, resizeMode: "contain" }}
-//           />
-//                {/* <TouchableOpacity onPress={() => navigation.navigate("EditProfile", {users})}>
-//              <Image
-//                 source={require("../images/editIcon.png")}
-//                 style={{ left: 320, top: -485,}}
-//               />
-//                  </TouchableOpacity>  */}
-//           <View>
-//             <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
-//               <Image
-//                 source={require("../images/messageBack.png")}
-//                 style={{ left: 240, top: -250, resizeMode: "contain" }}
-//               />
-           
-//               <Text style={{ color: "#000000", fontWeight: "bold", marginLeft: 249, top: -283, width: 90, height: 25, textAlign: 'center' }}> message</Text>
-//             </TouchableOpacity>
-//           </View>
-          
-//           <View style={styles.userInfoContainer}>
-//             {users.map((item, index) => (
-//               <View key={index} style={styles.userInfo}>
-//                 <Image
-//                   style={styles.userImage}
-//                   source={{ uri: item.userImage }}
-//                 />
-//                 <Text style={styles.userName}>{item.userName}</Text>
-//                 {item.userGender === 'male' ? (
-//                   <FontAwesome name="male" style={styles.icon} size={30} color="#1B92D6" />
-//                 ) : item.userGender === 'female' ? (
-//                   <FontAwesome name="female" style={styles.icon} size={30} color="#943ADA" />
-//                 ) : null}
-//                 <Text style={styles.userAge}>age: {item.userAge}</Text>
-//                 <View style={styles.userLocation}>
-//                   <Image
-//                     source={require("../images/locationIcon.png")}
-//                     style={styles.locationIcon}
-//                   />
-//                   <Text style={styles.userInfoCity}>{item.userCity}</Text>
-//                 </View>
-//               </View>
-//             ))}
-//           </View>
-//           <View style={styles.userDetailsContainer}>
-//             {users.map((item, index) => (
-//               <View key={index} style={styles.userDetails}>
-//                 <View style={styles.userDetailsSection}>
-//                   <Text style={styles.sectionTitle}>Spoken languages</Text>
-//                   <View style={styles.languageContainer}>
-//                     {item.userLanguage.split(",").map((language, index) => (
-//                       <Text key={index} style={styles.language}>{language.trim()}</Text>
-//                     ))}
-//                   </View>
-                
-//                 </View>
-//                 <View style={styles.userDetailsSection}>
-//                   <Text style={styles.sectionTitle}>Hobbies</Text>
-//                   <View style={styles.hobbiesContainer}>
-//                     {item.userHobbies.split(",").map((hobby, index) => (
-//                       <Text key={index} style={styles.hobby}>{hobby.trim()}</Text>
-//                     ))}
-//                   </View>
-//                 </View>
-//             <View>
-//                 <Image // the small rectangle back
-//                 source={require("../images/userInfoBottomBox.png")}
-//                        style={{ left: -10, top:30, resizeMode: "contain" }} />
-                         
-
-
-
-//    <Text style={{fontSize:15,fontWeight:'bold', marginTop: -55}}>Available days</Text>
-
-//       <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25}]}>
-//         {item.userAvai}
-//       </Text>
-
-
-//       <View>
-//         <Text style={{fontSize:15,fontWeight:'bold', marginTop: -58,left:120}}>Experience</Text>
-
-//       <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 15,width:90,height:25, marginTop: 13,left:120}]}>
-//       {item.userExperience +'  year(s)'}
-//       </Text></View>
-
-
-//       <View style={{marginTop: -66}}>
-//       <Text style={{fontSize:15,fontWeight:'bold',left:250, marginTop: 10}}>Payment</Text>
-//       <Text style={[styles.userInfonnnnname, {textAlign: 'center', color :"#000000", fontSize: 17,marginTop: 4, marginTop: 13,left:105}]}>
-//           {item.userPay} 
-//     </Text> 
-//       </View>
-//         </View>
-//     <View style={[styles.skillsContainer, getFlexContainerStyle(item.userSkill)]}>
-//   <Text style={{fontSize:18,fontWeight:'bold',right:75, marginTop: 10}}>Skills</Text>
-//   {item.userSkill.map((skill, index) => (
-//     <Text key={index} style={styles.skillText}>{skill}</Text>
-//   ))}
-// </View>
-       
-//               </View>
-//             ))}
-            
-//           </View>
-          
-//         </View>
-        
-//       </SafeAreaView>
-//       </ScrollView>
-   
-//   );
-// };
-
-// export default UserProfileScreen;
-
-// const styles = StyleSheet.create({
-//   userInfoContainer: {
-//     bottom: 530,
-//     alignSelf: 'center',
-//   },
-//   userInfo: {
-//     alignItems: 'center',
-//   },
-//   userImage: {
-//     height: 120,
-//     width: 120,
-//     borderRadius: 75,
-//   },
-//   userName: {
-//     textAlign: 'center',
-//     color: "#000000",
-//     fontSize: 17,
-//     marginTop: 15,
-//     fontWeight: 'bold',
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   icon: {
-//     left: 100,
-//     bottom: 30,
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   userAge: {
-//     textAlign: 'center',
-//     marginTop: -20,
-//     marginBottom: 10,
-//     color: "#9E9E9E",
-//     fontSize: 17,
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   userLocation: {
-//     flexDirection: 'row',
-//     alignItems: 'center',
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   locationIcon: {
-//     resizeMode: "contain",
-//     marginRight: 4,
-//     marginTop: -8,
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   userInfoCity: {
-//     textAlign: 'center',
-//     color: "#9E9E9E",
-//     fontSize: 17,
-//     marginTop: -8,
-//     marginRight: 30,
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   userDetailsContainer: {
-//     bottom: 390,
-//     left: 120,
-//     alignSelf: 'center',
-//     marginRight: 120,
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   userDetails: {
-//     alignItems: 'left',
-//     marginRight: 120,
-//     marginTop: -30,
-    
-//   },
-//   userDetailsSection: {
-//     marginBottom: 20,
-//   },
-//   sectionTitle: {
-//     fontSize: 18,
-//     fontWeight: 'bold',
-    
-//   },
-//   languageContainer: {
-//     flexDirection: 'row',
-//     flexWrap: 'wrap',
-//     marginTop: 5,
-    
-    
-//   },
-//   skillsContainer: {
-//     flexDirection: 'row',
-//     flexWrap: 'wrap',
-//     textAlign: 'left'
-//   },
-//   language: {
-//     textAlign: 'center',
-//     color: "#000000",
-//     fontSize: 17,
-//     marginTop: 9,
-//     borderWidth: 2,
-//     borderColor: 'rgba(148, 58, 218, 0.83)',
-//     width: 90,
-//     height: 25,
-//     borderRadius: 10,
-//     marginRight: 10, // Added margin to create space between the language items
-//     marginBottom: 10,
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   hobbiesContainer: {
-//     flexDirection: 'row',
-//     flexWrap: 'wrap',
-//     marginTop: 5,
-//   },
-//   hobby: {
-//     textAlign: 'center',
-//     color: "#000000",
-//     fontSize: 17,
-//     marginTop: 9,
-//     borderWidth: 2,
-//     borderColor: 'rgba(148, 58, 218, 0.83)',
-//     width: 90,
-//     height: 25,
-//     borderRadius: 10,
-//     marginRight: 10, 
-//     marginBottom: 10,
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   bottomBox: {
-//     left: -10,
-//     top: 60,
-//     resizeMode: "contain",
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   userDetailsText: {
-//     textAlign: 'center',
-//     color: "#000000",
-//     fontSize: 17,
-//     marginTop: 15,
-//     width: 90,
-//     height: 25,
-//     shadowColor: "#000",
-//     shadowOffset: {
-//       width: 0,
-//       height: 10,
-//     },
-//     shadowOpacity: 0.36,
-//     shadowRadius: 10.0,
-//     elevation: 11,
-//   },
-//   skillText: {
-//     textAlign: 'center',
-//     color: '#000000',
-//     fontSize: 17,
-//     backgroundColor: '#FFFFFF',
-//     marginRight: 10,
-//     marginBottom: 10,
-//     padding: 5,
-//     borderRadius: 10,
-//     overflow: 'hidden', 
-//     borderWidth: 1,
-//     borderColor: 'rgba(148, 58, 218, 0.83)',
-//   },
-  
-// });
 // import React, { useEffect, useState } from 'react';
 // import { View, Text } from 'react-native';
 // import { firebase } from "../../config";
+// import { useNavigation } from '@react-navigation/native';
 
-// // Import your screens/components
-// import ElderlyProfileScreen from "./ElderlyProfileScreen";
-// import CaregiverProfileScreen from "./CaregiverProfileScreen";
-
-// const UserProfileScreen = () => {
-//   const [userRole, setUserRole] = useState(null);
+// const UserProfileScreen = ({navigation}) => {
+//   const [userRole, setUserRole] = useState('');
+//   // const navigation = useNavigation();
 
 //   useEffect(() => {
-//     const unsubscribeAuth = firebase.auth().onAuthStateChanged(async (user) => {
-//       if (user) {
-//         await fetchUserRole(user.email);
-//       } else {
-//         setUserRole(null);
-//       }
-//     });
+//     // Fetch user role from Firestore
+//     const fetchUserRole = async () => {
+//       try {
+//         const user = firebase.auth().currentUser;
+//         const userDocument = await firebase.firestore()
+//           .collection('user')
+//           .doc(user.uid)
+//           .get();
 
-//     return () => unsubscribeAuth();
+//         setUserRole(userDocument.data().role);
+//       } catch (error) {
+//         console.log('Error fetching user role:', error);
+//       }
+//     };
+
+//     fetchUserRole();
 //   }, []);
 
-//   const fetchUserRole = async (email) => {
-//     try {
-//       const querySnapshot = await firebase.firestore()
-//         .collection('user')
-//         .where('email', '==', email)
-//         .limit(1)
-//         .get();
-
-//       if (!querySnapshot.empty) {
-//         const userData = querySnapshot.docs[0].data();
-//         const role = userData.role;
-//         console.log("User Role:", role); // Debugging: Log the user role
-//         setUserRole(role);
-//       } else {
-//         setUserRole(null);
-//       }
-//     } catch (error) {
-//       console.error('Error fetching user role:', error);
-//       setUserRole(null);
+//   useEffect(() => {
+//     // Navigate based on user role
+//     if (userRole === 'Elderly') {
+//       navigation.navigate('ElderlyProfileScreen');
+//     } else if (userRole === 'Caregiver') {
+//       navigation.navigate('CaregiverProfileScreen');
 //     }
-//   };
-
-//   console.log("User Role State:", userRole); // Debugging: Log the user role state
-
-//   if (userRole === null) {
-//     return (
-//       <View>
-//         <Text>Loading...</Text>
-//       </View>
-//     );
-//   }
-
-//   const renderScreenBasedOnRole = () => {
-//     switch (userRole) {
-//       case 'Elderly':
-//         return <ElderlyProfileScreen />;
-//       case 'Caregiver':
-//         return <CaregiverProfileScreen />;
-//       default:
-//         return <Text>Unknown role</Text>;
-//     }
-//   };
+//   }, [userRole]);
 
 //   return (
 //     <View>
-//       {renderScreenBasedOnRole()}
+//       <Text>Loading...</Text>
 //     </View>
 //   );
 // };
 
 // export default UserProfileScreen;
-
 
 
 
@@ -502,19 +55,31 @@ import { useNavigation } from '@react-navigation/native';
 
 const UserProfileScreen = ({navigation}) => {
   const [userRole, setUserRole] = useState('');
-  // const navigation = useNavigation();
 
   useEffect(() => {
-    // Fetch user role from Firestore
+  // feetching the role user 
     const fetchUserRole = async () => {
       try {
         const user = firebase.auth().currentUser;
-        const userDocument = await firebase.firestore()
-          .collection('user')
-          .doc(user.uid)
-          .get();
 
-        setUserRole(userDocument.data().role);
+        if (user) {
+          const userDocument = await firebase.firestore()
+            .collection('user')
+            .doc(user.uid)
+            .get();
+      
+
+          if (userDocument.exists) { // check if document exists
+            const data = userDocument.data();
+            if (data) { // check if data is not undefined
+              setUserRole(data.role);
+            }
+          } else {
+            console.log("No such document!");
+          }
+        } else {
+          console.log('No user is signed in');
+        }
       } catch (error) {
         console.log('Error fetching user role:', error);
       }
@@ -526,17 +91,76 @@ const UserProfileScreen = ({navigation}) => {
   useEffect(() => {
     // Navigate based on user role
     if (userRole === 'Elderly') {
-      navigation.navigate('ElderlyProfileScreen');
+      navigation.replace('ElderlyProfileScreen');
     } else if (userRole === 'Caregiver') {
-      navigation.navigate('CaregiverProfileScreen');
+      navigation.replace('CaregiverProfileScreen');
     }
   }, [userRole]);
 
-  return (
-    <View>
-      <Text>Loading...</Text>
-    </View>
-  );
+ 
 };
 
 export default UserProfileScreen;
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import { View, Text } from 'react-native';
+// import { firebase } from "../../config";
+// import { useNavigation } from '@react-navigation/native';
+
+// const UserProfileScreen = () => {
+//   const navigation = useNavigation(); // Use the useNavigation hook to access the navigation object
+
+//   const [userRole, setUserRole] = useState('');
+
+//   useEffect(() => {
+//     // Fetch the user role
+//     const fetchUserRole = async () => {
+//       try {
+//         const user = firebase.auth().currentUser;
+
+//         if (user) {
+//           const userDocument = await firebase.firestore()
+//             .collection('user')
+//             .doc(user.uid)
+//             .get();
+
+//           if (userDocument.exists) {
+//             const data = userDocument.data();
+//             if (data) {
+//               setUserRole(data.role);
+//             }
+//           } else {
+//             console.log("No such document!");
+//           }
+//         } else {
+//           console.log('No user is signed in');
+//         }
+//       } catch (error) {
+//         console.log('Error fetching user role:', error);
+//       }
+//     };
+
+//     fetchUserRole();
+//   }, []);
+
+//   useEffect(() => {
+//     // Navigate based on user role
+//     if (userRole === 'Elderly') {
+//       navigation.replace('ElderlyProfileScreen');
+//     } else if (userRole === 'Caregiver') {
+//       navigation.replace('CaregiverProfileScreen');
+//     } else {
+//       navigation.replace('DetailScreen');
+//     }
+//   }, [userRole]);
+
+//   return (
+//     <View>
+//       <Text>User Profile Screen</Text>
+//     </View>
+//   );
+// };
+
+// export default UserProfileScreen;
