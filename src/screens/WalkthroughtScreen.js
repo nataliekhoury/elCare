@@ -76,7 +76,7 @@ const WalkthroughtScreen = ({ navigation }) => {
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.buttonJoinNowStyle}
-          onPress={() => navigation.navigate("LanguageScreen")}
+          onPress={() => navigation.navigate("SignupScreen")}
         >
           <Text style={styles.joinStyle}>Join Now</Text>
         </TouchableOpacity>
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     alignItem: "center",
     paddingVertical: 20,
     marginLeft: 190,
-    marginBottom: -59,
+    marginBottom: -65,
     shadowOffset: {
       width: 0,
       height: 10,

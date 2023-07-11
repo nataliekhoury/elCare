@@ -75,12 +75,12 @@ export const getSortedCaregivers = async (elder, caregivers,suggestedRole) => {
 	// filteredCaregivers = getRelevantUsers(filteredCaregivers,currUser);
 	const filteredElder = getObjByAttr(elder,arrAttr);
 
-	const intialMarkupQuestion = `Given an ${suggestedRole} object suggestedRole= ${JSON.stringify(currUser)} and other users array of objects, 
-	I want to return a new array containing scoring range 0 to 1 that is based of the elements object that best fits the givern suggestedRole, according
+	const intialMarkupQuestion = `Given a user ${suggestedRole} object suggestedRole= ${JSON.stringify(currUser)} and other users array of objects, 
+	I want to return a new array containing scoring range 0 to 1 that is based of the elements object that best fits the given suggestedRole, according
 	to the requirements and needs registered, same language, city, etc. 
 	Please note that you are giving priorityOfAttr = ${priorityOfAttr}. 
 	This array is ordered according to the priority of explaining how much each attribute is important, where priorityOfAttr[0] is the most important.
-	Output score = {userId, userRole, description: 'match reason in details how much does it fit to the requirements of the needs of elder object', score: }.
+	Output score = {userId, userRole, description: 'describing in details why its the best match}.
 	No explaination of the scores is needed, just a more detailed explantion for the rest criterias in case the score bellow 0.6 say why, store the output in the RESULT_ARRAY_OF_SCORES 
 	elder: ${filteredElder} caregiversArr:`;
 	if(suggestedRole == "Elderly"){

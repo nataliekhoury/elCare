@@ -88,7 +88,7 @@ const Profile = ({ route }) => {
 
           <View style={styles.userInfoContainer}>
             <View style={styles.userInfo}>
-              <Image style={styles.userImage} source={{ uri: userImage }} />
+              <Image style={styles.userImage} source={{ uri:userImage }} />
               <Text style={styles.userName}>{userName}</Text>
               {userGender === "male" ? (
                 <FontAwesome
@@ -370,7 +370,7 @@ export default Profile;const styles = StyleSheet.create({
     // elevation: 11,
   },
   userDetailsContainer: {
-    bottom: 400,
+    bottom: 480,
     left: 120,
     height: 300,
     alignSelf: 'center',
@@ -387,7 +387,9 @@ export default Profile;const styles = StyleSheet.create({
   userDetails: {
     // alignItems: 'left',
     marginRight: 120,
-    marginTop: -30,    
+    // marginTop: -30,   
+    marginTop: 0,    
+ 
   },
   userDetailsSection: {
     marginBottom: 20,
@@ -514,250 +516,4 @@ export default Profile;const styles = StyleSheet.create({
   },
   
 });
-  //   userInfoContainer: {
-  //     bottom: 530,
-  //     alignSelf: 'center',
-  //   },
-  //   userInfo: {
-  //     // alignItems: 'center',
-  //   },
-  //   backIcon: {
-  //     right: -20,
-  //     bottom: 230,
-  //   },
-  //   userImage: {
-  //     height: 120,
-  //     width: 120,
-  //     borderRadius: 75,
-  //   },
-  //   userName: {
-  //     // textAlign: 'center',
-  //     color: "#000000",
-  //     fontSize: 17,
-  //     marginTop: 15,
-  //     fontWeight: 'bold',
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //     // elevation: 11,
-  //   },
-  //   icon: {
-  //     left: 200,
-  //   bottom: 180,
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //   },
-  //   userAge: {
-  //     // textAlign: 'center',
-  //     marginTop: -20,
-  //     marginBottom: 10,
-  //     color: "#9E9E9E",
-  //     fontSize: 17,
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //     // elevation: 11,
-  //   },
-  //   userLocation: {
-  //     flexDirection: 'row',
-  //     // alignItems: 'center',
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //     // elevation: 11,
-  //   },
-  //   locationIcon: {
-  //     resizeMode: "contain",
-  //     marginRight: 4,
-  //     marginTop: -8,
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //     // elevation: 11,
-  //   },
-  //   userInfoCity: {
-  //     // textAlign: 'center',
-  //     color: "#9E9E9E",
-  //     fontSize: 17,
-  //     marginTop: -8,
-  //     marginRight: 30,
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //     // elevation: 11,
-  //   },
-  //   userDetailsContainer: {
-  //     bottom: 390,
-  //     left: 120,
-  //     alignSelf: 'center',
-  //     marginRight: 120,
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //     // elevation: 11,
-  //   },
-  //   userDetails: {
-  //     // alignItems: 'left',
-  //     marginRight: 120,
-  //     marginTop: -30,
-      
-  //   },
-  //   userDetailsSection: {
-  //     marginBottom: 20,
-  //   },
-  //   sectionTitle: {
-  //     fontSize: 18,
-  //     fontWeight: 'bold',
-      
-  //   },
-  //   languageContainer: {
-  //     flexDirection: 'row',
-  //     flexWrap: 'wrap',
-  //     marginTop: 5,
-      
-      
-  //   },
-  //   skillsContainer: {
-  //     flexDirection: 'row',
-  //     flexWrap: 'wrap',
-  //     // textAlign: 'left'
-  //   },
-  //   language: {
-  //     height:30,
-  //     // textAlign: 'center',
-  //     color: "#000000",
-  //     marginTop: 9,
-  //     borderWidth: 10,
-  //     // textAlign: 'center',
-  //     color: '#000000',
-  //     fontSize: 17,
-  //     backgroundColor: '#FFFFFF',
-  //     padding: 5,
-  //     borderRadius: 10,
-  //     overflow: 'hidden', 
-  //     borderWidth: 1,
-  //     borderColor: 'rgba(148, 58, 218, 0.83)',
-  //     width: 90,
-  //     marginRight: 10, // Added margin to create space between the language items
-  //     marginBottom: 10,
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //     // elevation: 11,
-  //   },
-  //   hobbiesContainer: {
-  //     flexDirection: 'row',
-  //     flexWrap: 'wrap',
-  //     marginTop: 5,
-  //   },
-  //   hobby: {
-  //     height:30,
-  //     // textAlign: 'center',
-  //     color: "#000000",
-  //     marginTop: 9,
-  //     borderWidth: 10,
-  //     // textAlign: 'center',
-  //     color: '#000000',
-  //     fontSize: 17,
-  //     backgroundColor: '#FFFFFF',
-  //     padding: 5,
-  //     borderRadius: 10,
-  //     overflow: 'hidden', 
-  //     borderWidth: 1,
-  //     borderColor: 'rgba(148, 58, 218, 0.83)',
-  //     width: 90,
-  //     marginRight: 10, // Added margin to create space between the language items
-  //     marginBottom: 10,
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //     // elevation: 11,
-  //   },
-  //   bottomBox: {
-  //     left: -10,
-  //     top: 60,
-  //     resizeMode: "contain",
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //     // elevation: 11,
-  //   },
-  //   userDetailsText: {
-  //     // textAlign: 'center',
-  //     color: "#000000",
-  //     fontSize: 17,
-  //     marginTop: 15,
-  //     width: 90,
-  //     height: 25,
-  //     shadowColor: "#000",
-  //     shadowOffset: {
-  //       width: 0,
-  //       height: 10,
-  //     },
-  //     shadowOpacity: 0.36,
-  //     shadowRadius: 10.0,
-  //     // elevation: 11,
-  //   },
-  //   skillText: {
-  //     // textAlign: 'center',
-  //     color: '#000000',
-  //     fontSize: 17,
-  //     backgroundColor: '#FFFFFF',
-  //     marginRight: 10,
-  //     marginBottom: 10,
-  //     padding: 5,
-  //     borderRadius: 10,
-  //     overflow: 'hidden', 
-  //     borderWidth: 1,
-  //     borderColor: 'rgba(148, 58, 218, 0.83)',
-  //   },
-    
-  // });
-
-
-
-
-
-
- 
+  

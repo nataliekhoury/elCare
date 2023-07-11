@@ -47,9 +47,9 @@ const AdminContactUs = () => {
     <SafeAreaView>
       <Image source={require('../images/rectangleBackground.png')} style={styles.topImage} />
       <Text style={styles.title}>Contact US</Text>
-      <TouchableOpacity onPress={() => navigation.navigate('EventScreen')}>
+      {/* <TouchableOpacity onPress={() => navigation.navigate('EventScreen')}>
         <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <ScrollView style={{ top: -780, maxHeight: '100%' }}>
         {!isLoading &&
           messages.map((message) => (
@@ -99,14 +99,14 @@ const styles = StyleSheet.create({
   userName: {
     fontWeight: '800',
     fontSize: 16,
-    textAlign: 'flex-start',
+    // textAlign: 'flex-start',
     marginTop: 10,
 
   },
   info: {
     fontWeight: '500',
     fontSize: 16,
-    textAlign: 'flex-start',
+    // textAlign: 'flex-start',
     marginTop: 10,
     marginStart: 30,
   },

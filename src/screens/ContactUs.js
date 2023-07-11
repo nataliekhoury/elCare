@@ -1,9 +1,10 @@
-import { View, Text, TouchableOpacity, Button, Image, Alert, StyleSheet, SafeAreaView, TextInput, ImageBackground} from 'react-native';
+import { View, Text, TouchableOpacity, Button, Image, Alert, StyleSheet, SafeAreaView, TextInput, ImageBackground, Keyboard} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from "../../config";
 import { GestureHandlerRootView, NativeViewGestureHandler } from 'react-native-gesture-handler';
 import { ScrollView } from 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
+const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
 
 
 
@@ -39,18 +40,33 @@ const ContactUs = () => {
       // Implement the email sending logic here, using the provided email address
       // You can use a third-party email service or client-side email sending solution
     };
+
+
+  // useEffect(() => {
+  //   const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+  //     Keyboard.dismiss();
+  //   });
+
+  //   return () => {
+  //     keyboardDidHideListener.remove();
+  //   };
+  // }, []);
+
   
     return (
       
         <SafeAreaView>
-            
-             <Image source={require('../images/backContact.png')} style = {styles.topImage} />
-             <TouchableOpacity onPress={() => navigation.navigate('UserProfileScreen')}>
-        <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
-      </TouchableOpacity>
-             
-       <Text style = {styles.title}> Contact Us</Text>
-       
+      
+      <View>
+        <Image
+          source={require('../images/rectangleBackground.png')}
+          style={{ left: -70, top: -50, resizeMode: 'contain' }}
+        />
+        <Text style={styles.title}>Contact Us</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('UserProfileScreen')}>
+          <Image style={styles.backIcon} source={require('../images/backIcon.png')} />
+        </TouchableOpacity>
+      </View>
             <View style = {styles.container}>
             
 
@@ -85,8 +101,8 @@ const ContactUs = () => {
         <Button title="Submit" color ={'white'} onPress={handleSubmit} />
         </View>
       </View> */}
-      <View style={{ top: -1300 }}>
-          <Text style={{ marginLeft: 50, color: "black", fontSize: "20" }}>
+      <View style={{ top: -650 }}>
+          <Text style={{ marginLeft: 50, color: "black", fontSize: 20}}>
             Name
           </Text>
           <TextInput
@@ -117,10 +133,10 @@ const ContactUs = () => {
             value={name}
             onChangeText={setName}
             autoCapitalize="none"
-            autoCorrect="none"
+            // autoCorrect="none"
           ></TextInput>
 
-<Text style={{ marginLeft: 50, color: "black", fontSize: "20" }}>
+<Text style={{ marginLeft: 50, color: "black", fontSize: 20 }}>
             Email
           </Text>
           <TextInput
@@ -149,10 +165,14 @@ const ContactUs = () => {
             placeholder="Email"
           value={email}
           onChangeText={setEmail}
-            autoCorrect={false}
+            // autoCorrect={false}
+            rules={{
+              required: "Email is required",
+              pattern: { value: EMAIL_REGEX, message: "Email is invalid" },
+            }}
           ></TextInput>
 
-<Text style={{ marginLeft: 50, color: "black", fontSize: "20"}}>
+<Text style={{ marginLeft: 50, color: "black", fontSize: 20}}>
             Enter Your Message
           </Text>
           <TextInput
@@ -183,14 +203,16 @@ const ContactUs = () => {
             placeholder="Message"
           value={message}
           onChangeText={setMessage}
-          multiline
-          autoCorrect={false}
+          // multiline
+
+          // autoCorrect={false}
           ></TextInput>
           
           </View>
           <View style = {styles.submitButton} >
-        <Button title="Submit" color ={'white'} onPress={handleSubmit}/>
+        <Button title="Submit" color ={'#6A61CF'} onPress={handleSubmit}/>
         </View>
+      
       </SafeAreaView>
     );
   };
@@ -210,11 +232,10 @@ const styles = StyleSheet.create({
     backIcon: {
       width: 40,
       height: 40,
-      marginStart: 10,
-      bottom:740,
-      left:15,
-      resizeMode: 'contain',
-      tintColor: '#666666',
+      position: 'absolute',
+      top: -130,
+      left: 20,
+      zIndex: 1,
   
     },
     topImage: {
@@ -233,7 +254,7 @@ const styles = StyleSheet.create({
     title: {
       fontWeight: 'bold',
       fontSize: 25,
-      bottom: 750,
+      bottom: 90,
       alignContent: 'center',
       alignSelf: 'center',
     },
@@ -295,7 +316,7 @@ const styles = StyleSheet.create({
 
       },
       submitButton: {
-        top: -1260,
+        top: -600,
         justifyContent: "center",
         alignItem: "center",
         width: 150,

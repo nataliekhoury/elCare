@@ -73,7 +73,7 @@ export const Suggestions = ({ suggestedRole,currUserData}) => {
 	};
 	const alertUserMatcher = (description,profileInfo) =>{
 		navigation.navigate('SelectedUserProfileScreen',profileInfo);
-		Alert.alert(description);
+		alert(description);
 	}
 
 	return (
