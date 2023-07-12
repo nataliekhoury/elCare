@@ -16,7 +16,6 @@ import PostFeedScreen from './src/screens/PostFeedScreen';
 import AddPostFeedScreen from './src/screens/AddPostFeedScreen';
 import AdminAddEvent from './src/screens/AdminAddEvent';
 import AdminEditEvent from './src/screens/AdminEditEvent';
-import EditProfile from './src/screens/EditProfile'
 import ChatListScreen from './src/screens/ChatListScreen'
 import OtherUserProfileScreen from "./src/screens/OtherUserProfileScreen";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -71,7 +70,6 @@ function UserStack() {
       <Stack.Screen name="ElderlyProfileScreen" component={ElderlyProfileScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ContactUs" component={ContactUs} options={{ headerShown: false }} />
       <Stack.Screen name="DetailScreen" component={DetailScreen} options={{ headerShown: false }} />
-      {/* <Stack.Screen name="LoginScreen" component={LoginScreen} options={{ headerShown: false }} /> */}
     </Stack.Navigator>
   );
 }
