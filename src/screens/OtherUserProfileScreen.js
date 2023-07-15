@@ -28,7 +28,7 @@ const OtherUserProfileScreen = () => {
 
 
       <TouchableOpacity style={styles.button}
-      onPress={() => navigation.navigate('ChatScreen', { userId: user.userId,currUserId:user.currUserKey})}
+      onPress={() => navigation.navigate('ChatStack', { userId: user.userId,currUserId:user.currUserKey})}
      
       >
       {/* <TouchableOpacity style={styles.button} onPress={navigateToChatScreen}> */}

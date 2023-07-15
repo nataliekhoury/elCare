@@ -25,7 +25,7 @@ export const Suggestions = ({ suggestedRole,currUserData}) => {
 			
 		} catch (error) {
 			console.error('errrSuggis',error);
-			setOpenAIMessage('error ' + error);
+			setOpenAIMessage('ERROR, please try again later!');
 
 		}
 	};

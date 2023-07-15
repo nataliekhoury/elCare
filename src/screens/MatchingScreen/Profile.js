@@ -62,7 +62,7 @@ const Profile = ({ route }) => {
           />
            
           <View>
-            <TouchableOpacity onPress={() => navigation.navigate('ChatListScreen')} >
+            <TouchableOpacity onPress={() => navigation.navigate('ChatStack')} >
               <Image
                 source={require("../../images/messageBack.png")}
                 style={{ left: 240, top: -250, resizeMode: "contain" }}
