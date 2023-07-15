@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const OPENAI_API_KEY = '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';
+const OPENAI_API_KEY = ''; //OPENAI API key
 const OPENAI_API_URL = 'https://api.openai.com/v1/completions';
 
 const getChatCompletion = async (message) => {	

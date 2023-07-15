@@ -93,6 +93,7 @@ function ViewUsersStack(){
       <Stack.Screen name="AdminViewUsers" component={AdminViewUsers} options={{ headerShown: false }} />
       <Stack.Screen name="OtherUserProfileScreen" component={OtherUserProfileScreen} options={{ headerShown: false }} />
       <Stack.Screen name="ChatScreen" component={ChatScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="ChatListScreen" component={ChatListScreen} options={{ headerShown: false }} />
 
 
     </Stack.Navigator>
