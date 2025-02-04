@@ -5,3 +5,4 @@ The app aims to address the problem of loneliness caregiver shortage and employm
 Senior with suitable caregiver using Open AI and fosters a supportive community
 The app works on android devices 
 
+![Home Screen]("C:\Users\natalie\Downloads\welcomepage.png")
