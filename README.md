@@ -6,3 +6,8 @@ Senior with suitable caregiver using Open AI and fosters a supportive community
 The app works on android devices 
 
 
+
+
+![image_alt](elcare.png)
+
+
